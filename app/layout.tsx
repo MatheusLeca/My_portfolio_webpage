@@ -78,6 +78,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      // The pre-paint theme script sets data-theme before hydration, which
+      // React would otherwise flag as an attribute mismatch.
+      suppressHydrationWarning
       // Smooth scrolling comes from the reduced-motion-guarded rule in
       // globals.css, never from an unconditional utility class.
       className={`${display.variable} ${sans.variable} h-full antialiased`}
