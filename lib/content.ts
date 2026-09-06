@@ -26,8 +26,6 @@ export const siteContent = {
     summary:
       "Software Engineer and MSc student in Electrical and Computer Engineering at the University of Calgary.",
     primaryCta: { label: "VIEW WORK", href: "#work" },
-    // Placeholder until the owner provides the real resume file (Slice 5).
-    resumeCta: { label: "RESUME — SOON", href: "#contact" },
     portraitPlaceholderLabel: "Profile photo placeholder",
     portraitInitials: "ML",
   },
@@ -121,6 +119,26 @@ export const siteContent = {
         placeholder: true,
       },
     ],
+  },
+  socials: {
+    heading: "Elsewhere",
+    // href: null marks a not-yet-provided destination. Registry entries
+    // render as plain text (never dead links) until the owner adds the URL,
+    // and adding a future network is a one-entry addition here.
+    entries: [
+      { label: "LinkedIn", href: "https://www.linkedin.com/in/matheus-marinho-b47500204/", placeholder: false },
+      { label: "GitHub", href: "https://github.com/MatheusMarinhoLeca", placeholder: false },
+      { label: "Medium", href: null, placeholder: true },
+      { label: "YouTube", href: null, placeholder: true },
+      { label: "X", href: null, placeholder: true },
+    ],
+  },
+  resume: {
+    label: "Resume",
+    // Set href to the resume asset once the owner provides the file;
+    // null renders the visibly-marked placeholder state.
+    href: null,
+    placeholder: true,
   },
 } as const;
 

@@ -1,7 +1,8 @@
+import SampleBadge from "@/components/SampleBadge";
 import { siteContent } from "@/lib/content";
 
 export default function Hero() {
-  const { hero } = siteContent;
+  const { hero, resume } = siteContent;
 
   return (
     <section aria-labelledby="hero-heading" className="relative overflow-hidden">
@@ -35,14 +36,23 @@ export default function Hero() {
               {hero.primaryCta.label}
               <span aria-hidden="true">→</span>
             </a>
-            <a
-              href={hero.resumeCta.href}
-              aria-disabled="true"
-              title="Resume file coming soon"
-              className="inline-flex cursor-not-allowed items-center rounded-full bg-surface px-6 py-3 text-[11px] font-bold tracking-[0.2em] text-muted uppercase"
-            >
-              {hero.resumeCta.label}
-            </a>
+            {resume.href ? (
+              <a
+                href={resume.href}
+                download
+                className="inline-flex items-center rounded-full bg-surface px-6 py-3 text-[11px] font-bold tracking-[0.2em] text-foreground uppercase transition-colors hover:border hover:border-primary hover:text-primary focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background focus-visible:outline-none"
+              >
+                {resume.label}
+                <span aria-hidden="true" className="ml-2">
+                  ↓
+                </span>
+              </a>
+            ) : (
+              <span className="inline-flex cursor-not-allowed items-center gap-2 rounded-full bg-surface px-6 py-3 text-[11px] font-bold tracking-[0.2em] text-muted uppercase">
+                {resume.label} — Soon
+                <SampleBadge />
+              </span>
+            )}
           </div>
         </div>
         <div className="flex justify-center md:justify-end">
