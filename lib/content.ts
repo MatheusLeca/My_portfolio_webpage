@@ -79,6 +79,49 @@ export const siteContent = {
       },
     ],
   },
+  work: {
+    heading: "Selected work.",
+    archive: {
+      label: "View archive",
+      href: "https://github.com/MatheusMarinhoLeca?tab=repositories",
+    },
+    // Placeholder entries: the first two point at real public repositories;
+    // the third is a sample slot. The owner curates this list with real
+    // projects, screenshots, and demo links over time.
+    projects: [
+      {
+        name: "Easy Pokedex",
+        description:
+          "A convenient tool for accessing detailed Pokémon information without having to capture them.",
+        tags: ["Python"],
+        sourceUrl: "https://github.com/MatheusMarinhoLeca/Easy_Pokedex",
+        liveUrl: null,
+        thumbnailLabel: "Easy Pokedex project preview placeholder",
+        thumbnailInitials: "EP",
+        placeholder: false,
+      },
+      {
+        name: "Crud APS",
+        description: "CRUD application built as university coursework.",
+        tags: ["TypeScript"],
+        sourceUrl: "https://github.com/MatheusMarinhoLeca/Crud-APS",
+        liveUrl: null,
+        thumbnailLabel: "Crud APS project preview placeholder",
+        thumbnailInitials: "CA",
+        placeholder: false,
+      },
+      {
+        name: "Sample Project",
+        description: "A sample slot showing the card layout until a real project is added.",
+        tags: ["Sample"],
+        sourceUrl: "https://github.com/MatheusMarinhoLeca?tab=repositories",
+        liveUrl: null,
+        thumbnailLabel: "Sample project preview placeholder",
+        thumbnailInitials: "••",
+        placeholder: true,
+      },
+    ],
+  },
 } as const;
 
 export type SiteContent = typeof siteContent;

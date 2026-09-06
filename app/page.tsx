@@ -2,18 +2,20 @@ import About from "@/components/About";
 import Hero from "@/components/Hero";
 import SiteNav from "@/components/SiteNav";
 import Skills from "@/components/Skills";
+import Work from "@/components/Work";
 import { siteContent } from "@/lib/content";
 
 export default function Home() {
   return (
     <div id="top">
       <SiteNav />
-      {/* Remaining section anchors (work, contact) land
-          with Slices 4–6; nav hrefs already target them. */}
+      {/* Remaining section anchor (contact) lands
+          with Slice 6; the nav href already targets it. */}
       <main id="main">
         <Hero />
         <About />
         <Skills />
+        <Work />
       </main>
       <footer className="border-t border-line">
         <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-4 py-6 sm:px-6">
