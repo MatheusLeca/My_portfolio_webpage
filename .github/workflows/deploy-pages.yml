@@ -1,0 +1,57 @@
+# Static-only fallback host (GitHub Pages).
+#
+# Builds the fully static export and publishes it to the Pages
+# environment on every push to main. The project currently has no custom
+# domain, so NEXT_BASE_PATH points at this repository's project path.
+# If the site ever moves to an apex domain or `<user>.github.io` repo,
+# drop NEXT_BASE_PATH from the env below.
+name: Deploy static export to GitHub Pages
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Build static export
+        run: npm run build:static
+        env:
+          NEXT_BASE_PATH: /Landing-Page
+      - name: Disable Jekyll processing
+        run: touch out/.nojekyll
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: out
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

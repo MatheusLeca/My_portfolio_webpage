@@ -1,0 +1,89 @@
+@import "tailwindcss";
+
+/* Dark editorial theme is the default. The light theme follows the
+   visitor's system preference now; Slice 8 adds an explicit toggle
+   that sets data-theme on <html>. */
+
+:root {
+  color-scheme: dark;
+  --bg: #0e0e12;
+  --surface: #17171d;
+  --nav: #26262f;
+  --fg: #f4f4f5;
+  --muted: #a7a7b3;
+  --line: #2b2b35;
+  --primary: #9d8df1;
+  --primary-strong: #8474e8;
+  --mint: #5eead4;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #0e0e12;
+  --surface: #17171d;
+  --nav: #26262f;
+  --fg: #f4f4f5;
+  --muted: #a7a7b3;
+  --line: #2b2b35;
+  --primary: #9d8df1;
+  --primary-strong: #8474e8;
+  --mint: #5eead4;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    color-scheme: light;
+    --bg: #fafaf9;
+    --surface: #ffffff;
+    --nav: #eceaf2;
+    --fg: #1a1a1e;
+    --muted: #55555f;
+    --line: #e2e1e8;
+    --primary: #7c5ce0;
+    --primary-strong: #6a4bd0;
+    --mint: #0d9488;
+  }
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+  --bg: #fafaf9;
+  --surface: #ffffff;
+  --nav: #eceaf2;
+  --fg: #1a1a1e;
+  --muted: #55555f;
+  --line: #e2e1e8;
+  --primary: #7c5ce0;
+  --primary-strong: #6a4bd0;
+  --mint: #0d9488;
+}
+
+@theme inline {
+  --color-background: var(--bg);
+  --color-surface: var(--surface);
+  --color-nav: var(--nav);
+  --color-foreground: var(--fg);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-primary: var(--primary);
+  --color-primary-strong: var(--primary-strong);
+  --color-mint: var(--mint);
+  --font-display: var(--font-display);
+  --font-sans: var(--font-sans);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+}
+
+::selection {
+  background: var(--primary);
+  color: #fff;
+}
