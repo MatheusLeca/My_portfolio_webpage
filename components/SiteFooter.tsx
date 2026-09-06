@@ -26,7 +26,7 @@ export default function SiteFooter() {
   const { brand, socials } = siteContent;
 
   return (
-    <footer className="border-t border-line bg-black/40">
+    <footer className="border-t border-line bg-surface">
       <div className="mx-auto flex w-full max-w-6xl flex-col items-center justify-between gap-6 px-4 py-8 sm:px-6 md:flex-row">
         <p className="font-display text-sm font-bold tracking-[0.2em] text-foreground">
           {brand.wordmark}
