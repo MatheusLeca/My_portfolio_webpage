@@ -1,10 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 
 type Theme = "light" | "dark";
 
 const STORAGE_KEY = "theme";
+const THEME_CHANGE_EVENT = "theme-change";
 
 function SunIcon() {
   return (
@@ -42,43 +43,63 @@ function MoonIcon() {
   );
 }
 
+function storedTheme(): Theme | null {
+  try {
+    const value = window.localStorage.getItem(STORAGE_KEY);
+    return value === "light" || value === "dark" ? value : null;
+  } catch {
+    // Private mode: no persistence, follow the system instead.
+    return null;
+  }
+}
+
+function systemTheme(): Theme {
+  return window.matchMedia("(prefers-color-scheme: light)").matches
+    ? "light"
+    : "dark";
+}
+
+function getThemeSnapshot(): Theme {
+  return storedTheme() ?? systemTheme();
+}
+
+function subscribeToTheme(callback: () => void): () => void {
+  const media = window.matchMedia("(prefers-color-scheme: light)");
+  const onSystemChange = () => {
+    // Only system-driven state follows the OS; a stored choice wins.
+    if (!storedTheme()) callback();
+  };
+  const onToggle = () => callback();
+  media.addEventListener("change", onSystemChange);
+  window.addEventListener(THEME_CHANGE_EVENT, onToggle);
+  return () => {
+    media.removeEventListener("change", onSystemChange);
+    window.removeEventListener(THEME_CHANGE_EVENT, onToggle);
+  };
+}
+
 /**
  * Toggles the data-theme attribute consumed by the token layers in
  * globals.css. Unset means "follow the operating system"; an explicit
- * choice persists across visits. Renders a same-size placeholder until
- * mounted so server and client markup match.
+ * choice persists across visits. State is read through an external store
+ * (storage + OS preference) so no render-loop effects are needed.
  */
 export default function ThemeToggle({ className = "" }: { className?: string }) {
-  const [theme, setTheme] = useState<Theme | null>(null);
-
-  useEffect(() => {
-    let initial: Theme = window.matchMedia("(prefers-color-scheme: light)")
-      .matches
-      ? "light"
-      : "dark";
-    try {
-      const stored = window.localStorage.getItem(STORAGE_KEY);
-      if (stored === "light" || stored === "dark") initial = stored;
-    } catch {
-      // Private mode: fall back to the system preference.
-    }
-    setTheme(initial);
-  }, []);
-
-  if (!theme) {
-    return <span aria-hidden="true" className={`inline-block h-10 w-10 ${className}`} />;
-  }
-
+  const theme = useSyncExternalStore(
+    subscribeToTheme,
+    getThemeSnapshot,
+    () => "dark" as Theme,
+  );
   const next: Theme = theme === "dark" ? "light" : "dark";
 
   function toggle() {
-    setTheme(next);
     document.documentElement.dataset.theme = next;
     try {
       window.localStorage.setItem(STORAGE_KEY, next);
     } catch {
       // Private mode: the choice lasts for this visit only.
     }
+    window.dispatchEvent(new Event(THEME_CHANGE_EVENT));
   }
 
   return (
