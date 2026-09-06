@@ -13,9 +13,9 @@ export const siteContent = {
   },
   nav: {
     links: [
-      { label: "Work", href: "#work" },
-      { label: "Expertise", href: "#expertise" },
       { label: "About", href: "#about" },
+      { label: "Expertise", href: "#expertise" },
+      { label: "Work", href: "#work" },
       { label: "Contact", href: "#contact" },
     ],
     cta: { label: "HIRE ME", href: "#contact" },
