@@ -12,10 +12,58 @@ const sans = Inter({
   subsets: ["latin"],
 });
 
+const SITE_NAME = "Matheus de Morais Leça — Software Engineer";
+const SITE_DESCRIPTION =
+  "Portfolio of Matheus de Morais Leça, Software Engineer and MSc student in Electrical and Computer Engineering at the University of Calgary.";
+
 export const metadata: Metadata = {
-  title: "Matheus de Morais Leça — Software Engineer",
-  description:
-    "Portfolio of Matheus de Morais Leça, Software Engineer and MSc student in Electrical and Computer Engineering at the University of Calgary.",
+  metadataBase: process.env.NEXT_PUBLIC_SITE_URL
+    ? new URL(process.env.NEXT_PUBLIC_SITE_URL)
+    : undefined,
+  title: SITE_NAME,
+  description: SITE_DESCRIPTION,
+  authors: [{ name: "Matheus de Morais Leça" }],
+  keywords: [
+    "Software Engineer",
+    "Portfolio",
+    "TypeScript",
+    "React",
+    "Next.js",
+    "Web Development",
+    "University of Calgary",
+  ],
+  robots: { index: true, follow: true },
+  ...(process.env.NEXT_PUBLIC_SITE_URL
+    ? { alternates: { canonical: "/" } }
+    : {}),
+  openGraph: {
+    title: SITE_NAME,
+    description: SITE_DESCRIPTION,
+    type: "website",
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary",
+    title: SITE_NAME,
+    description: SITE_DESCRIPTION,
+  },
+};
+
+// Structured Person metadata for search engines. No custom domain yet, so
+// no canonical URL field until NEXT_PUBLIC_SITE_URL is configured.
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Matheus de Morais Leça",
+  jobTitle: "Software Engineer",
+  alumniOf: {
+    "@type": "CollegeOrUniversity",
+    name: "University of Calgary",
+  },
+  sameAs: [
+    "https://github.com/MatheusMarinhoLeca",
+    "https://www.linkedin.com/in/matheus-marinho-b47500204/",
+  ],
 };
 
 // Applies a stored theme choice before first paint so the toggle never
@@ -36,9 +84,13 @@ export default function RootLayout({
     >
       <body className="flex min-h-full flex-col font-sans">
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+        />
         <a
           href="#main"
-          className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[100] focus:rounded-full focus:bg-primary focus:px-4 focus:py-2 focus:text-sm focus:font-bold focus:text-white"
+          className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[100] focus:rounded-full focus:bg-action focus:px-4 focus:py-2 focus:text-sm focus:font-bold focus:text-white"
         >
           Skip to content
         </a>

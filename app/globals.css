@@ -1,8 +1,9 @@
 @import "tailwindcss";
 
 /* Dark editorial theme is the default. The light theme follows the
-   visitor's system preference now; Slice 8 adds an explicit toggle
-   that sets data-theme on <html>. */
+   visitor's system preference unless data-theme overrides it (theme toggle).
+   --primary serves text accents and links; --action serves filled-button
+   backgrounds, where white text needs a darker base to hold contrast. */
 
 :root {
   color-scheme: dark;
@@ -14,6 +15,8 @@
   --line: #2b2b35;
   --primary: #9d8df1;
   --primary-strong: #8474e8;
+  --action: #6f5ce6;
+  --action-strong: #5f4ed6;
   --mint: #5eead4;
 }
 
@@ -27,6 +30,8 @@
   --line: #2b2b35;
   --primary: #9d8df1;
   --primary-strong: #8474e8;
+  --action: #6f5ce6;
+  --action-strong: #5f4ed6;
   --mint: #5eead4;
 }
 
@@ -39,8 +44,10 @@
     --fg: #1a1a1e;
     --muted: #55555f;
     --line: #e2e1e8;
-    --primary: #7c5ce0;
-    --primary-strong: #6a4bd0;
+    --primary: #6f4fd8;
+    --primary-strong: #5f3fc4;
+    --action: #6f4fd8;
+    --action-strong: #5f3fc4;
     --mint: #0d9488;
   }
 }
@@ -53,8 +60,10 @@
   --fg: #1a1a1e;
   --muted: #55555f;
   --line: #e2e1e8;
-  --primary: #7c5ce0;
-  --primary-strong: #6a4bd0;
+  --primary: #6f4fd8;
+  --primary-strong: #5f3fc4;
+  --action: #6f4fd8;
+  --action-strong: #5f3fc4;
   --mint: #0d9488;
 }
 
@@ -67,6 +76,8 @@
   --color-line: var(--line);
   --color-primary: var(--primary);
   --color-primary-strong: var(--primary-strong);
+  --color-action: var(--action);
+  --color-action-strong: var(--action-strong);
   --color-mint: var(--mint);
   --font-display: var(--font-display);
   --font-sans: var(--font-sans);

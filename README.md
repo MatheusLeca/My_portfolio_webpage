@@ -24,6 +24,7 @@ resolution for the React 19 type packages (see the comment inside).
 | `CONTACT_FROM`                  | Server only (Vercel)| Verified sender address (or onboarding address for testing)          |
 | `NEXT_PUBLIC_CONTACT_ENDPOINT`  | Build time, optional| Overrides the form target; set to an external form-service URL for fully static hosting |
 | `NEXT_BASE_PATH`                | Build time, optional| Sub-path prefix (e.g. `/Landing-Page`) when serving from a project page |
+| `NEXT_PUBLIC_SITE_URL`          | Build time, optional| Public origin (e.g. `https://example.com`) enabling canonical URLs, sitemap entries, and the sitemap reference in robots |
 
 Without the Resend variables the contact API answers `503` and the form
 shows its failure state with a direct-email fallback — no message is lost

@@ -49,7 +49,7 @@ export default function SiteNav() {
           <ThemeToggle />
           <a
             href={nav.cta.href}
-            className="inline-flex items-center rounded-full bg-primary px-5 py-2 text-[11px] font-bold tracking-[0.18em] text-white uppercase transition-colors hover:bg-primary-strong focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-nav focus-visible:outline-none"
+            className="inline-flex items-center rounded-full bg-action px-5 py-2 text-[11px] font-bold tracking-[0.18em] text-white uppercase transition-colors hover:bg-action-strong focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-nav focus-visible:outline-none"
           >
             {nav.cta.label}
           </a>
@@ -89,7 +89,7 @@ export default function SiteNav() {
               <a
                 href={nav.cta.href}
                 onClick={() => setOpen(false)}
-                className="flex items-center justify-center rounded-full bg-primary px-5 py-3 text-[11px] font-bold tracking-[0.18em] text-white uppercase"
+                className="flex items-center justify-center rounded-full bg-action px-5 py-3 text-[11px] font-bold tracking-[0.18em] text-white uppercase"
               >
                 {nav.cta.label}
               </a>

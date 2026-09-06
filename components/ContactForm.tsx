@@ -203,7 +203,7 @@ export default function ContactForm() {
       <button
         type="submit"
         disabled={status === "submitting"}
-        className="w-full rounded-full bg-primary px-6 py-4 text-[11px] font-bold tracking-[0.24em] text-white uppercase transition-colors hover:bg-primary-strong focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-surface focus-visible:outline-none disabled:cursor-wait disabled:opacity-70"
+        className="w-full rounded-full bg-action px-6 py-4 text-[11px] font-bold tracking-[0.24em] text-white uppercase transition-colors hover:bg-action-strong focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-surface focus-visible:outline-none disabled:cursor-wait disabled:opacity-70"
       >
         {status === "submitting" ? form.sending : form.submit}
       </button>
