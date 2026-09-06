@@ -22,7 +22,7 @@ export default function About() {
               <p key={paragraph.slice(0, 24)}>{paragraph}</p>
             ))}
           </div>
-          <dl className="mt-10 flex gap-12">
+          <dl className="mt-10 flex flex-wrap gap-x-12 gap-y-6">
             {about.stats.map((stat) => (
               <div key={stat.label}>
                 <dt className="order-2 mt-1 text-[11px] font-medium tracking-[0.18em] text-muted uppercase">

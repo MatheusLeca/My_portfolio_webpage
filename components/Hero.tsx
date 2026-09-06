@@ -6,14 +6,16 @@ export default function Hero() {
 
   return (
     <section aria-labelledby="hero-heading" className="relative overflow-hidden">
-      <div className="mx-auto grid w-full max-w-6xl gap-12 px-4 pt-16 pb-20 sm:px-6 md:grid-cols-[1.1fr_0.9fr] md:items-center md:pt-24 md:pb-28">
+      <div className="mx-auto grid w-full max-w-6xl gap-12 px-4 pt-16 pb-20 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:pt-24 lg:pb-28">
         <div>
           <p className="text-[11px] font-bold tracking-[0.3em] text-muted">
             {hero.eyebrow}
           </p>
           <h1
             id="hero-heading"
-            className="font-display mt-4 text-5xl leading-[1.02] font-bold tracking-tight text-balance text-foreground uppercase sm:text-6xl"
+            // Fluid size: fits the longest line inside one column at every
+            // viewport instead of overflowing small screens.
+            className="font-display mt-4 text-[clamp(1.7rem,7.5vw,3.25rem)] leading-[1.02] font-bold tracking-tight text-balance text-foreground uppercase"
           >
             {hero.titleLines.map((line) => (
               <span key={line.text} className="block">
@@ -55,7 +57,7 @@ export default function Hero() {
             )}
           </div>
         </div>
-        <div className="flex justify-center md:justify-end">
+        <div className="flex justify-center lg:justify-end">
           <div
             role="img"
             aria-label={hero.portraitPlaceholderLabel}
