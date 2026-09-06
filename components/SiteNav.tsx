@@ -32,11 +32,11 @@ export default function SiteNav() {
       >
         <a
           href={brand.homeHref}
-          className="font-display text-sm font-bold tracking-[0.2em] text-foreground"
+          className="font-display shrink-0 text-sm font-bold tracking-[0.2em] whitespace-nowrap text-foreground"
         >
           {brand.wordmark}
         </a>
-        <ul className="hidden items-center gap-8 md:flex">
+        <ul className="hidden items-center gap-6 md:flex lg:gap-8">
           {nav.links.map((link) => (
             <li key={link.href}>
               <a href={link.href} className={LINK_CLASS}>
@@ -49,7 +49,7 @@ export default function SiteNav() {
           <ThemeToggle />
           <a
             href={nav.socials.href}
-            className="inline-flex items-center rounded-full border border-line px-5 py-2 text-[11px] font-bold tracking-[0.18em] text-foreground uppercase transition-colors hover:border-primary hover:text-primary focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-nav focus-visible:outline-none"
+            className="hidden items-center rounded-full border border-line px-5 py-2 text-[11px] font-bold tracking-[0.18em] text-foreground uppercase transition-colors hover:border-primary hover:text-primary focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-nav focus-visible:outline-none lg:inline-flex"
           >
             {nav.socials.label}
           </a>
