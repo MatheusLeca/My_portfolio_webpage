@@ -1,17 +1,19 @@
 import About from "@/components/About";
 import Hero from "@/components/Hero";
 import SiteNav from "@/components/SiteNav";
+import Skills from "@/components/Skills";
 import { siteContent } from "@/lib/content";
 
 export default function Home() {
   return (
     <div id="top">
       <SiteNav />
-      {/* Remaining section anchors (expertise, work, contact) land
-          with Slices 3–6; nav hrefs already target them. */}
+      {/* Remaining section anchors (work, contact) land
+          with Slices 4–6; nav hrefs already target them. */}
       <main id="main">
         <Hero />
         <About />
+        <Skills />
       </main>
       <footer className="border-t border-line">
         <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-4 py-6 sm:px-6">

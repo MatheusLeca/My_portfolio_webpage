@@ -48,6 +48,37 @@ export const siteContent = {
     portraitPlaceholderLabel: "Workspace photo placeholder",
     portraitInitials: "ML",
   },
+  skills: {
+    eyebrow: "EXPERTISE",
+    heading: "Core competencies.",
+    groups: [
+      {
+        title: "Languages",
+        description: "Core languages used across backend, web, and scripting work.",
+        tags: ["C#", "Java", "Python", "JavaScript", "TypeScript"],
+      },
+      {
+        title: "Frameworks & Libraries",
+        description: "Frameworks and libraries used to build web applications and services.",
+        tags: [".NET", "Spring", "Node.js", "React", "Angular", "Ionic"],
+      },
+      {
+        title: "Databases",
+        description: "Relational and document stores used for persistence.",
+        tags: ["SQL Server", "PostgreSQL", "MongoDB"],
+      },
+      {
+        title: "Cloud & DevOps",
+        description: "Platforms and delivery practices, including ongoing cloud study.",
+        tags: ["AWS", "Azure", "Terraform", "Jenkins", "Docker", "CI/CD"],
+      },
+      {
+        title: "Tools & Testing",
+        description: "Testing and workflow tooling around everyday development.",
+        tags: ["Git", "Jasmine", "JUnit"],
+      },
+    ],
+  },
 } as const;
 
 export type SiteContent = typeof siteContent;
