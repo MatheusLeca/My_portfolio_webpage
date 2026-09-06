@@ -19,7 +19,10 @@ export default function Skills() {
         </div>
         <ul
           role="list"
-          className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+          // With five groups the last card would orphan: it spans the row on
+          // small screens and centers on large ones. Revisit when a sixth
+          // group lands (then the plain grid is balanced again).
+          className="mt-14 grid gap-6 sm:grid-cols-2 sm:[&>li:last-child]:col-span-2 lg:grid-cols-3 lg:[&>li:last-child]:col-span-1 lg:[&>li:last-child]:col-start-2"
         >
           {skills.groups.map((group, index) => (
             <li

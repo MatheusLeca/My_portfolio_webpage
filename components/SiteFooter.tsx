@@ -2,18 +2,12 @@ import SampleBadge from "@/components/SampleBadge";
 import { siteContent } from "@/lib/content";
 
 /**
- * Renders one social registry entry: a secure new-tab link when a
- * destination exists, otherwise marked placeholder text (never a dead link).
+ * Renders one social registry entry as a secure new-tab link. Entries
+ * without a destination stay out of the public render entirely (never a
+ * dead link) and appear automatically once the owner adds their URL.
  */
 export function SocialEntry({ label, href, placeholder }: { label: string; href: string | null; placeholder: boolean }) {
-  if (!href) {
-    return (
-      <span className="inline-flex items-center gap-2 text-[11px] font-bold tracking-[0.2em] text-muted uppercase">
-        {label}
-        <SampleBadge />
-      </span>
-    );
-  }
+  if (!href) return null;
   return (
     <a
       href={href}

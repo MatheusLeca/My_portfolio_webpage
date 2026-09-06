@@ -26,12 +26,14 @@ export default function Work() {
         </div>
         <ul
           role="list"
-          className="mt-14 grid gap-6 md:grid-cols-2 lg:pb-12"
+          // Even grid while the list is short; the staggered offset from the
+          // reference can return once a fourth project fills the second row.
+          className="mt-14 grid gap-6 md:grid-cols-2"
         >
           {work.projects.map((project) => (
             <li
               key={project.name}
-              className="group rounded-2xl border border-line bg-surface p-5 transition-colors hover:border-primary md:even:translate-y-12"
+              className="group rounded-2xl border border-line bg-surface p-5 transition-colors hover:border-primary"
             >
               <div
                 role="img"
