@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import ThemeToggle from "@/components/ThemeToggle";
 import { siteContent } from "@/lib/content";
 
 const LINK_CLASS =
@@ -44,25 +45,31 @@ export default function SiteNav() {
             </li>
           ))}
         </ul>
-        <a
-          href={nav.cta.href}
-          className="hidden items-center rounded-full bg-primary px-5 py-2 text-[11px] font-bold tracking-[0.18em] text-white uppercase transition-colors hover:bg-primary-strong focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-nav focus-visible:outline-none md:inline-flex"
-        >
-          {nav.cta.label}
-        </a>
-        <button
-          ref={buttonRef}
-          type="button"
-          aria-expanded={open}
-          aria-controls="mobile-menu"
-          aria-label={open ? "Close menu" : "Open menu"}
-          onClick={() => setOpen((value) => !value)}
-          className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-line text-foreground md:hidden"
-        >
-          <span aria-hidden="true" className="font-display text-lg font-bold">
-            {open ? "✕" : "☰"}
-          </span>
-        </button>
+        <div className="hidden items-center gap-3 md:flex">
+          <ThemeToggle />
+          <a
+            href={nav.cta.href}
+            className="inline-flex items-center rounded-full bg-primary px-5 py-2 text-[11px] font-bold tracking-[0.18em] text-white uppercase transition-colors hover:bg-primary-strong focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-nav focus-visible:outline-none"
+          >
+            {nav.cta.label}
+          </a>
+        </div>
+        <div className="flex items-center gap-2 md:hidden">
+          <ThemeToggle />
+          <button
+            ref={buttonRef}
+            type="button"
+            aria-expanded={open}
+            aria-controls="mobile-menu"
+            aria-label={open ? "Close menu" : "Open menu"}
+            onClick={() => setOpen((value) => !value)}
+            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-line text-foreground"
+          >
+            <span aria-hidden="true" className="font-display text-lg font-bold">
+              {open ? "✕" : "☰"}
+            </span>
+          </button>
+        </div>
       </nav>
       {open ? (
         <nav aria-label="Mobile" id="mobile-menu" className="border-t border-line md:hidden">
