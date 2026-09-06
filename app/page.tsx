@@ -12,9 +12,9 @@ export default function Home() {
       <SiteNav />
       <main id="main">
         <Hero />
-        <Work />
-        <Skills />
         <About />
+        <Skills />
+        <Work />
         <Contact />
       </main>
       <SiteFooter />
