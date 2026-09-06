@@ -140,6 +140,30 @@ export const siteContent = {
     href: null,
     placeholder: true,
   },
+  contact: {
+    headingLines: ["Let's", "Work", "Together"],
+    subcopy:
+      "Have a role or project in mind? Send a message using the form or reach out directly by email.",
+    // Provisional recipient from the owner's public profile.
+    email: "matheusmarinho.dev@gmail.com",
+    form: {
+      title: "Contact form",
+      placeholders: {
+        name: "Enter your name",
+        email: "Enter your email",
+        subject: "What is this about?",
+        message: "Tell me about your role or project",
+      },
+      submit: "Send message",
+      sending: "Sending…",
+      errorSummaryTitle: "Please fix the following before sending:",
+      successTitle: "Message sent.",
+      successBody: "Thanks for reaching out — I will get back to you soon.",
+      failureTitle: "Message not sent.",
+      failureBody: "Something went wrong while sending. Please try again or email directly:",
+      mailtoFallback: "email me directly",
+    },
+  },
 } as const;
 
 export type SiteContent = typeof siteContent;
