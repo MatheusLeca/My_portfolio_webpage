@@ -48,6 +48,12 @@ export default function SiteNav() {
         <div className="hidden items-center gap-3 md:flex">
           <ThemeToggle />
           <a
+            href={nav.socials.href}
+            className="inline-flex items-center rounded-full border border-line px-5 py-2 text-[11px] font-bold tracking-[0.18em] text-foreground uppercase transition-colors hover:border-primary hover:text-primary focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-nav focus-visible:outline-none"
+          >
+            {nav.socials.label}
+          </a>
+          <a
             href={nav.cta.href}
             className="inline-flex items-center rounded-full bg-action px-5 py-2 text-[11px] font-bold tracking-[0.18em] text-white uppercase transition-colors hover:bg-action-strong focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-nav focus-visible:outline-none"
           >
@@ -85,6 +91,15 @@ export default function SiteNav() {
                 </a>
               </li>
             ))}
+            <li className="pt-2">
+              <a
+                href={nav.socials.href}
+                onClick={() => setOpen(false)}
+                className="flex items-center justify-center rounded-full border border-line px-5 py-3 text-[11px] font-bold tracking-[0.18em] text-foreground uppercase"
+              >
+                {nav.socials.label}
+              </a>
+            </li>
             <li className="pt-2">
               <a
                 href={nav.cta.href}

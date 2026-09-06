@@ -19,6 +19,7 @@ export const siteContent = {
       { label: "Contact", href: "#contact" },
     ],
     cta: { label: "HIRE ME", href: "#contact" },
+    socials: { label: "SOCIALS", href: "#footer" },
   },
   hero: {
     eyebrow: "SOFTWARE ENGINEER",

@@ -2,12 +2,19 @@ import SampleBadge from "@/components/SampleBadge";
 import { siteContent } from "@/lib/content";
 
 /**
- * Renders one social registry entry as a secure new-tab link. Entries
- * without a destination stay out of the public render entirely (never a
- * dead link) and appear automatically once the owner adds their URL.
+ * Renders one social registry entry: a secure new-tab link when a
+ * destination exists, otherwise visibly-marked placeholder text (never a
+ * dead link) until the owner adds the URL.
  */
 export function SocialEntry({ label, href, placeholder }: { label: string; href: string | null; placeholder: boolean }) {
-  if (!href) return null;
+  if (!href) {
+    return (
+      <span className="inline-flex items-center gap-2 text-[11px] font-bold tracking-[0.2em] text-muted uppercase">
+        {label}
+        <SampleBadge />
+      </span>
+    );
+  }
   return (
     <a
       href={href}
@@ -26,7 +33,7 @@ export default function SiteFooter() {
   const { brand, socials } = siteContent;
 
   return (
-    <footer className="border-t border-line bg-surface">
+    <footer id="footer" className="scroll-mt-16 border-t border-line bg-surface">
       <div className="mx-auto flex w-full max-w-6xl flex-col items-center justify-between gap-6 px-4 py-8 sm:px-6 md:flex-row">
         <p className="font-display text-sm font-bold tracking-[0.2em] text-foreground">
           {brand.wordmark}
