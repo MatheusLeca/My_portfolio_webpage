@@ -1,15 +1,10 @@
-# Static-only fallback host (GitHub Pages).
-#
-# Builds the fully static export and publishes it to the Pages
-# environment on every push to main. The project currently has no custom
-# domain, so NEXT_BASE_PATH points at this repository's project path.
-# If the site ever moves to an apex domain or `<user>.github.io` repo,
-# drop NEXT_BASE_PATH from the env below.
+# Static-only fallback host (GitHub Pages). PARKED until final validation:
+# deploys at the end (Pages unavailable on this plan + Vercel pending),
+# so this workflow is manual-only for now. Re-enable push-to-main trigger
+# when the Pages target is ready.
 name: Deploy static export to GitHub Pages
 
 on:
-  push:
-    branches: ["main"]
   workflow_dispatch:
 
 permissions:
