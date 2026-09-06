@@ -8,7 +8,7 @@
 
 export const siteContent = {
   brand: {
-    wordmark: "MATHEUS LEÇA",
+    wordmark: "MATHEUS LECA",
     homeHref: "#top",
   },
   nav: {
@@ -23,7 +23,7 @@ export const siteContent = {
   },
   hero: {
     eyebrow: "SOFTWARE ENGINEER",
-    titleLines: [{ text: "MATHEUS LEÇA", accent: false }, { text: "& CODE THAT SHIPS", accent: true }],
+    titleLines: [{ text: "MATHEUS LECA", accent: false }, { text: "& CODE THAT SHIPS", accent: true }],
     summary:
       "Software Engineer and MSc student in Electrical and Computer Engineering at the University of Calgary.",
     primaryCta: { label: "VIEW WORK", href: "#work" },

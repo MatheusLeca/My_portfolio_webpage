@@ -1,6 +1,6 @@
 # Landing Page — personal portfolio
 
-Single-page portfolio of Matheus de Morais Leça, Software Engineer.
+Single-page portfolio of Matheus Leca, Software Engineer.
 Next.js (App Router) + TypeScript + Tailwind CSS v4.
 
 ## Commands

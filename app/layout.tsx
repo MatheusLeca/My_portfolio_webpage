@@ -12,9 +12,9 @@ const sans = Inter({
   subsets: ["latin"],
 });
 
-const SITE_NAME = "Matheus de Morais Leça — Software Engineer";
+const SITE_NAME = "Matheus Leca — Software Engineer";
 const SITE_DESCRIPTION =
-  "Portfolio of Matheus de Morais Leça, Software Engineer and MSc student in Electrical and Computer Engineering at the University of Calgary.";
+  "Portfolio of Matheus Leca, Software Engineer and MSc student in Electrical and Computer Engineering at the University of Calgary.";
 
 export const metadata: Metadata = {
   metadataBase: process.env.NEXT_PUBLIC_SITE_URL
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     : undefined,
   title: SITE_NAME,
   description: SITE_DESCRIPTION,
-  authors: [{ name: "Matheus de Morais Leça" }],
+  authors: [{ name: "Matheus Leca" }],
   keywords: [
     "Software Engineer",
     "Portfolio",
@@ -54,7 +54,7 @@ export const metadata: Metadata = {
 const personJsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
-  name: "Matheus de Morais Leça",
+  name: "Matheus Leca",
   jobTitle: "Software Engineer",
   alumniOf: {
     "@type": "CollegeOrUniversity",

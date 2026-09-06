@@ -48,7 +48,7 @@ export default function SiteFooter() {
           </ul>
         </nav>
         <p className="text-[11px] tracking-[0.14em] text-muted uppercase">
-          © 2026 Matheus de Morais Leça
+            © 2026 Matheus Leca
         </p>
       </div>
     </footer>
