@@ -80,7 +80,7 @@ export default function Work() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={`${project.name} source code (opens in new tab)`}
-                  className="mt-1 shrink-0 rounded-full border border-primary/50 p-2.5 text-primary transition-colors group-hover:bg-primary group-hover:text-white focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-surface focus-visible:outline-none"
+                  className="mt-1 shrink-0 rounded-full border border-primary/50 p-2.5 text-primary transition-colors group-hover:bg-primary group-hover:text-on-action focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-surface focus-visible:outline-none"
                 >
                   <span aria-hidden="true">↗</span>
                 </a>
