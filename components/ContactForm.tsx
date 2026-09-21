@@ -162,7 +162,7 @@ export default function ContactForm() {
                 aria-invalid={Boolean(errors[field.key])}
                 aria-describedby={errors[field.key] ? errorId : undefined}
                 placeholder={form.placeholders[field.key]}
-                className={`${inputClass(field.key)} resize-y`}
+                className={`${inputClass(field.key)} resize-y overflow-x-hidden`}
               />
             ) : (
               <input
