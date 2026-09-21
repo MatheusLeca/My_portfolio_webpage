@@ -1,11 +1,17 @@
 "use client";
 
-import { useEffect, useRef, type CSSProperties, type ReactNode } from "react";
+import { useEffect, useLayoutEffect, useRef, type CSSProperties, type ReactNode } from "react";
+
+// Layout effect on the client only: runs before paint, so hiding below-fold
+// content never flashes. Falls back to a passive effect during SSR.
+const useClientLayoutEffect =
+  typeof window !== "undefined" ? useLayoutEffect : useEffect;
 
 /**
- * Scroll reveal wrapper: hidden until the element scrolls into view, then
- * fades/slides in once. Content stays visible when IntersectionObserver is
- * unavailable; reduced-motion and no-JS fallbacks live in global CSS.
+ * Scroll reveal wrapper. Renders visible by default so content never gets
+ * stuck hidden when scripts fail; only hides (then reveals on scroll) when
+ * an observer is available and motion is allowed. Reduced-motion and no-JS
+ * fallbacks live in global CSS.
  */
 export default function Reveal({
   children,
@@ -18,13 +24,19 @@ export default function Reveal({
 }) {
   const ref = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
+  useClientLayoutEffect(() => {
     const el = ref.current;
-    if (!el) return;
-    if (typeof IntersectionObserver === "undefined") {
-      el.dataset.reveal = "visible";
+    if (
+      !el ||
+      typeof IntersectionObserver === "undefined" ||
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ) {
       return;
     }
+    el.dataset.reveal = "hidden";
+    // Flush the hidden state before observing so in-view elements animate
+    // from hidden instead of flashing visible first.
+    void el.offsetHeight;
     const io = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -41,7 +53,7 @@ export default function Reveal({
   return (
     <div
       ref={ref}
-      data-reveal="hidden"
+      data-reveal="visible"
       style={{ "--reveal-delay": `${delay}ms` } as CSSProperties}
       className={className}
     >
