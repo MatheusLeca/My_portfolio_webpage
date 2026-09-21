@@ -49,13 +49,13 @@ export default function SiteNav() {
           <ThemeToggle />
           <a
             href={nav.socials.href}
-            className="hidden items-center rounded-full border border-line px-5 py-2 text-[11px] font-bold tracking-[0.18em] text-foreground uppercase transition-colors hover:border-primary hover:text-primary focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-nav focus-visible:outline-none lg:inline-flex"
+            className="hidden h-10 items-center rounded-full border border-line px-5 py-2 text-[11px] font-bold tracking-[0.18em] text-foreground uppercase transition-colors hover:border-primary hover:text-primary focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-nav focus-visible:outline-none lg:inline-flex"
           >
             {nav.socials.label}
           </a>
           <a
             href={nav.cta.href}
-            className="inline-flex items-center rounded-full bg-action px-5 py-2 text-[11px] font-bold tracking-[0.18em] text-on-action uppercase transition-colors hover:bg-action-strong focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-nav focus-visible:outline-none"
+            className="inline-flex h-10 items-center rounded-full bg-action px-5 py-2 text-[11px] font-bold tracking-[0.18em] text-on-action uppercase transition-colors hover:bg-action-strong focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-nav focus-visible:outline-none"
           >
             {nav.cta.label}
           </a>
@@ -69,7 +69,7 @@ export default function SiteNav() {
             aria-controls="mobile-menu"
             aria-label={open ? "Close menu" : "Open menu"}
             onClick={() => setOpen((value) => !value)}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-line text-foreground"
+            className="inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-line text-foreground"
           >
             <span aria-hidden="true" className="font-display text-lg font-bold">
               {open ? "✕" : "☰"}

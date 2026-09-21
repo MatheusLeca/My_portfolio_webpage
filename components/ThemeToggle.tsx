@@ -108,7 +108,7 @@ export default function ThemeToggle({ className = "" }: { className?: string }) 
       onClick={toggle}
       aria-label={`Switch to ${next} mode`}
       title={`Switch to ${next} mode`}
-      className={`inline-flex h-10 w-10 items-center justify-center rounded-full border border-line text-muted transition-colors hover:text-foreground focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-nav focus-visible:outline-none ${className}`}
+      className={`inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-line text-muted transition-colors hover:border-primary hover:text-primary focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-nav focus-visible:outline-none ${className}`}
     >
       {theme === "dark" ? <SunIcon /> : <MoonIcon />}
     </button>

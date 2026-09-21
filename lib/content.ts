@@ -27,6 +27,8 @@ export const siteContent = {
     summary:
       "Software Engineer and MSc student in Electrical and Computer Engineering at the University of Calgary.",
     primaryCta: { label: "VIEW WORK", href: "#work" },
+    portraitSrc: "/images/portrait.jpg",
+    portraitAlt: "Matheus Leca speaking into a microphone at a podium",
     portraitPlaceholderLabel: "Profile photo placeholder",
     portraitInitials: "ML",
   },
@@ -44,6 +46,8 @@ export const siteContent = {
       { value: "08+", label: "Years experience", placeholder: true },
       { value: "120", label: "Projects shipped", placeholder: true },
     ],
+    portraitSrc: "/images/landing.jpeg",
+    portraitAlt: "Matheus Leca outdoors wearing a winter jacket",
     portraitPlaceholderLabel: "Workspace photo placeholder",
     portraitInitials: "ML",
   },

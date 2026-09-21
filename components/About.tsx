@@ -1,3 +1,4 @@
+import Image from "next/image";
 import SampleBadge from "@/components/SampleBadge";
 import { siteContent } from "@/lib/content";
 
@@ -44,20 +45,32 @@ export default function About() {
               aria-hidden="true"
               className="absolute -inset-0 translate-x-4 translate-y-4 rounded-2xl border border-line"
             />
-            <div
-              role="img"
-              aria-label={about.portraitPlaceholderLabel}
-              className="relative flex aspect-[4/5] w-full items-center justify-center rounded-2xl border border-line bg-surface"
-            >
-              <span
-                aria-hidden="true"
-                className="font-display text-7xl font-bold text-muted"
-              >
-                {about.portraitInitials}
-              </span>
-              <span className="absolute top-4 left-4">
-                <SampleBadge />
-              </span>
+            <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl border border-line bg-surface">
+              {about.portraitSrc ? (
+                <Image
+                  src={about.portraitSrc}
+                  alt={about.portraitAlt}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 24rem"
+                  className="object-cover object-top"
+                />
+              ) : (
+                <div
+                  role="img"
+                  aria-label={about.portraitPlaceholderLabel}
+                  className="flex h-full w-full items-center justify-center"
+                >
+                  <span
+                    aria-hidden="true"
+                    className="font-display text-7xl font-bold text-muted"
+                  >
+                    {about.portraitInitials}
+                  </span>
+                  <span className="absolute top-4 left-4">
+                    <SampleBadge />
+                  </span>
+                </div>
+              )}
             </div>
           </div>
         </div>

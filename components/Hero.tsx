@@ -1,3 +1,4 @@
+import Image from "next/image";
 import SampleBadge from "@/components/SampleBadge";
 import { siteContent } from "@/lib/content";
 
@@ -58,17 +59,30 @@ export default function Hero() {
           </div>
         </div>
         <div className="flex justify-center lg:justify-end">
-          <div
-            role="img"
-            aria-label={hero.portraitPlaceholderLabel}
-            className="flex aspect-[4/5] w-full max-w-sm items-center justify-center rounded-2xl border border-line bg-surface"
-          >
-            <span
-              aria-hidden="true"
-              className="font-display text-7xl font-bold text-muted"
-            >
-              {hero.portraitInitials}
-            </span>
+          <div className="relative aspect-[4/5] w-full max-w-sm overflow-hidden rounded-2xl border border-line bg-surface">
+            {hero.portraitSrc ? (
+              <Image
+                src={hero.portraitSrc}
+                alt={hero.portraitAlt}
+                fill
+                sizes="(max-width: 1024px) 100vw, 24rem"
+                className="object-cover"
+                priority
+              />
+            ) : (
+              <div
+                role="img"
+                aria-label={hero.portraitPlaceholderLabel}
+                className="flex h-full w-full items-center justify-center"
+              >
+                <span
+                  aria-hidden="true"
+                  className="font-display text-7xl font-bold text-muted"
+                >
+                  {hero.portraitInitials}
+                </span>
+              </div>
+            )}
           </div>
         </div>
       </div>
