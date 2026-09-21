@@ -15,9 +15,10 @@ export default function Work() {
         </h2>
         <ul
           role="list"
-          // Even grid while the list is short; the staggered offset from the
-          // reference can return once a fourth project fills the second row.
-          className="mt-14 grid gap-6 md:grid-cols-2"
+          // Three across on desktop while the list is short; the staggered
+          // offset from the reference can return once a fourth project
+          // fills out the second row.
+          className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3"
         >
           {work.projects.map((project) => (
             <li
