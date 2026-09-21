@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Reveal from "@/components/Reveal";
 import { siteContent } from "@/lib/content";
 
@@ -17,16 +18,32 @@ export default function Experience() {
           {experience.heading}
         </h2>
         <div className="mt-14 space-y-16">
-          {experience.companies.map((company) => (
+          {experience.companies.map((company) => {
+            // Widened so the monogram fallback stays valid for future
+            // companies without a logo file.
+            const logo: string | undefined = company.logo;
+            return (
             <div key={company.name} data-company={company.name}>
               <Reveal>
                 <div className="flex items-center gap-4">
+                {logo ? (
+                  <span className="relative h-12 w-12 shrink-0 overflow-hidden rounded-full border border-line bg-white">
+                    <Image
+                      src={logo}
+                      alt={`${company.name} logo`}
+                      fill
+                      sizes="48px"
+                      className="object-contain p-1"
+                    />
+                  </span>
+                ) : (
                   <span
                     aria-hidden="true"
                     className="font-display flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-line bg-surface text-sm font-bold text-primary"
                   >
                     {company.initials}
                   </span>
+                )}
                   <div className="min-w-0">
                     <h3 className="font-display text-xl font-bold text-foreground">
                       {company.name}
@@ -91,7 +108,8 @@ export default function Experience() {
                 ))}
               </div>
             </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

@@ -90,6 +90,7 @@ export const siteContent = {
       {
         name: "University of Calgary",
         initials: "UC",
+        logo: "/images/ucalgary.jpg",
         location: "Calgary, CAN",
         tenure: "Sep 2024 — Aug 2026",
         roles: [
@@ -121,6 +122,7 @@ export const siteContent = {
       {
         name: "LogAp I.T. Solutions",
         initials: "LA",
+        logo: "/images/logap.jpeg",
         location: "BRA",
         tenure: "Feb 2023 — Aug 2024",
         roles: [
@@ -141,6 +143,7 @@ export const siteContent = {
       {
         name: "Reciprev",
         initials: "RE",
+        logo: "/images/reciprev.png",
         location: "BRA",
         tenure: "Oct 2021 — Feb 2023",
         roles: [
@@ -160,6 +163,7 @@ export const siteContent = {
       {
         name: "Federal University of Pernambuco",
         initials: "UF",
+        logo: "/images/ufpe.jpg",
         location: "BRA",
         tenure: "Jul 2022 — Mar 2024",
         roles: [
