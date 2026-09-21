@@ -7,23 +7,12 @@ export default function Work() {
   return (
     <section id="work" aria-labelledby="work-heading" className="scroll-mt-16">
       <div className="mx-auto w-full max-w-6xl px-4 py-20 sm:px-6 md:py-28">
-        <div className="flex items-end justify-between gap-6">
-          <h2
-            id="work-heading"
-            className="font-display text-4xl font-bold tracking-tight text-foreground sm:text-5xl"
-          >
-            {work.heading}
-          </h2>
-          <a
-            href={work.archive.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="shrink-0 text-[11px] font-bold tracking-[0.2em] text-muted uppercase transition-colors hover:text-foreground focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background focus-visible:outline-none"
-          >
-            {work.archive.label} <span aria-hidden="true">↗</span>
-            <span className="sr-only">(opens in new tab)</span>
-          </a>
-        </div>
+        <h2
+          id="work-heading"
+          className="font-display text-4xl font-bold tracking-tight text-foreground sm:text-5xl"
+        >
+          {work.heading}
+        </h2>
         <ul
           role="list"
           // Even grid while the list is short; the staggered offset from the
@@ -35,25 +24,30 @@ export default function Work() {
               key={project.name}
               className="group rounded-2xl border border-line bg-surface p-5 transition-[transform,box-shadow,border-color] duration-300 ease-out hover:border-primary focus-within:border-primary motion-safe:hover:-translate-y-1 motion-safe:hover:shadow-[0_8px_32px_-8px_var(--primary)] motion-safe:focus-within:-translate-y-1 motion-safe:focus-within:shadow-[0_8px_32px_-8px_var(--primary)]"
             >
-              <div
-                role="img"
-                aria-label={project.thumbnailLabel}
-                className="relative flex aspect-video w-full items-center justify-center rounded-xl border border-line bg-background"
+              <a
+                href={project.liveUrl ?? "about:blank"}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block rounded-xl focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-surface focus-visible:outline-none"
               >
-                <span
-                  aria-hidden="true"
-                  className="font-display text-5xl font-bold text-muted"
+                <div
+                  role="img"
+                  aria-label={project.thumbnailLabel}
+                  className="relative flex aspect-video w-full items-center justify-center rounded-xl border border-line bg-background"
                 >
-                  {project.thumbnailInitials}
-                </span>
-                {project.placeholder ? (
-                  <span className="absolute top-3 left-3">
-                    <SampleBadge />
+                  <span
+                    aria-hidden="true"
+                    className="font-display text-5xl font-bold text-muted"
+                  >
+                    {project.thumbnailInitials}
                   </span>
-                ) : null}
-              </div>
-              <div className="flex items-start justify-between gap-4 px-1 pt-5">
-                <div>
+                  {project.placeholder ? (
+                    <span className="absolute top-3 left-3">
+                      <SampleBadge />
+                    </span>
+                  ) : null}
+                </div>
+                <div className="px-1 pt-5">
                   <h3 className="font-display text-lg font-bold text-foreground">
                     {project.name}
                   </h3>
@@ -63,28 +57,8 @@ export default function Work() {
                   <p className="mt-3 text-[11px] font-medium tracking-[0.14em] text-muted uppercase">
                     {project.tags.join(" · ")}
                   </p>
-                  {project.liveUrl ? (
-                    <a
-                      href={project.liveUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="mt-3 inline-block text-[11px] font-bold tracking-[0.2em] text-primary uppercase hover:text-primary-strong focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-surface focus-visible:outline-none"
-                    >
-                      Live demo <span aria-hidden="true">↗</span>
-                      <span className="sr-only">(opens in new tab)</span>
-                    </a>
-                  ) : null}
                 </div>
-                <a
-                  href={project.sourceUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={`${project.name} source code (opens in new tab)`}
-                  className="mt-1 shrink-0 rounded-full border border-primary/50 p-2.5 text-primary transition-colors group-hover:bg-primary group-hover:text-on-action focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-surface focus-visible:outline-none"
-                >
-                  <span aria-hidden="true">↗</span>
-                </a>
-              </div>
+              </a>
             </li>
           ))}
         </ul>
