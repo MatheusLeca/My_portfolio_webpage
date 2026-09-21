@@ -68,7 +68,9 @@ const personJsonLd = {
 
 // Applies a stored theme choice before first paint so the toggle never
 // flashes the wrong mode. Runs before React hydrates; keep it dependency-free.
-const themeInitScript = `(function(){try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark"){document.documentElement.dataset.theme=t;}}catch(e){}})();`;
+// Also resets scroll restoration so a reload always starts at the top,
+// unless the URL carries an anchor the visitor intentionally followed.
+const themeInitScript = `(function(){try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark"){document.documentElement.dataset.theme=t;}if(!location.hash&&"scrollRestoration" in history){history.scrollRestoration="manual";scrollTo(0,0);}}catch(e){}})();`;
 
 export default function RootLayout({
   children,
