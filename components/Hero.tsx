@@ -6,7 +6,7 @@ export default function Hero() {
   const { hero, resume } = siteContent;
 
   return (
-    <section aria-labelledby="hero-heading" className="relative overflow-hidden">
+    <section aria-labelledby="hero-heading" className="relative flex min-h-[calc(100svh-4rem)] flex-col justify-center overflow-hidden">
       <div className="mx-auto grid w-full max-w-6xl gap-12 px-4 pt-16 pb-20 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:pt-24 lg:pb-28">
         <div>
           <p className="text-[11px] font-bold tracking-[0.3em] text-muted">
