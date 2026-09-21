@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Reveal from "@/components/Reveal";
 import SampleBadge from "@/components/SampleBadge";
 import { siteContent } from "@/lib/content";
 
@@ -6,9 +7,13 @@ export default function About() {
   const { about } = siteContent;
 
   return (
-    <section id="about" aria-labelledby="about-heading" className="flex min-h-[calc(100svh-4rem)] scroll-mt-16 flex-col justify-center">
+    <section
+      id="about"
+      aria-labelledby="about-heading"
+      className="flex min-h-[calc(100svh-4rem)] scroll-mt-16 flex-col justify-center"
+    >
       <div className="mx-auto grid w-full max-w-6xl gap-12 px-4 py-20 sm:px-6 md:grid-cols-2 md:items-center md:py-28">
-        <div>
+        <Reveal>
           <p className="text-[11px] font-bold tracking-[0.3em] text-muted">
             {about.eyebrow}
           </p>
@@ -38,8 +43,8 @@ export default function About() {
               </div>
             ))}
           </dl>
-        </div>
-        <div className="flex justify-center md:justify-end">
+        </Reveal>
+        <Reveal delay={90} className="flex justify-center md:justify-end">
           <div className="relative w-full max-w-sm">
             <div
               aria-hidden="true"
@@ -73,7 +78,7 @@ export default function About() {
               )}
             </div>
           </div>
-        </div>
+        </Reveal>
       </div>
     </section>
   );

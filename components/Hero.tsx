@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Reveal from "@/components/Reveal";
 import SampleBadge from "@/components/SampleBadge";
 import { siteContent } from "@/lib/content";
 
@@ -6,9 +7,12 @@ export default function Hero() {
   const { hero, resume } = siteContent;
 
   return (
-    <section aria-labelledby="hero-heading" className="relative flex min-h-[calc(100svh-4rem)] flex-col justify-center overflow-hidden">
+    <section
+      aria-labelledby="hero-heading"
+      className="relative flex min-h-[calc(100svh-4rem)] flex-col justify-center overflow-hidden"
+    >
       <div className="mx-auto grid w-full max-w-6xl gap-12 px-4 pt-16 pb-20 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:pt-24 lg:pb-28">
-        <div>
+        <Reveal>
           <p className="text-[11px] font-bold tracking-[0.3em] text-muted">
             {hero.eyebrow}
           </p>
@@ -57,8 +61,8 @@ export default function Hero() {
               </span>
             )}
           </div>
-        </div>
-        <div className="flex justify-center lg:justify-end">
+        </Reveal>
+        <Reveal delay={90} className="flex justify-center lg:justify-end">
           <div className="relative aspect-[4/5] w-full max-w-sm overflow-hidden rounded-2xl border border-line bg-surface">
             {hero.portraitSrc ? (
               <Image
@@ -84,7 +88,7 @@ export default function Hero() {
               </div>
             )}
           </div>
-        </div>
+        </Reveal>
       </div>
     </section>
   );

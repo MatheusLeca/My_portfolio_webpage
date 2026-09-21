@@ -1,12 +1,17 @@
+import Reveal from "@/components/Reveal";
 import { siteContent } from "@/lib/content";
 
 export default function Skills() {
   const { skills } = siteContent;
 
   return (
-    <section id="expertise" aria-labelledby="skills-heading" className="scroll-mt-16">
+    <section
+      id="expertise"
+      aria-labelledby="skills-heading"
+      className="scroll-mt-16"
+    >
       <div className="mx-auto w-full max-w-6xl px-4 py-20 sm:px-6 md:py-28">
-        <div className="mx-auto max-w-2xl text-center">
+        <Reveal className="mx-auto max-w-2xl text-center">
           <p className="text-[11px] font-bold tracking-[0.3em] text-muted">
             {skills.eyebrow}
           </p>
@@ -16,7 +21,7 @@ export default function Skills() {
           >
             {skills.heading}
           </h2>
-        </div>
+        </Reveal>
         <ul
           role="list"
           // With five groups the last card would orphan: it spans the row on
@@ -29,28 +34,34 @@ export default function Skills() {
               key={group.title}
               className="rounded-2xl border border-line bg-surface p-7"
             >
-              <p
-                aria-hidden="true"
-                className="font-display text-sm font-bold tracking-[0.2em] text-mint"
-              >
-                {String(index + 1).padStart(2, "0")}
-              </p>
-              <h3 className="font-display mt-3 text-xl font-bold text-foreground">
-                {group.title}
-              </h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted">
-                {group.description}
-              </p>
-              <ul role="list" aria-label={`${group.title} technologies`} className="mt-5 flex flex-wrap gap-2">
-                {group.tags.map((tag) => (
-                  <li
-                    key={tag}
-                    className="rounded-full border border-line px-3 py-1 text-[11px] font-medium tracking-wide text-muted"
-                  >
-                    {tag}
-                  </li>
-                ))}
-              </ul>
+              <Reveal delay={Math.min(index, 4) * 70}>
+                <p
+                  aria-hidden="true"
+                  className="font-display text-sm font-bold tracking-[0.2em] text-mint"
+                >
+                  {String(index + 1).padStart(2, "0")}
+                </p>
+                <h3 className="font-display mt-3 text-xl font-bold text-foreground">
+                  {group.title}
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted">
+                  {group.description}
+                </p>
+                <ul
+                  role="list"
+                  aria-label={`${group.title} technologies`}
+                  className="mt-5 flex flex-wrap gap-2"
+                >
+                  {group.tags.map((tag) => (
+                    <li
+                      key={tag}
+                      className="rounded-full border border-line px-3 py-1 text-[11px] font-medium tracking-wide text-muted"
+                    >
+                      {tag}
+                    </li>
+                  ))}
+                </ul>
+              </Reveal>
             </li>
           ))}
         </ul>
