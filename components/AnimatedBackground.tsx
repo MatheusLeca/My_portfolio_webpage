@@ -2,7 +2,15 @@
 
 import { useEffect, useRef } from "react";
 
-type VantaEffect = { destroy: () => void };
+type VantaEffect = {
+  destroy: () => void;
+  camera: {
+    position: { set: (x: number, y: number, z: number) => void };
+    tx: number;
+    ty: number;
+    tz: number;
+  };
+};
 type DotsInit = (opts: Record<string, unknown>) => VantaEffect;
 
 const DOT_OPTIONS = {
@@ -74,12 +82,22 @@ export default function AnimatedBackground() {
       (window as unknown as { THREE: unknown }).THREE = THREE;
       const { default: DOTS } = await import("vanta/dist/vanta.dots.min");
       if (cancelled || my !== seq) return;
-      effect = (DOTS as DotsInit)({
+      const created = DOTS({
         el,
         THREE,
         ...DOT_OPTIONS,
         ...THEMES[currentTheme()],
-      });
+      }) as VantaEffect;
+      effect = created;
+      // Skip the multi-second camera dolly-in: the intro ease factor is
+      // hardcoded in Vanta, while the dot shimmer is independent idle
+      // motion. Snapping to the target starts at the final composition
+      // with the idle animation untouched.
+      created.camera.position.set(
+        created.camera.tx,
+        created.camera.ty,
+        created.camera.tz,
+      );
     }
 
     init();
