@@ -15,6 +15,7 @@ export const siteContent = {
     links: [
       { label: "About", href: "#about" },
       { label: "Expertise", href: "#expertise" },
+      { label: "Experience", href: "#experience" },
       { label: "Work", href: "#work" },
       { label: "Contact", href: "#contact" },
     ],
@@ -82,12 +83,103 @@ export const siteContent = {
       },
     ],
   },
+  experience: {
+    eyebrow: "EXPERIENCE",
+    heading: "Career timeline.",
+    companies: [
+      {
+        name: "University of Calgary",
+        initials: "UC",
+        location: "Calgary, CAN",
+        tenure: "Sep 2024 — Aug 2026",
+        roles: [
+          {
+            title: "Software Engineer",
+            dates: "Apr 2025 — Aug 2026",
+            duration: "1 yr 5 mo",
+            tags: ["Unity 6", "C#", "ASP.NET Core", "PostgreSQL", "Docker", "CI/CD"],
+            bullets: [
+              "Shipped a cross-platform Unity 6 / C# safety-training simulator for web, mobile, desktop, and Meta Quest VR with scoring, navigation, and 3D/360° hazard training.",
+              "Beat a 100 MB WebGL hosting limit with a custom asset pipeline using automated splitting, parallel downloads, and client-side reassembly.",
+              "Built an ASP.NET Core / .NET backend (Clean Architecture, EF Core, PostgreSQL) for level sharing, leaderboards, and submissions.",
+              "Delivered via Docker on DigitalOcean with GitHub Actions CI/CD and Spaces + CDN media serving.",
+            ],
+          },
+          {
+            title: "Teaching Assistant",
+            dates: "Sep 2024 — Apr 2026",
+            duration: "1 yr 8 mo",
+            tags: ["Java", "Spring Boot", "Python", "MongoDB"],
+            bullets: [
+              "Taught software architecture and design patterns (microservices, modular monoliths) across 6 undergraduate and graduate courses.",
+              "Coached courses spanning programming, databases, software design, and web development.",
+              "Strengthened OOP and data-structures skills through Python labs with individualized feedback.",
+            ],
+          },
+        ],
+      },
+      {
+        name: "LogAp I.T. Solutions",
+        initials: "LA",
+        location: "BRA",
+        tenure: "Feb 2023 — Aug 2024",
+        roles: [
+          {
+            title: "Software Engineer",
+            dates: "Feb 2023 — Aug 2024",
+            duration: "1 yr 7 mo",
+            tags: ["Java", "Spring Boot", ".NET", "Angular", "Ionic", "MSSQL"],
+            bullets: [
+              "Delivered enterprise web and mobile apps for government partners, digitizing public services.",
+              "Cut operational costs 18% (SGNF) and 27% (BDGA) with Spring microservices; BDGA placed first in Regulatory Impacts at EGAESE.",
+              "Drove 32% Q1 revenue growth at Águas Brasil via REST integrations with RabbitMQ messaging and Kafka event exchange.",
+              "Cut API latency 80% and turnaround 60% (ALIEN, HidroObserva) with Java/Hibernate optimization and SOLID design.",
+            ],
+          },
+        ],
+      },
+      {
+        name: "Reciprev",
+        initials: "RE",
+        location: "BRA",
+        tenure: "Oct 2021 — Feb 2023",
+        roles: [
+          {
+            title: "Software Engineer",
+            dates: "Oct 2021 — Feb 2023",
+            duration: "1 yr 5 mo",
+            tags: ["React", "Node.js", "MongoDB", "AWS"],
+            bullets: [
+              "Cut accounting software costs 36% in year one by digitizing processes with React, Node.js/Express, and MongoDB.",
+              "Deployed reliably on AWS EC2 with Amazon RDS persistence.",
+              "Practiced TDD, unit/e2e testing, and Agile/Scrum with GitLab code reviews.",
+            ],
+          },
+        ],
+      },
+      {
+        name: "Federal University of Pernambuco",
+        initials: "UF",
+        location: "BRA",
+        tenure: "Jul 2022 — Mar 2024",
+        roles: [
+          {
+            title: "Teaching Assistant",
+            dates: "Jul 2022 — Mar 2024",
+            duration: "1 yr 9 mo",
+            tags: ["TypeScript", "Node.js", "OpenAI API"],
+            bullets: [
+              "Built Turing Tutor, an OpenAI Assistants API Discord bot expanding AI-assisted learning access.",
+              "Taught Theoretical Foundations of Computer Science with individualized guidance.",
+              "Delivered lectures, coursework, grading, and weekly office hours in plain language.",
+            ],
+          },
+        ],
+      },
+    ],
+  },
   work: {
     heading: "Selected work.",
-    archive: {
-      label: "View archive",
-      href: "https://github.com/MatheusMarinhoLeca?tab=repositories",
-    },
     // Placeholder entries: the first two point at real public repositories;
     // the third is a sample slot. The owner curates this list with real
     // projects, screenshots, and demo links over time.
