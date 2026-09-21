@@ -87,6 +87,7 @@ export default function RootLayout({
     >
       <body className="flex min-h-full flex-col font-sans">
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+        <div aria-hidden="true" className="progress-bar" />
         <noscript>
           <style>{`[data-reveal]{opacity:1!important;translate:none!important}`}</style>
         </noscript>

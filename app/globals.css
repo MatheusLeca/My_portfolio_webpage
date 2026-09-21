@@ -100,6 +100,38 @@ body {
   color: var(--fg);
 }
 
+/* Scroll progress bar: scroll-linked fill from page top to bottom.
+   Pure CSS (no JavaScript): transform-only, compositor-driven, no layout
+   shift. Unsupported browsers ignore animation-timeline and keep the bar
+   hidden at scaleX(0). */
+.progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 60;
+  height: 3px;
+  width: 100%;
+  background: var(--primary);
+  transform-origin: 0 50%;
+  transform: scaleX(0);
+  animation: grow-progress linear;
+  animation-timeline: scroll();
+  pointer-events: none;
+}
+
+@keyframes grow-progress {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* Keeps the bar hidden instead of growing with scroll. */
+  .progress-bar {
+    animation: none;
+  }
+}
+
 ::selection {
   background: var(--primary);
   color: var(--bg);
