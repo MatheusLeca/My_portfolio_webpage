@@ -33,7 +33,7 @@ export default function Work() {
           {work.projects.map((project) => (
             <li
               key={project.name}
-              className="group rounded-2xl border border-line bg-surface p-5 transition-colors hover:border-primary"
+              className="group rounded-2xl border border-line bg-surface p-5 transition-[transform,box-shadow,border-color] duration-300 ease-out hover:border-primary focus-within:border-primary motion-safe:hover:-translate-y-1 motion-safe:hover:shadow-[0_8px_32px_-8px_var(--primary)] motion-safe:focus-within:-translate-y-1 motion-safe:focus-within:shadow-[0_8px_32px_-8px_var(--primary)]"
             >
               <div
                 role="img"
