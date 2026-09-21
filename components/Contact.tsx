@@ -5,7 +5,7 @@ export default function Contact() {
   const { contact } = siteContent;
 
   return (
-    <section id="contact" aria-labelledby="contact-heading" className="scroll-mt-16">
+    <section id="contact" aria-labelledby="contact-heading" className="flex min-h-[calc(100svh-4rem)] scroll-mt-16 flex-col justify-center">
       <div className="mx-auto grid w-full max-w-6xl gap-12 px-4 py-20 sm:px-6 md:grid-cols-2 md:items-start md:py-28">
         <div>
           <h2
