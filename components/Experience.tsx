@@ -22,6 +22,8 @@ export default function Experience() {
             // Widened so the monogram fallback stays valid for future
             // companies without a logo file.
             const logo: string | undefined = company.logo;
+            // Only companies with full-bleed artwork set logoFit.
+            const cover = "logoFit" in company && company.logoFit === "cover";
             return (
             <div key={company.name} data-company={company.name}>
               <Reveal>
@@ -33,7 +35,7 @@ export default function Experience() {
                       alt={`${company.name} logo`}
                       fill
                       sizes="48px"
-                      className="object-contain p-1"
+                      className={cover ? "object-cover" : "object-contain p-1"}
                     />
                   </span>
                 ) : (

@@ -123,6 +123,7 @@ export const siteContent = {
         name: "LogAp I.T. Solutions",
         initials: "LA",
         logo: "/images/logap.jpeg",
+        logoFit: "cover",
         location: "BRA",
         tenure: "Feb 2023 — Aug 2024",
         roles: [
