@@ -92,7 +92,6 @@ export const siteContent = {
         initials: "UC",
         logo: "/images/ucalgary.jpg",
         location: "Calgary, CAN",
-        tenure: "Sep 2024 — Aug 2026",
         roles: [
           {
             title: "Software Engineer",
@@ -125,7 +124,6 @@ export const siteContent = {
         logo: "/images/logap.jpeg",
         logoFit: "cover",
         location: "BRA",
-        tenure: "Feb 2023 — Aug 2024",
         roles: [
           {
             title: "Software Engineer",
@@ -146,7 +144,6 @@ export const siteContent = {
         initials: "RE",
         logo: "/images/reciprev.png",
         location: "BRA",
-        tenure: "Oct 2021 — Feb 2023",
         roles: [
           {
             title: "Software Engineer",
@@ -166,7 +163,6 @@ export const siteContent = {
         initials: "UF",
         logo: "/images/ufpe.jpg",
         location: "BRA",
-        tenure: "Jul 2022 — Mar 2024",
         roles: [
           {
             title: "Teaching Assistant",

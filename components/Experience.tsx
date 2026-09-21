@@ -46,15 +46,12 @@ export default function Experience() {
                     {company.initials}
                   </span>
                 )}
-                  <div className="min-w-0">
-                    <h3 className="font-display text-xl font-bold text-foreground">
-                      {company.name}
-                    </h3>
-                    <p className="text-sm text-muted">{company.location}</p>
-                  </div>
-                  <span className="ml-auto shrink-0 rounded-full border border-line px-3 py-1 text-[11px] font-medium tracking-wide text-muted">
-                    {company.tenure}
-                  </span>
+                <div className="min-w-0">
+                  <h3 className="font-display text-xl font-bold text-foreground">
+                    {company.name}
+                  </h3>
+                  <p className="text-sm text-muted">{company.location}</p>
+                </div>
                 </div>
               </Reveal>
               <div className="relative mt-6">
