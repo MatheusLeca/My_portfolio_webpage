@@ -62,7 +62,11 @@ export default function Hero() {
             )}
           </div>
         </Reveal>
-        <Reveal delay={90} className="flex justify-center lg:justify-end">
+        {/* Photo-only alignment: `lg:self-start` pins the photo to the top of
+            the grid row (aligned with the text block top) instead of centering
+            it. The text keeps `lg:items-center` within the row, so its position
+            is unchanged — only the photo moves. */}
+        <Reveal delay={90} className="flex justify-center lg:self-start lg:justify-end">
           <div className="relative aspect-[4/5] w-full max-w-sm overflow-hidden rounded-2xl border border-line bg-surface">
             {hero.portraitSrc ? (
               <Image

@@ -44,7 +44,13 @@ export default function About() {
             ))}
           </dl>
         </Reveal>
-        <Reveal delay={90} className="flex justify-center md:justify-end">
+        {/* Photo-only alignment: `md:self-start` pins the photo to the top of
+            the grid row (aligned with the text block top) instead of centering
+            it, and `lg:-mt-5` closes the residual ~20px offset vs the Hero
+            photo top (Hero splits to two columns at lg). The text keeps
+            `md:items-center` within the row, so its position is unchanged —
+            only the photo moves. */}
+        <Reveal delay={90} className="flex justify-center md:self-start md:justify-end lg:-mt-5">
           <div className="relative w-full max-w-sm">
             <div
               aria-hidden="true"
