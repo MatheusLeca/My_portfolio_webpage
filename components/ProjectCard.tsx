@@ -1,7 +1,6 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import { ArrowRight, Tag } from "lucide-react";
 import Reveal from "@/components/Reveal";
 import SampleBadge from "@/components/SampleBadge";
 import type { SiteContent } from "@/lib/content";
@@ -10,8 +9,8 @@ type Project = SiteContent["work"]["projects"][number];
 
 /* Offer-card choreography (#29): short ease-out transitions on transform
  * only — compositor-friendly, no layout shift. Variants propagate from the
- * link to the visual and arrow children; "active" is shared by hover and
- * keyboard focus so pointer and keyboard users get identical feedback. */
+ * link to the visual child; "active" is shared by hover and keyboard focus
+ * so pointer and keyboard users get identical feedback. */
 const motionTransition = { duration: 0.25, ease: "easeOut" } as const;
 
 const liftVariants = {
@@ -24,132 +23,128 @@ const visualVariants = {
   active: { scale: 1.05 },
 };
 
-/* Reference design: the footer action arrow points right (→) at rest and
- * rotates up-right (↗) on hover/focus — a -45° turn of the same glyph. */
-const arrowVariants = {
-  rest: { rotate: 0 },
-  active: { rotate: -45 },
-};
-
-/* Footer "brand" row from the project's real source URL: the repo slug is
- * the bold line and the host is the muted handle, mirroring the reference
- * design's brand/handle pair without inventing data. Returns null when the
- * URL cannot be parsed, in which case the row hides gracefully. */
-function parseSource(sourceUrl: string) {
-  try {
-    const url = new URL(sourceUrl);
-    const segments = url.pathname.split("/").filter(Boolean);
-    const slug = segments.length > 0 ? segments[segments.length - 1] : null;
-    return { host: url.hostname.replace(/^www\./, ""), slug };
-  } catch {
-    return null;
-  }
-}
+/* Tag chips: outlined pills carry the project's stack under the description
+ * in the site's micro-label voice (uppercase, wide tracking, hairline
+ * border, no fill). One shared constant keeps every card's pill row
+ * identical; Tailwind still sees the literals verbatim in source. */
+const pillClass =
+  "inline-flex items-center rounded-full border border-line px-2.5 py-1 text-[11px] font-bold tracking-[0.18em] text-muted uppercase";
 
 /**
  * Single Selected-work card in the Offer-card visual language (#29),
- * reconciled with the reference design: an inset unframed visual (~3:2,
- * rounded) on a dark surface, a tag-icon metadata row, an oversized
- * extrabold headline, a muted description, a hairline divider, and a footer
- * brand row (initials avatar, repo slug, host) with a filled circular arrow
- * action. Sibling de-emphasis and the neon glow stay CSS-only in the
- * `.work-cards`/`.work-card` block in globals.css; the hover/focus
- * choreography (lift, zoom, arrow rotation) animates inner elements via
- * Framer Motion, so the transforms never conflict. The whole card is one
- * link; the arrow is decorative so assistive tech announces a single
- * actionable element.
+ * reconciled with the reference design: a full-bleed visual (16:9, top
+ * corners rounded to the card's radius, flush to the card edges — no
+ * card padding, exactly like the offer-card reference), an oversized
+ * extrabold headline, a muted description, and the project's stack as
+ * outlined tag pills directly under the copy. The text block carries its
+ * own inset (px-6) since the root no longer pads.
+ *
+ * The card *is* the call to action: the whole surface is one link to the
+ * project (live URL when present, otherwise the source repo), so there is
+ * no footer brand row, no circular arrow button, and no URL/host text to
+ * tab through — the hover lift plus the CSS neon glow are the affordance.
+ * Dropping that footer also makes the card much shorter than the earlier
+ * avatar/slug/host version: the copy block ends after the pill row and the
+ * trailing padding closes the card.
+ *
+ * Uniform sizing: the slide is a flex container, the root stretches to the
+ * track's tallest card, and the link/content grow with flex-auto (auto
+ * bases keep intrinsic heights honest) so every card in the carousel
+ * shares one exact width and height. A card with shorter copy keeps its
+ * leftover height below the pills, where no divider or footer reveals the
+ * difference.
+ *
+ * The neon glow stays CSS-only in the `.work-card` block in globals.css;
+ * the sibling de-emphasis retired with the carousel. The hover/focus
+ * choreography (lift and visual zoom) animates inner elements via Framer
+ * Motion, so the transforms never conflict. The root is a plain div so it
+ * can live inside a carousel slide without list-item semantics;
+ * `reveal={false}` opts out of the scroll reveal for horizontal-track
+ * usage.
  */
 export default function ProjectCard({
   project,
   revealDelay = 0,
+  reveal = true,
 }: {
   project: Project;
   revealDelay?: number;
+  /** Set false inside the Work carousel: slides sit in a horizontal track,
+   *  so per-card scroll reveals would fire mid-swipe. Default true keeps
+   *  the staggered standalone usage unchanged. */
+  reveal?: boolean;
 }) {
-  /* Reduced-motion users keep the static card: no lift, zoom, or rotation.
-   * The CSS sibling de-emphasis is separately gated in globals.css. */
+  /* Reduced-motion users keep the static card: no lift and no zoom.
+   * The CSS neon glow is separately gated in globals.css. */
   const reduceMotion = useReducedMotion();
   const activeState = reduceMotion ? undefined : "active";
-  const source = parseSource(project.sourceUrl);
+  const link = (
+    <motion.a
+      href={project.liveUrl ?? project.sourceUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      initial="rest"
+      animate="rest"
+      whileHover={activeState}
+      whileFocus={activeState}
+      variants={liftVariants}
+      transition={motionTransition}
+      className="flex flex-auto flex-col rounded-3xl focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-surface focus-visible:outline-none"
+    >
+      <div
+        role="img"
+        aria-label={project.thumbnailLabel}
+        className="relative aspect-video w-full overflow-hidden rounded-t-3xl bg-background"
+      >
+        <motion.div
+          variants={visualVariants}
+          transition={motionTransition}
+          className="work-card-visual flex h-full w-full items-center justify-center"
+        >
+          <span
+            aria-hidden="true"
+            className="font-display text-5xl font-bold text-muted"
+          >
+            {project.thumbnailInitials}
+          </span>
+        </motion.div>
+        {project.placeholder ? (
+          <span className="absolute top-3 left-3">
+            <SampleBadge />
+          </span>
+        ) : null}
+      </div>
+      <div className="flex flex-auto flex-col px-6 pt-5 pb-5">
+        <h3 className="font-display text-2xl font-extrabold leading-tight tracking-tight text-foreground">
+          {project.name}
+        </h3>
+        <p className="mt-2 text-sm leading-relaxed text-muted">
+          {project.description}
+        </p>
+        {/* Stack as pills: the list sits directly under the copy — no
+         * icon-led metadata row above the headline, no divider, no
+         * footer row. Wraps so multi-tag projects still read cleanly. */}
+        <ul className="mt-4 flex flex-wrap gap-2">
+          {project.tags.map((tag) => (
+            <li key={tag} className={pillClass}>
+              {tag}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </motion.a>
+  );
 
   return (
-    <li className="work-card rounded-3xl border border-line bg-surface p-3.5">
-      <Reveal delay={revealDelay}>
-        <motion.a
-          href={project.liveUrl ?? "about:blank"}
-          target="_blank"
-          rel="noopener noreferrer"
-          initial="rest"
-          animate="rest"
-          whileHover={activeState}
-          whileFocus={activeState}
-          variants={liftVariants}
-          transition={motionTransition}
-          className="block rounded-2xl focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-surface focus-visible:outline-none"
-        >
-          <div
-            role="img"
-            aria-label={project.thumbnailLabel}
-            className="relative aspect-3/2 w-full overflow-hidden rounded-2xl bg-background"
-          >
-            <motion.div
-              variants={visualVariants}
-              transition={motionTransition}
-              className="work-card-visual flex h-full w-full items-center justify-center"
-            >
-              <span
-                aria-hidden="true"
-                className="font-display text-5xl font-bold text-muted"
-              >
-                {project.thumbnailInitials}
-              </span>
-            </motion.div>
-            {project.placeholder ? (
-              <span className="absolute top-3 left-3">
-                <SampleBadge />
-              </span>
-            ) : null}
-          </div>
-          <div className="px-4 pt-6 pb-2">
-            <p className="flex items-center gap-2 text-sm font-medium text-muted">
-              <Tag aria-hidden="true" className="h-4 w-4" strokeWidth={1.75} />
-              {project.tags.join(" · ")}
-            </p>
-            <h3 className="mt-3 font-display text-2xl font-extrabold leading-tight tracking-tight text-foreground">
-              {project.name}
-            </h3>
-            <p className="mt-2 text-sm leading-relaxed text-muted">
-              {project.description}
-            </p>
-            <div className="mt-5 flex items-center gap-3 border-t border-line pt-4">
-              <span
-                aria-hidden="true"
-                className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-line bg-background font-display text-xs font-bold text-foreground"
-              >
-                {project.thumbnailInitials}
-              </span>
-              {source?.slug ? (
-                <p className="min-w-0 flex-1">
-                  <span className="block truncate text-sm font-semibold text-foreground">
-                    {source.slug}
-                  </span>
-                  <span className="block truncate text-xs text-muted">
-                    {source.host}
-                  </span>
-                </p>
-              ) : null}
-              <motion.span
-                aria-hidden="true"
-                variants={arrowVariants}
-                transition={motionTransition}
-                className="work-card-arrow ml-auto flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-line text-foreground"
-              >
-                <ArrowRight className="h-4 w-4" strokeWidth={1.75} />
-              </motion.span>
-            </div>
-          </div>
-        </motion.a>
-      </Reveal>
-    </li>
+    /* Plain div root: in the carousel the slide wrapper (role="group",
+     * aria-roledescription="slide") provides the semantics, and the old
+     * <ul>/<li> grid is gone — an <li> outside a list would be invalid. */
+    /* w-full + min-w-0: as the slide's flex item the card must take exactly
+     * the slide's content width — the implicit min-width:auto floor would
+     * otherwise let a long unbreakable token (a project name or a stack
+     * tag) widen its card past its siblings on narrow viewports. */
+    <div className="work-card flex min-w-0 w-full flex-col rounded-3xl border border-line bg-surface">
+      {reveal ? <Reveal delay={revealDelay}>{link}</Reveal> : link}
+    </div>
   );
 }
