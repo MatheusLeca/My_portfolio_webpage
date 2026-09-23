@@ -1,23 +1,22 @@
 import Image from "next/image";
 import Reveal from "@/components/Reveal";
+import SectionShell from "@/components/SectionShell";
 import { siteContent } from "@/lib/content";
 
 export default function Experience() {
   const { experience } = siteContent;
 
   return (
-    <section id="experience" aria-labelledby="experience-heading" className="scroll-mt-16">
-      <div className="mx-auto w-full max-w-6xl px-4 py-20 sm:px-6 md:py-28">
-        <p className="text-[11px] font-bold tracking-[0.3em] text-muted">
-          {experience.eyebrow}
-        </p>
-        <h2
-          id="experience-heading"
-          className="font-display mt-4 text-4xl font-bold tracking-tight text-foreground sm:text-5xl"
-        >
-          {experience.heading}
-        </h2>
-        <div className="mt-14 space-y-16">
+    <SectionShell id="experience" labelledBy="experience-heading">
+        <Reveal>
+          <h2
+            id="experience-heading"
+            className="font-display text-4xl font-bold tracking-tight text-foreground sm:text-5xl"
+          >
+            {experience.heading}
+          </h2>
+        </Reveal>
+        <div className="space-y-16">
           {experience.companies.map((company) => {
             // Widened so the monogram fallback stays valid for future
             // companies without a logo file.
@@ -82,20 +81,12 @@ export default function Experience() {
                       <p className="mt-1 text-[11px] font-medium tracking-[0.14em] text-muted uppercase">
                         {role.duration}
                       </p>
-                      <ul
-                        role="list"
+                      <p
                         aria-label={`${role.title} at ${company.name} technologies`}
-                        className="mt-4 flex flex-wrap gap-2"
+                        className="mt-4 text-sm leading-relaxed text-muted"
                       >
-                        {role.tags.map((tag) => (
-                          <li
-                            key={tag}
-                            className="rounded-full border border-line px-3 py-1 text-[11px] font-medium tracking-wide text-muted"
-                          >
-                            {tag}
-                          </li>
-                        ))}
-                      </ul>
+                        {role.tags.join(" · ")}
+                      </p>
                       <ul role="list" className="mt-4 list-disc space-y-2 pl-5 text-[15px] leading-relaxed text-muted">
                         {role.bullets.map((bullet) => (
                           <li key={bullet}>{bullet}</li>
@@ -110,7 +101,6 @@ export default function Experience() {
             );
           })}
         </div>
-      </div>
-    </section>
+    </SectionShell>
   );
 }

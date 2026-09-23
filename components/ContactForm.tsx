@@ -145,7 +145,7 @@ export default function ContactForm() {
         const maxLength =
           CONTACT_LIMITS[field.key as keyof typeof CONTACT_LIMITS];
         return (
-          <div key={field.key} className="mb-5">
+          <div key={field.key} className="mb-4">
             <label
               htmlFor={id}
               className="mb-2 block text-[11px] font-bold tracking-[0.2em] text-muted uppercase"
@@ -156,7 +156,7 @@ export default function ContactForm() {
               <textarea
                 id={id}
                 name={field.key}
-                rows={5}
+                rows={4}
                 maxLength={maxLength}
                 required
                 aria-invalid={Boolean(errors[field.key])}

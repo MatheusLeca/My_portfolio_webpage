@@ -1,13 +1,13 @@
 import Reveal from "@/components/Reveal";
 import SampleBadge from "@/components/SampleBadge";
+import SectionShell from "@/components/SectionShell";
 import { siteContent } from "@/lib/content";
 
 export default function Work() {
   const { work } = siteContent;
 
   return (
-    <section id="work" aria-labelledby="work-heading" className="scroll-mt-16">
-      <div className="mx-auto w-full max-w-6xl px-4 py-20 sm:px-6 md:py-28">
+    <SectionShell id="work" labelledBy="work-heading">
         <Reveal>
           <h2
             id="work-heading"
@@ -21,7 +21,7 @@ export default function Work() {
           // Three across on desktop while the list is short; the staggered
           // offset from the reference can return once a fourth project
           // fills out the second row.
-          className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3"
+          className="grid gap-6 md:grid-cols-2 lg:grid-cols-3"
         >
           {work.projects.map((project, projectIndex) => (
             <li
@@ -68,7 +68,6 @@ export default function Work() {
             </li>
           ))}
         </ul>
-      </div>
-    </section>
+    </SectionShell>
   );
 }

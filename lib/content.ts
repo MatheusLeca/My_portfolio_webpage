@@ -53,7 +53,6 @@ export const siteContent = {
     portraitInitials: "ML",
   },
   skills: {
-    eyebrow: "EXPERTISE",
     heading: "Core competencies.",
     groups: [
       {
@@ -84,7 +83,6 @@ export const siteContent = {
     ],
   },
   experience: {
-    eyebrow: "EXPERIENCE",
     heading: "Career timeline.",
     companies: [
       {

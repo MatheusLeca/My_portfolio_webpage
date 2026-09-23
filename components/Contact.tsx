@@ -1,18 +1,20 @@
 import ContactForm from "@/components/ContactForm";
 import Reveal from "@/components/Reveal";
+import SectionShell from "@/components/SectionShell";
 import { siteContent } from "@/lib/content";
 
 export default function Contact() {
   const { contact } = siteContent;
 
   return (
-    <section
+    <SectionShell
       id="contact"
-      aria-labelledby="contact-heading"
-      className="flex min-h-[calc(100svh-4rem)] scroll-mt-16 flex-col justify-center"
+      labelledBy="contact-heading"
+      align="start"
+      layout="split"
+      spacing="compact"
     >
-      <div className="mx-auto grid w-full max-w-6xl gap-12 px-4 py-20 sm:px-6 md:grid-cols-2 md:items-start md:py-28">
-        <Reveal>
+        <Reveal className="md:sticky md:top-24 md:self-start">
           <h2
             id="contact-heading"
             className="font-display text-5xl leading-[1.02] font-bold tracking-tight uppercase sm:text-6xl"
@@ -43,11 +45,10 @@ export default function Contact() {
         </Reveal>
         <Reveal
           delay={90}
-          className="rounded-2xl border border-line bg-surface p-6 sm:p-8"
+          className="rounded-2xl border border-line bg-surface p-5 sm:p-6 lg:p-7"
         >
           <ContactForm />
         </Reveal>
-      </div>
-    </section>
+    </SectionShell>
   );
 }

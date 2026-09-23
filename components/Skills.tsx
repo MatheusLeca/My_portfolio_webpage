@@ -1,71 +1,40 @@
 import Reveal from "@/components/Reveal";
+import SectionShell from "@/components/SectionShell";
 import { siteContent } from "@/lib/content";
 
 export default function Skills() {
   const { skills } = siteContent;
 
   return (
-    <section
-      id="expertise"
-      aria-labelledby="skills-heading"
-      className="scroll-mt-16"
-    >
-      <div className="mx-auto w-full max-w-6xl px-4 py-20 sm:px-6 md:py-28">
-        <Reveal className="mx-auto max-w-2xl text-center">
-          <p className="text-[11px] font-bold tracking-[0.3em] text-muted">
-            {skills.eyebrow}
-          </p>
+    <SectionShell id="expertise" labelledBy="skills-heading">
+        <Reveal>
           <h2
             id="skills-heading"
-            className="font-display mt-4 text-4xl font-bold tracking-tight text-foreground sm:text-5xl"
+            className="font-display text-4xl font-bold tracking-tight text-foreground sm:text-5xl"
           >
             {skills.heading}
           </h2>
         </Reveal>
-        <ul
-          role="list"
-          // With five groups the last card would orphan: it spans the row on
-          // small screens and centers on large ones. Revisit when a sixth
-          // group lands (then the plain grid is balanced again).
-          className="mt-14 grid gap-6 sm:grid-cols-2 sm:[&>li:last-child]:col-span-2 lg:grid-cols-3 lg:[&>li:last-child]:col-span-1 lg:[&>li:last-child]:col-start-2"
-        >
-          {skills.groups.map((group, index) => (
-            <li
+        <dl className="divide-y divide-line border-y border-line">
+          {skills.groups.map((group) => (
+            <div
               key={group.title}
-              className="rounded-2xl border border-line bg-surface p-7"
+              className="grid gap-2 py-3 sm:grid-cols-[180px_1fr] sm:gap-6"
             >
-              <Reveal delay={Math.min(index, 4) * 70}>
-                <p
-                  aria-hidden="true"
-                  className="font-display text-sm font-bold tracking-[0.2em] text-mint"
-                >
-                  {String(index + 1).padStart(2, "0")}
+              <dt className="text-sm font-semibold text-foreground">
+                {group.title}
+              </dt>
+              <dd>
+                <p className="text-[15px] leading-relaxed text-muted">
+                  {group.tags.join(" · ")}
                 </p>
-                <h3 className="font-display mt-3 text-xl font-bold text-foreground">
-                  {group.title}
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted">
+                <p className="mt-1 text-[13px] leading-relaxed text-muted">
                   {group.description}
                 </p>
-                <ul
-                  role="list"
-                  aria-label={`${group.title} technologies`}
-                  className="mt-5 flex flex-wrap gap-2"
-                >
-                  {group.tags.map((tag) => (
-                    <li
-                      key={tag}
-                      className="rounded-full border border-line px-3 py-1 text-[11px] font-medium tracking-wide text-muted"
-                    >
-                      {tag}
-                    </li>
-                  ))}
-                </ul>
-              </Reveal>
-            </li>
+              </dd>
+            </div>
           ))}
-        </ul>
-      </div>
-    </section>
+        </dl>
+    </SectionShell>
   );
 }
