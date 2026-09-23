@@ -5,17 +5,25 @@ import { siteContent } from "@/lib/content";
 
 export default function Hero() {
   const { hero, resume } = siteContent;
+  // Raw <a> hrefs are not basePath-prefixed by Next (unlike next/image);
+  // prepend it here so the resume link resolves on the sub-path static host.
+  const resumeHref = resume.href
+    ? `${process.env.NEXT_BASE_PATH ?? ""}${resume.href}`
+    : null;
 
   return (
     <section
       aria-labelledby="hero-heading"
       className="relative flex min-h-[calc(100svh-4rem)] flex-col justify-center overflow-hidden lg:justify-start"
     >
-      {/* Desktop: top-aligned like SectionShell sections so the title lands at
-          the same 144px (64px nav + 80px pt) as every other section when
-          navigating. Mobile keeps the original centered layout. */}
-      <div className="mx-auto grid w-full max-w-6xl gap-12 px-4 pt-16 pb-20 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:pt-20 lg:pb-28">
-        <Reveal className="lg:self-start">
+      {/* Desktop: the grid stretches to the full section height (lg:flex-1 +
+          lg:grid-rows-[1fr]) so the photo stays vertically centered exactly as
+          in the original justify-center layout, while the text pins to the
+          top with the title at the same 144px (64px nav + 96px pt - 16px mt)
+          as every other section when navigating. Mobile keeps the original
+          centered layout. */}
+      <div className="mx-auto grid w-full max-w-6xl gap-12 px-4 pt-16 pb-20 sm:px-6 lg:flex-1 lg:grid-cols-[1.1fr_0.9fr] lg:grid-rows-[1fr] lg:items-center lg:pt-24 lg:pb-28">
+        <Reveal className="lg:self-start lg:-mt-4">
           <h1
             id="hero-heading"
             // Fluid size: fits the longest line inside one column at every
@@ -43,9 +51,9 @@ export default function Hero() {
               {hero.primaryCta.label}
               <span aria-hidden="true">→</span>
             </a>
-            {resume.href ? (
+            {resumeHref ? (
               <a
-                href={resume.href}
+                href={resumeHref}
                 download
                 className="inline-flex items-center rounded-full bg-surface px-6 py-3 text-[11px] font-bold tracking-[0.2em] text-foreground uppercase transition-colors hover:border hover:border-primary hover:text-primary focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background focus-visible:outline-none"
               >
@@ -62,10 +70,13 @@ export default function Hero() {
             )}
           </div>
         </Reveal>
-        {/* Photo position lock: the photo must NOT move. With the section now
-            top-aligned at lg, `lg:mt-[90px]` restores the photo to its exact
-            previous top offset (236px from viewport top at 1440x900). */}
-        <Reveal delay={90} className="flex justify-center lg:mt-[90px] lg:self-start lg:justify-end">
+        {/* Photo position lock: photo pins to the TOP of the content row
+            (`lg:self-start`) and is pulled UP 48px (`lg:-mt-12`) so its top sits
+            at 96 - 48 = 48px below the section top — minimal space above, still
+            constant at every viewport height. Uses the same rule + offset as
+            About, so both photo tops stay identical (delta = 0). Text untouched
+            (title stays at 96 - 16 = 80px). */}
+        <Reveal delay={90} className="flex justify-center lg:-mt-12 lg:self-start lg:justify-end">
           <div className="relative aspect-[4/5] w-full max-w-sm overflow-hidden rounded-2xl border border-line bg-surface">
             {hero.portraitSrc ? (
               <Image

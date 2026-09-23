@@ -229,10 +229,10 @@ export const siteContent = {
   },
   resume: {
     label: "Resume",
-    // Set href to the resume asset once the owner provides the file;
-    // null renders the visibly-marked placeholder state.
-    href: null,
-    placeholder: true,
+    // PDF asset in public/files; Hero prefixes NEXT_BASE_PATH at build
+    // time so the link also works on the sub-path static fallback host.
+    href: "/files/Matheus_Leca_Resume_Java_Engineer.pdf",
+    placeholder: false,
   },
   contact: {
     headingLines: ["Let's", "Work", "Together"],
