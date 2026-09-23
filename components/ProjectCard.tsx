@@ -1,9 +1,33 @@
+"use client";
+
+import { motion, useReducedMotion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import Reveal from "@/components/Reveal";
 import SampleBadge from "@/components/SampleBadge";
 import type { SiteContent } from "@/lib/content";
 
 type Project = SiteContent["work"]["projects"][number];
+
+/* Offer-card choreography (#29): short ease-out transitions on transform
+ * only — compositor-friendly, no layout shift. Variants propagate from the
+ * link to the visual and arrow children; "active" is shared by hover and
+ * keyboard focus so pointer and keyboard users get identical feedback. */
+const motionTransition = { duration: 0.25, ease: "easeOut" } as const;
+
+const liftVariants = {
+  rest: { y: 0 },
+  active: { y: -4 },
+};
+
+const visualVariants = {
+  rest: { scale: 1 },
+  active: { scale: 1.05 },
+};
+
+const arrowVariants = {
+  rest: { rotate: 0 },
+  active: { rotate: 45 },
+};
 
 /**
  * Single Selected-work card in the Offer-card visual language (#29): an
@@ -24,14 +48,24 @@ export default function ProjectCard({
   revealDelay?: number;
 }) {
   const [primaryTag, ...restTags] = project.tags;
+  /* Reduced-motion users keep the static card: no lift, zoom, or rotation.
+   * The CSS sibling de-emphasis is separately gated in globals.css. */
+  const reduceMotion = useReducedMotion();
+  const activeState = reduceMotion ? undefined : "active";
 
   return (
     <li className="work-card rounded-2xl border border-line bg-surface p-5">
       <Reveal delay={revealDelay}>
-        <a
+        <motion.a
           href={project.liveUrl ?? "about:blank"}
           target="_blank"
           rel="noopener noreferrer"
+          initial="rest"
+          animate="rest"
+          whileHover={activeState}
+          whileFocus={activeState}
+          variants={liftVariants}
+          transition={motionTransition}
           className="block rounded-xl focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-surface focus-visible:outline-none"
         >
           <div
@@ -39,14 +73,18 @@ export default function ProjectCard({
             aria-label={project.thumbnailLabel}
             className="relative aspect-video w-full overflow-hidden rounded-xl border border-line bg-background"
           >
-            <div className="work-card-visual flex h-full w-full items-center justify-center">
+            <motion.div
+              variants={visualVariants}
+              transition={motionTransition}
+              className="work-card-visual flex h-full w-full items-center justify-center"
+            >
               <span
                 aria-hidden="true"
                 className="font-display text-5xl font-bold text-muted"
               >
                 {project.thumbnailInitials}
               </span>
-            </div>
+            </motion.div>
             {project.placeholder ? (
               <span className="absolute top-3 left-3">
                 <SampleBadge />
@@ -69,15 +107,17 @@ export default function ProjectCard({
                   {restTags.join(" · ")}
                 </p>
               ) : null}
-              <span
+              <motion.span
                 aria-hidden="true"
+                variants={arrowVariants}
+                transition={motionTransition}
                 className="work-card-arrow ml-auto flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-line text-muted"
               >
                 <ArrowUpRight className="h-4 w-4" strokeWidth={1.75} />
-              </span>
+              </motion.span>
             </div>
           </div>
-        </a>
+        </motion.a>
       </Reveal>
     </li>
   );
