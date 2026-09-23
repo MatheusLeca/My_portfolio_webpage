@@ -10,10 +10,13 @@ export default function About() {
     <section
       id="about"
       aria-labelledby="about-heading"
-      className="flex min-h-[calc(100svh-4rem)] scroll-mt-16 flex-col justify-center"
+      className="flex min-h-[calc(100svh-4rem)] scroll-mt-16 flex-col justify-center lg:justify-start"
     >
-      <div className="mx-auto grid w-full max-w-6xl gap-12 px-4 py-20 sm:px-6 md:grid-cols-2 md:items-center md:py-28">
-        <Reveal>
+      {/* Desktop: top-aligned so the heading lands at the same 144px (64px
+          scroll-mt + 80px pt) as every other section when navigating.
+          Mobile/tablet keep the original centered layout. */}
+      <div className="mx-auto grid w-full max-w-6xl gap-12 px-4 py-20 sm:px-6 md:grid-cols-2 md:items-center md:py-28 lg:pt-20">
+        <Reveal className="lg:self-start">
           <h2
             id="about-heading"
             className="font-display text-4xl leading-tight font-bold tracking-tight text-balance text-foreground sm:text-5xl"
@@ -41,13 +44,11 @@ export default function About() {
             ))}
           </dl>
         </Reveal>
-        {/* Photo-only alignment: `md:self-start` pins the photo to the top of
-            the grid row (aligned with the text block top) instead of centering
-            it, and `lg:-mt-9` closes the residual ~36px offset vs the Hero
-            photo top (Hero splits to two columns at lg). The text keeps
-            `md:items-center` within the row, so its position is unchanged —
-            only the photo moves. */}
-        <Reveal delay={90} className="flex justify-center md:self-start md:justify-end lg:-mt-9">
+        {/* Photo position lock: the photo must NOT move. With the section now
+            top-aligned at lg, `lg:mt-[80px]` restores the photo to its exact
+            previous top offset (225px from viewport top at 1440x900). Below
+            lg the layout is untouched. */}
+        <Reveal delay={90} className="flex justify-center md:self-start md:justify-end lg:mt-[80px]">
           <div className="relative w-full max-w-sm">
             <div
               aria-hidden="true"

@@ -9,10 +9,13 @@ export default function Hero() {
   return (
     <section
       aria-labelledby="hero-heading"
-      className="relative flex min-h-[calc(100svh-4rem)] flex-col justify-center overflow-hidden"
+      className="relative flex min-h-[calc(100svh-4rem)] flex-col justify-center overflow-hidden lg:justify-start"
     >
-      <div className="mx-auto grid w-full max-w-6xl gap-12 px-4 pt-16 pb-20 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:pt-24 lg:pb-28">
-        <Reveal>
+      {/* Desktop: top-aligned like SectionShell sections so the title lands at
+          the same 144px (64px nav + 80px pt) as every other section when
+          navigating. Mobile keeps the original centered layout. */}
+      <div className="mx-auto grid w-full max-w-6xl gap-12 px-4 pt-16 pb-20 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:pt-20 lg:pb-28">
+        <Reveal className="lg:self-start">
           <h1
             id="hero-heading"
             // Fluid size: fits the longest line inside one column at every
@@ -59,11 +62,10 @@ export default function Hero() {
             )}
           </div>
         </Reveal>
-        {/* Photo-only alignment: `lg:self-start` pins the photo to the top of
-            the grid row (aligned with the text block top) instead of centering
-            it. The text keeps `lg:items-center` within the row, so its position
-            is unchanged — only the photo moves. */}
-        <Reveal delay={90} className="flex justify-center lg:self-start lg:justify-end">
+        {/* Photo position lock: the photo must NOT move. With the section now
+            top-aligned at lg, `lg:mt-[90px]` restores the photo to its exact
+            previous top offset (236px from viewport top at 1440x900). */}
+        <Reveal delay={90} className="flex justify-center lg:mt-[90px] lg:self-start lg:justify-end">
           <div className="relative aspect-[4/5] w-full max-w-sm overflow-hidden rounded-2xl border border-line bg-surface">
             {hero.portraitSrc ? (
               <Image
