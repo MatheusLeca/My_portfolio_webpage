@@ -23,7 +23,6 @@ export const siteContent = {
     socials: { label: "SOCIALS", href: "#footer" },
   },
   hero: {
-    eyebrow: "SOFTWARE ENGINEER",
     titleLines: [{ text: "MATHEUS LECA", accent: false }, { text: "& CODE THAT SHIPS", accent: true }],
     summary:
       "Software Engineer and MSc student in Electrical and Computer Engineering at the University of Calgary.",
@@ -34,7 +33,6 @@ export const siteContent = {
     portraitInitials: "ML",
   },
   about: {
-    eyebrow: "ABOUT",
     heading: "The engineer behind the code.",
     paragraphs: [
       "Software Engineer and Computer Scientist passionate about tackling complex problems with technology.",

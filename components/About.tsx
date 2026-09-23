@@ -14,12 +14,9 @@ export default function About() {
     >
       <div className="mx-auto grid w-full max-w-6xl gap-12 px-4 py-20 sm:px-6 md:grid-cols-2 md:items-center md:py-28">
         <Reveal>
-          <p className="text-[11px] font-bold tracking-[0.3em] text-muted">
-            {about.eyebrow}
-          </p>
           <h2
             id="about-heading"
-            className="font-display mt-4 text-4xl leading-tight font-bold tracking-tight text-balance text-foreground sm:text-5xl"
+            className="font-display text-4xl leading-tight font-bold tracking-tight text-balance text-foreground sm:text-5xl"
           >
             {about.heading}
           </h2>
@@ -46,11 +43,11 @@ export default function About() {
         </Reveal>
         {/* Photo-only alignment: `md:self-start` pins the photo to the top of
             the grid row (aligned with the text block top) instead of centering
-            it, and `lg:-mt-5` closes the residual ~20px offset vs the Hero
+            it, and `lg:-mt-9` closes the residual ~36px offset vs the Hero
             photo top (Hero splits to two columns at lg). The text keeps
             `md:items-center` within the row, so its position is unchanged —
             only the photo moves. */}
-        <Reveal delay={90} className="flex justify-center md:self-start md:justify-end lg:-mt-5">
+        <Reveal delay={90} className="flex justify-center md:self-start md:justify-end lg:-mt-9">
           <div className="relative w-full max-w-sm">
             <div
               aria-hidden="true"

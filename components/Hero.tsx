@@ -13,14 +13,11 @@ export default function Hero() {
     >
       <div className="mx-auto grid w-full max-w-6xl gap-12 px-4 pt-16 pb-20 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:pt-24 lg:pb-28">
         <Reveal>
-          <p className="text-[11px] font-bold tracking-[0.3em] text-muted">
-            {hero.eyebrow}
-          </p>
           <h1
             id="hero-heading"
             // Fluid size: fits the longest line inside one column at every
             // viewport instead of overflowing small screens.
-            className="font-display mt-4 text-[clamp(1.7rem,7.5vw,3.25rem)] leading-[1.02] font-bold tracking-tight text-balance text-foreground uppercase"
+            className="font-display text-[clamp(1.7rem,7.5vw,3.25rem)] leading-[1.02] font-bold tracking-tight text-balance text-foreground uppercase"
           >
             {hero.titleLines.map((line) => (
               <span key={line.text} className="block">
