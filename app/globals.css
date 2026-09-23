@@ -197,3 +197,42 @@ html {
     transition: none;
   }
 }
+
+/* Selected Work hover-reveal focus: when one card is hovered or keyboard
+   focused, its siblings shrink, fade, and blur slightly while the active
+   card scales up and gains a subtle neon glow in --primary (mint on dark,
+   teal on light). CSS-only so pointer and keyboard stay in parity and touch
+   devices (no hover) simply keep the idle state. Transitions use transform,
+   opacity, filter, and box-shadow only: compositor-friendly, no layout
+   shift. The whole effect is gated behind no-preference; reduced-motion
+   users keep the static grid plus the link's focus-visible ring. */
+@media (prefers-reduced-motion: no-preference) {
+  .work-card {
+    transition:
+      transform 0.3s ease-out,
+      opacity 0.3s ease-out,
+      filter 0.3s ease-out,
+      box-shadow 0.3s ease-out,
+      border-color 0.3s ease-out;
+  }
+
+  .work-cards:hover .work-card:not(:hover),
+  .work-cards:focus-within .work-card:not(:focus-within) {
+    transform: scale(0.97);
+    opacity: 0.55;
+    filter: blur(1.5px);
+  }
+
+  .work-card:hover,
+  .work-card:focus-within {
+    transform: scale(1.03);
+    border-color: var(--primary);
+    /* Neon treatment: tight 1px edge ring plus two restrained mint shadows.
+       Edge-weighted, not a wide halo; alpha stays under 55% so card text
+       and branding are untouched. */
+    box-shadow:
+      0 0 0 1px color-mix(in srgb, var(--primary) 55%, transparent),
+      0 6px 24px -6px color-mix(in srgb, var(--primary) 40%, transparent),
+      0 0 40px -14px color-mix(in srgb, var(--primary) 30%, transparent);
+  }
+}
