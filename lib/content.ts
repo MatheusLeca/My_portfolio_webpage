@@ -238,8 +238,8 @@ export const siteContent = {
     headingLines: ["Let's", "Work", "Together"],
     subcopy:
       "Have a role or project in mind? Send a message using the form or reach out directly by email.",
-    // Provisional recipient from the owner's public profile.
-    email: "matheusmarinho.dev@gmail.com",
+    // Owner's public contact address.
+    email: "email@matheusleca.dev",
     form: {
       title: "Contact form",
       placeholders: {
