@@ -1,3 +1,4 @@
+import { ArrowUpRight } from "lucide-react";
 import Reveal from "@/components/Reveal";
 import SampleBadge from "@/components/SampleBadge";
 import type { SiteContent } from "@/lib/content";
@@ -5,10 +6,15 @@ import type { SiteContent } from "@/lib/content";
 type Project = SiteContent["work"]["projects"][number];
 
 /**
- * Single Selected-work card. Visual focus behavior (sibling dim/blur, active
- * scale-up, neon glow) lives in the `.work-cards`/`.work-card` block in
- * globals.css so the interaction stays CSS-only: no client JS, keyboard
- * focus-within parity, and no hover dependency on touch devices.
+ * Single Selected-work card in the Offer-card visual language (#29): an
+ * upper visual area in an overflow-hidden rounded frame, then a structured
+ * content area (tag pill, name, description, hairline divider, metadata row
+ * with a circular arrow action). Sibling de-emphasis and the neon glow stay
+ * CSS-only in the `.work-cards`/`.work-card` block in globals.css; the
+ * hover/focus choreography (lift, zoom, arrow rotation) animates inner
+ * elements via Framer Motion, so the transforms never conflict. The whole
+ * card is one link; the arrow is decorative so assistive tech announces a
+ * single actionable element.
  */
 export default function ProjectCard({
   project,
@@ -17,6 +23,8 @@ export default function ProjectCard({
   project: Project;
   revealDelay?: number;
 }) {
+  const [primaryTag, ...restTags] = project.tags;
+
   return (
     <li className="work-card rounded-2xl border border-line bg-surface p-5">
       <Reveal delay={revealDelay}>
@@ -29,14 +37,16 @@ export default function ProjectCard({
           <div
             role="img"
             aria-label={project.thumbnailLabel}
-            className="relative flex aspect-video w-full items-center justify-center rounded-xl border border-line bg-background"
+            className="relative aspect-video w-full overflow-hidden rounded-xl border border-line bg-background"
           >
-            <span
-              aria-hidden="true"
-              className="font-display text-5xl font-bold text-muted"
-            >
-              {project.thumbnailInitials}
-            </span>
+            <div className="work-card-visual flex h-full w-full items-center justify-center">
+              <span
+                aria-hidden="true"
+                className="font-display text-5xl font-bold text-muted"
+              >
+                {project.thumbnailInitials}
+              </span>
+            </div>
             {project.placeholder ? (
               <span className="absolute top-3 left-3">
                 <SampleBadge />
@@ -44,15 +54,28 @@ export default function ProjectCard({
             ) : null}
           </div>
           <div className="px-1 pt-5">
-            <h3 className="font-display text-lg font-bold text-foreground">
+            <p className="inline-block rounded-full border border-line px-2.5 py-0.5 text-[11px] font-medium tracking-[0.14em] text-muted uppercase">
+              {primaryTag}
+            </p>
+            <h3 className="mt-3 font-display text-lg font-bold text-foreground">
               {project.name}
             </h3>
             <p className="mt-1 text-sm leading-relaxed text-muted">
               {project.description}
             </p>
-            <p className="mt-3 text-[11px] font-medium tracking-[0.14em] text-muted uppercase">
-              {project.tags.join(" · ")}
-            </p>
+            <div className="mt-4 flex items-center justify-between gap-3 border-t border-line pt-4">
+              {restTags.length > 0 ? (
+                <p className="text-[11px] font-medium tracking-[0.14em] text-muted uppercase">
+                  {restTags.join(" · ")}
+                </p>
+              ) : null}
+              <span
+                aria-hidden="true"
+                className="work-card-arrow ml-auto flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-line text-muted"
+              >
+                <ArrowUpRight className="h-4 w-4" strokeWidth={1.75} />
+              </span>
+            </div>
           </div>
         </a>
       </Reveal>
