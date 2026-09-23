@@ -198,29 +198,22 @@ html {
   }
 }
 
-/* Selected Work hover-reveal focus: when one card is hovered or keyboard
-   focused, its siblings shrink, fade, and blur slightly while the active
-   card scales up and gains a subtle neon glow in --primary (mint on dark,
-   teal on light). CSS-only so pointer and keyboard stay in parity and touch
-   devices (no hover) simply keep the idle state. Transitions use transform,
-   opacity, filter, and box-shadow only: compositor-friendly, no layout
-   shift. The whole effect is gated behind no-preference; reduced-motion
-   users keep the static grid plus the link's focus-visible ring. */
+/* Selected Work card hover/focus: the active card scales up and gains a
+   subtle neon glow in --primary (mint on dark, teal on light). CSS-only so
+   pointer and keyboard stay in parity and touch devices (no hover) simply
+   keep the idle state. Transitions use transform, border-color, and
+   box-shadow only: compositor-friendly, no layout shift. The former
+   sibling de-emphasis (dim/blur of non-hovered cards) was retired with
+   the Embla carousel: hovering the track would dim slides that are only
+   partially visible at the viewport edge, which read as a rendering bug.
+   Still gated behind no-preference; reduced-motion users keep the static
+   card plus the link's focus-visible ring. */
 @media (prefers-reduced-motion: no-preference) {
   .work-card {
     transition:
       transform 0.3s ease-out,
-      opacity 0.3s ease-out,
-      filter 0.3s ease-out,
       box-shadow 0.3s ease-out,
       border-color 0.3s ease-out;
-  }
-
-  .work-cards:hover .work-card:not(:hover),
-  .work-cards:focus-within .work-card:not(:focus-within) {
-    transform: scale(0.97);
-    opacity: 0.55;
-    filter: blur(1.5px);
   }
 
   .work-card:hover,
