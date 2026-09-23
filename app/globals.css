@@ -137,6 +137,39 @@ body {
   color: var(--bg);
 }
 
+/* Themed vertical scrollbar: thin track over the page background with a
+   pill thumb in the Hire-me button color (--action). Hover/press deepens to
+   --action-strong to match the button hover. Firefox uses the two-value
+   scrollbar-color; Chromium/Safari use the webkit pseudo-elements. The
+   transparent track + bg-colored thumb border keeps the thumb floating
+   without reserving layout space. */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--action) transparent;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--action);
+  border: 2px solid var(--bg);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--action-strong);
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: var(--action-strong);
+}
+
 /* Scroll reveal: hidden until the observer flips data-reveal to visible.
    Delay comes from --reveal-delay for stagger. Reduced motion and no-JS
    (see layout noscript) render everything statically. */
