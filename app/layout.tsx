@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
 import AnimatedBackground from "@/components/AnimatedBackground";
+import FirebaseAnalytics from "@/components/FirebaseAnalytics";
 import ScrollProgressBar from "@/components/ScrollProgressBar";
 import "./globals.css";
 
@@ -93,6 +94,7 @@ export default function RootLayout({
       <body className="flex min-h-full flex-col font-sans">
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
         <ScrollProgressBar />
+        <FirebaseAnalytics />
         <AnimatedBackground />
         <noscript>
           <style>{`[data-reveal]{opacity:1!important;translate:none!important}`}</style>

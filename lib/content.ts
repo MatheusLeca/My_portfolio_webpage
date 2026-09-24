@@ -39,7 +39,7 @@ export const siteContent = {
     ],
     // Single hero CTA is the resume download (see `resume` below); the
     // outline "View Work" button was removed from the Hero.
-    portraitSrc: "/images/portrait.jpg",
+    portraitSrc: "/images/portrait-opt.jpg",
     portraitAlt: "Matheus Leca speaking into a microphone at a podium",
     portraitPlaceholderLabel: "Profile photo placeholder",
     portraitInitials: "ML",
@@ -78,7 +78,7 @@ export const siteContent = {
       { value: "08+", label: "Years experience", placeholder: true },
       { value: "120", label: "Projects shipped", placeholder: true },
     ],
-    portraitSrc: "/images/landing.jpeg",
+    portraitSrc: "/images/landing-opt.jpg",
     portraitAlt: "Matheus Leca outdoors wearing a winter jacket",
     portraitPlaceholderLabel: "Workspace photo placeholder",
     portraitInitials: "ML",
@@ -130,7 +130,7 @@ export const siteContent = {
       {
         name: "University of Calgary",
         initials: "UC",
-        logo: "/images/ucalgary.jpg",
+        logo: "/images/ucalgary-opt.jpg",
         location: "Calgary, CAN",
         roles: [
           {
@@ -161,7 +161,7 @@ export const siteContent = {
       {
         name: "LogAp I.T. Solutions",
         initials: "LA",
-        logo: "/images/logap.jpeg",
+        logo: "/images/logap-opt.jpg",
         logoFit: "cover",
         location: "BRA",
         roles: [
@@ -182,7 +182,7 @@ export const siteContent = {
       {
         name: "Reciprev",
         initials: "RE",
-        logo: "/images/reciprev.png",
+        logo: "/images/reciprev-opt.jpg",
         location: "BRA",
         roles: [
           {
@@ -201,7 +201,7 @@ export const siteContent = {
       {
         name: "Federal University of Pernambuco",
         initials: "UF",
-        logo: "/images/ufpe.jpg",
+        logo: "/images/ufpe-opt.jpg",
         location: "BRA",
         roles: [
           {
@@ -293,13 +293,12 @@ export const siteContent = {
         subject: "What is this about?",
         message: "Tell me about your role or project",
       },
-      submit: "Send message",
-      sending: "Sending…",
+      submit: "Send via email",
+      sending: "Opening email…",
       errorSummaryTitle: "Please fix the following before sending:",
       successTitle: "Message sent.",
-      successBody: "Thanks for reaching out — I will get back to you soon.",
+      successBody: "Your email app should have opened with the message ready to send. If not, reach out directly:",
       failureTitle: "Message not sent.",
-      failureBody: "Something went wrong while sending. Please try again or email directly:",
       mailtoFallback: "email me directly",
     },
   },

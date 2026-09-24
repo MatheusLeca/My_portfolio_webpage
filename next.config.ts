@@ -1,18 +1,15 @@
 import type { NextConfig } from "next";
 
-// Dual-deploy strategy:
-// - Default build targets the primary server-capable host (Vercel).
-// - `npm run build:static` (NEXT_STATIC_EXPORT=1) produces a fully static
-//   `out/` directory for the static-only fallback host (GitHub Pages).
-// - NEXT_BASE_PATH prefixes asset/route URLs when serving from a
-//   sub-path such as a project page (e.g. "/Landing-Page").
-const isStaticExport = process.env.NEXT_STATIC_EXPORT === "1";
+// Strict static export: Firebase Hosting serves files only, no Node server.
+// `output: "export"` minifies JS/CSS by default (SWC), splits _next/static
+// chunks, emits long-cache-hashed assets. `images.unoptimized` keeps
+// next/image on plain <img> (no optimizer server). NEXT_BASE_PATH prefixes
+// URLs when serving from a sub-path.
 const basePath = process.env.NEXT_BASE_PATH ?? "";
 
 const nextConfig: NextConfig = {
-  ...(isStaticExport
-    ? { output: "export" as const, images: { unoptimized: true } }
-    : {}),
+  output: "export",
+  images: { unoptimized: true },
   ...(basePath ? { basePath, assetPrefix: `${basePath}/` } : {}),
 };
 
