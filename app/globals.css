@@ -1,25 +1,26 @@
 @import "tailwindcss";
 
-/* Dark navy + mint theme is the default. The light theme follows the
-   visitor's system preference unless data-theme overrides it (theme toggle).
-   --primary serves text accents and links; --action serves filled-button
-   backgrounds, where --on-action (dark on mint, white on deep teal) holds
-   contrast that white-on-mint cannot. */
+/* Light theme is the default for every visitor (owner request, 2026-09).
+   The dark theme applies only via an explicit data-theme="dark" choice
+   (theme toggle, persisted in localStorage) — the OS preference is not
+   followed. --primary serves text accents and links; --action serves
+   filled-button backgrounds, where --on-action (dark on mint, white on
+   deep teal) holds contrast that white-on-mint cannot. */
 
 :root {
-  color-scheme: dark;
-  --bg: #0b1117;
-  --surface: #111a22;
-  --nav: #0b1117;
-  --fg: #e6edf3;
-  --muted: #8b9bab;
-  --line: #22303c;
-  --primary: #5eead4;
-  --primary-strong: #2dd4bf;
-  --action: #5eead4;
-  --action-strong: #2dd4bf;
-  --mint: #5eead4;
-  --on-action: #062a24;
+  color-scheme: light;
+  --bg: #fafaf9;
+  --surface: #ffffff;
+  --nav: #e8eef2;
+  --fg: #1a1a1e;
+  --muted: #4b5b6a;
+  --line: #d7e0e6;
+  --primary: #0e7490;
+  --primary-strong: #155e75;
+  --action: #0e7490;
+  --action-strong: #155e75;
+  --mint: #0e7490;
+  --on-action: #ffffff;
 }
 
 :root[data-theme="dark"] {
@@ -36,24 +37,6 @@
   --action-strong: #2dd4bf;
   --mint: #5eead4;
   --on-action: #062a24;
-}
-
-@media (prefers-color-scheme: light) {
-  :root:not([data-theme="dark"]) {
-    color-scheme: light;
-    --bg: #fafaf9;
-    --surface: #ffffff;
-    --nav: #e8eef2;
-    --fg: #1a1a1e;
-    --muted: #4b5b6a;
-    --line: #d7e0e6;
-    --primary: #0e7490;
-    --primary-strong: #155e75;
-    --action: #0e7490;
-    --action-strong: #155e75;
-    --mint: #0e7490;
-    --on-action: #ffffff;
-  }
 }
 
 :root[data-theme="light"] {

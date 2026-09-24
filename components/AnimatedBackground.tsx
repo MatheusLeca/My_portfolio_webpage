@@ -55,12 +55,11 @@ const THEMES = {
 } as const;
 
 function currentTheme(): keyof typeof THEMES {
-  if (typeof document === "undefined") return "dark";
+  if (typeof document === "undefined") return "light";
   const stored = document.documentElement.dataset.theme;
   if (stored === "light" || stored === "dark") return stored;
-  return window.matchMedia("(prefers-color-scheme: light)").matches
-    ? "light"
-    : "dark";
+  // Site default is light; the OS preference is not followed.
+  return "light";
 }
 
 function motionAllowed(): boolean {
@@ -189,16 +188,13 @@ export default function AnimatedBackground() {
       attributes: true,
       attributeFilter: ["data-theme"],
     });
-    const media = window.matchMedia("(prefers-color-scheme: light)");
     const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const onSystemChange = () => init();
-    media.addEventListener("change", onSystemChange);
-    motion.addEventListener("change", onSystemChange);
+    const onMotionChange = () => init();
+    motion.addEventListener("change", onMotionChange);
     return () => {
       cancelled = true;
       observer.disconnect();
-      media.removeEventListener("change", onSystemChange);
-      motion.removeEventListener("change", onSystemChange);
+      motion.removeEventListener("change", onMotionChange);
       effect?.destroy();
       delete (window as unknown as { THREE?: unknown }).THREE;
     };

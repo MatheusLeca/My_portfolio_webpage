@@ -48,47 +48,34 @@ function storedTheme(): Theme | null {
     const value = window.localStorage.getItem(STORAGE_KEY);
     return value === "light" || value === "dark" ? value : null;
   } catch {
-    // Private mode: no persistence, follow the system instead.
+    // Private mode: no persistence, fall back to the light default.
     return null;
   }
 }
 
-function systemTheme(): Theme {
-  return window.matchMedia("(prefers-color-scheme: light)").matches
-    ? "light"
-    : "dark";
-}
-
 function getThemeSnapshot(): Theme {
-  return storedTheme() ?? systemTheme();
+  // Site default is light (owner request, 2026-09); the OS preference is
+  // not followed — only an explicit stored choice changes the theme.
+  return storedTheme() ?? "light";
 }
 
 function subscribeToTheme(callback: () => void): () => void {
-  const media = window.matchMedia("(prefers-color-scheme: light)");
-  const onSystemChange = () => {
-    // Only system-driven state follows the OS; a stored choice wins.
-    if (!storedTheme()) callback();
-  };
   const onToggle = () => callback();
-  media.addEventListener("change", onSystemChange);
   window.addEventListener(THEME_CHANGE_EVENT, onToggle);
-  return () => {
-    media.removeEventListener("change", onSystemChange);
-    window.removeEventListener(THEME_CHANGE_EVENT, onToggle);
-  };
+  return () => window.removeEventListener(THEME_CHANGE_EVENT, onToggle);
 }
 
 /**
  * Toggles the data-theme attribute consumed by the token layers in
- * globals.css. Unset means "follow the operating system"; an explicit
- * choice persists across visits. State is read through an external store
- * (storage + OS preference) so no render-loop effects are needed.
+ * globals.css. Unset means the light site default; an explicit choice
+ * persists across visits. State is read through an external store
+ * (localStorage) so no render-loop effects are needed.
  */
 export default function ThemeToggle({ className = "" }: { className?: string }) {
   const theme = useSyncExternalStore(
     subscribeToTheme,
     getThemeSnapshot,
-    () => "dark" as Theme,
+    () => "light" as Theme,
   );
   const next: Theme = theme === "dark" ? "light" : "dark";
 

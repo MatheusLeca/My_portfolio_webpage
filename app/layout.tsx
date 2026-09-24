@@ -63,8 +63,8 @@ const personJsonLd = {
     name: "University of Calgary",
   },
   sameAs: [
-    "https://github.com/MatheusMarinhoLeca",
-    "https://www.linkedin.com/in/matheus-marinho-b47500204/",
+    "https://github.com/MatheusLeca",
+    "https://www.linkedin.com/in/matheus-leca/",
   ],
 };
 

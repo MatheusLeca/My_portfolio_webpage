@@ -230,7 +230,7 @@ export const siteContent = {
         description:
           "A convenient tool for accessing detailed Pokémon information without having to capture them.",
         tags: ["Python"],
-        sourceUrl: "https://github.com/MatheusMarinhoLeca/Easy_Pokedex",
+        sourceUrl: "https://github.com/MatheusLeca/Easy_Pokedex",
         liveUrl: null,
         thumbnailLabel: "Easy Pokedex project preview placeholder",
         thumbnailInitials: "EP",
@@ -240,7 +240,7 @@ export const siteContent = {
         name: "Crud APS",
         description: "CRUD application built as university coursework.",
         tags: ["TypeScript"],
-        sourceUrl: "https://github.com/MatheusMarinhoLeca/Crud-APS",
+        sourceUrl: "https://github.com/MatheusLeca/Crud-APS",
         liveUrl: null,
         thumbnailLabel: "Crud APS project preview placeholder",
         thumbnailInitials: "CA",
@@ -250,7 +250,7 @@ export const siteContent = {
         name: "Sample Project",
         description: "A sample slot showing the card layout until a real project is added.",
         tags: ["Sample"],
-        sourceUrl: "https://github.com/MatheusMarinhoLeca?tab=repositories",
+        sourceUrl: "https://github.com/MatheusLeca?tab=repositories",
         liveUrl: null,
         thumbnailLabel: "Sample project preview placeholder",
         thumbnailInitials: "••",
@@ -264,11 +264,12 @@ export const siteContent = {
     // render as plain text (never dead links) until the owner adds the URL,
     // and adding a future network is a one-entry addition here.
     entries: [
-      { label: "LinkedIn", href: "https://www.linkedin.com/in/matheus-marinho-b47500204/", placeholder: false },
-      { label: "GitHub", href: "https://github.com/MatheusMarinhoLeca", placeholder: false },
-      { label: "Medium", href: null, placeholder: true },
-      { label: "YouTube", href: null, placeholder: true },
-      { label: "X", href: null, placeholder: true },
+      { label: "LinkedIn", href: "https://www.linkedin.com/in/matheus-leca/", placeholder: false },
+      { label: "GitHub", href: "https://github.com/MatheusLeca", placeholder: false },
+      // Hidden until real destinations exist (owner request, 2026-09):
+      // { label: "Medium", href: null, placeholder: true },
+      // { label: "YouTube", href: null, placeholder: true },
+      // { label: "X", href: null, placeholder: true },
     ],
   },
   resume: {
