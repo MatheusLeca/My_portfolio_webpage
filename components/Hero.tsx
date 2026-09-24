@@ -14,16 +14,15 @@ export default function Hero() {
   return (
     <section
       aria-labelledby="hero-heading"
-      className="relative flex min-h-[calc(100svh-4rem)] flex-col justify-center overflow-hidden lg:justify-start"
+      className="relative flex min-h-[calc(100svh-4rem)] flex-col justify-start overflow-hidden"
     >
-      {/* Desktop: the grid stretches to the full section height (lg:flex-1 +
-          lg:grid-rows-[1fr]) so the photo stays vertically centered exactly as
-          in the original justify-center layout, while the text pins to the
-          top with the title at the same 144px (64px nav + 96px pt - 16px mt)
-          as every other section when navigating. Mobile keeps the original
-          centered layout. */}
-      <div className="mx-auto grid w-full max-w-6xl gap-12 px-4 pt-16 pb-20 sm:px-6 lg:flex-1 lg:grid-cols-[1.1fr_0.9fr] lg:grid-rows-[1fr] lg:items-center lg:pt-24 lg:pb-28">
-        <Reveal className="lg:self-start lg:-mt-4">
+      {/* Photo-top lock with About: same grid top rule (items-start +
+          self-start, no offsets) so both photo tops start flush with their
+          title blocks. Desktop uses lg:pt-20 (80px): 64px nav + 80px = 144px
+          viewport, matching About's 80px scroll-mt + 64px py-16 = 144px.
+          Title matches too (same 144px). */}
+      <div className="mx-auto grid w-full max-w-6xl gap-12 px-4 pt-10 pb-20 sm:px-6 md:pt-16 lg:grid-cols-[1.1fr_0.9fr] lg:items-start lg:pt-20 lg:pb-28">
+        <Reveal className="lg:self-start">
           <h1
             id="hero-heading"
             // Fluid size: fits the longest line inside one column at every
@@ -70,13 +69,9 @@ export default function Hero() {
             )}
           </div>
         </Reveal>
-        {/* Photo position lock: photo pins to the TOP of the content row
-            (`lg:self-start`) and is pulled UP 48px (`lg:-mt-12`) so its top sits
-            at 96 - 48 = 48px below the section top — minimal space above, still
-            constant at every viewport height. Uses the same rule + offset as
-            About, so both photo tops stay identical (delta = 0). Text untouched
-            (title stays at 96 - 16 = 80px). */}
-        <Reveal delay={90} className="flex justify-center lg:-mt-12 lg:self-start lg:justify-end">
+        {/* Photo-top lock: pins to the grid top (lg:self-start), no pull-up
+            offset, so its top is flush with the title — same rule as About. */}
+        <Reveal delay={90} className="flex justify-center lg:self-start lg:justify-end">
           <div className="relative aspect-[4/5] w-full max-w-sm overflow-hidden rounded-2xl border border-line bg-surface">
             {hero.portraitSrc ? (
               <Image

@@ -12,8 +12,10 @@ export default function About() {
       {/* Same shell + spacing as Skills/Experience/Work/Contact: identical
           scroll-mt-20 anchor and py-10 / md:py-16, so "The engineer behind the
           code." exits at 120px mobile / 144px desktop like every other h2.
-          Photo-first on mobile via order; text-first from md up. */}
-        <Reveal className="order-2 md:order-1">
+          Title first at every breakpoint (photo below it on mobile, right
+          column from md up) — photo-first on mobile pushed the title ~400px
+          below the rhythm of every other section. */}
+        <Reveal>
           <h2
             id="about-heading"
             className="font-display text-4xl leading-tight font-bold tracking-tight text-balance text-foreground sm:text-5xl"
@@ -28,7 +30,7 @@ export default function About() {
         </Reveal>
         {/* Photo top locks to the grid top via md:items-start on the shell;
             no offsets, so it starts flush with the title block. */}
-        <Reveal delay={90} className="order-1 flex justify-center md:order-2 md:justify-end">
+        <Reveal delay={90} className="flex justify-center md:justify-end">
           <div className="relative w-full max-w-sm">
             <div
               aria-hidden="true"
