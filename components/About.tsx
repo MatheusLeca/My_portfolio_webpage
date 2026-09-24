@@ -18,7 +18,7 @@ export default function About() {
         <Reveal>
           <h2
             id="about-heading"
-            className="font-display text-4xl leading-tight font-bold tracking-tight text-balance text-foreground sm:text-5xl"
+            className="font-display text-4xl font-bold tracking-tight text-balance text-foreground sm:text-5xl"
           >
             {about.heading}
           </h2>
