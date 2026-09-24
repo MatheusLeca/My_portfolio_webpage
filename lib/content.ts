@@ -26,7 +26,8 @@ export const siteContent = {
     titleLines: [{ text: "MATHEUS LECA", accent: false }, { text: "& CODE THAT SHIPS", accent: true }],
     summary:
       "Software Engineer and MSc student in Electrical and Computer Engineering at the University of Calgary.",
-    primaryCta: { label: "VIEW WORK", href: "#work" },
+    // Single hero CTA is the resume download (see `resume` below); the
+    // outline "View Work" button was removed from the Hero.
     portraitSrc: "/images/portrait.jpg",
     portraitAlt: "Matheus Leca speaking into a microphone at a podium",
     portraitPlaceholderLabel: "Profile photo placeholder",

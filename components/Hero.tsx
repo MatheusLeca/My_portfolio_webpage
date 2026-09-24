@@ -43,18 +43,14 @@ export default function Hero() {
             {hero.summary}
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-4">
-            <a
-              href={hero.primaryCta.href}
-              className="inline-flex items-center gap-2 rounded-full border border-line px-6 py-3 text-[11px] font-bold tracking-[0.2em] text-foreground uppercase transition-colors hover:border-primary hover:text-primary focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background focus-visible:outline-none"
-            >
-              {hero.primaryCta.label}
-              <span aria-hidden="true">→</span>
-            </a>
+            {/* Single CTA: the resume download. Styled like the nav "Hire Me"
+                button (filled --action pill) since it is now the only hero
+                action. The "View Work" outline button was removed. */}
             {resumeHref ? (
               <a
                 href={resumeHref}
                 download
-                className="inline-flex items-center rounded-full bg-surface px-6 py-3 text-[11px] font-bold tracking-[0.2em] text-foreground uppercase transition-colors hover:border hover:border-primary hover:text-primary focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background focus-visible:outline-none"
+                className="inline-flex items-center rounded-full bg-action px-6 py-3 text-[11px] font-bold tracking-[0.2em] text-on-action uppercase transition-colors hover:bg-action-strong focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background focus-visible:outline-none"
               >
                 {resume.label}
                 <span aria-hidden="true" className="ml-2">
