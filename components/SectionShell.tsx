@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 
 type SectionAlign = "center" | "start";
 type SectionLayout = "stacked" | "split" | "split-lg";
-type SectionSpacing = "default" | "compact";
+type SectionSpacing = "default" | "compact" | "photo-lead";
 
 interface SectionShellProps {
   id?: string;
@@ -27,8 +27,11 @@ interface SectionShellProps {
  * - Inner: `max-w-6xl px-4 sm:px-6` centered container shared with SiteNav/Footer.
  * - `align` only controls cross-axis items in split layouts, never vertical centering.
  * - `layout="split"` = md 2-col, `split-lg` = lg 2-col, `stacked` = single.
- * - `spacing="compact"` = tighter mobile top padding for tall sections; both
- *   variants converge to the same desktop rhythm.
+ * - `spacing="compact"` = tighter mobile grid gap for tall sections (Contact
+ *   zoom hotfix); outer padding stays py-10 / md:py-16.
+ * - `spacing="photo-lead"` = compact grid gap + Hero-matched pt-6 mobile top
+ *   padding for sections whose photo leads the mobile stack; every variant
+ *   converges to the same md:py-16 desktop rhythm.
  */
 const OUTER_BASE = "relative isolate flex scroll-mt-20 flex-col";
 
@@ -40,6 +43,10 @@ const SPACING_CLASS: Record<SectionSpacing, string> = {
   // hotfix), never the outer top padding.
   default: "py-10 md:py-16",
   compact: "py-10 md:py-16",
+  // Photo-led sections (photo on top of the mobile stack) match the Hero's
+  // tightened photo spacing: pt-6 (24px) above the photo on mobile instead of
+  // 40px, same pb-10 bottom, converging to the standard md:py-16 from md up.
+  "photo-lead": "pt-6 pb-10 md:py-16",
 };
 
 function layoutClass(
@@ -49,9 +56,10 @@ function layoutClass(
 ): string {
   const items = align === "start" ? "md:items-start" : "md:items-center";
   const itemsLg = align === "start" ? "lg:items-start" : "lg:items-center";
-  // Compact keeps the Contact zoom hotfix as a system variant: tighter grid
-  // gap on small screens, converging to the standard gap-12 from md up.
-  const gap = spacing === "compact" ? "gap-8 md:gap-12" : "gap-12";
+  // The tight variants (compact = Contact zoom hotfix, photo-lead = photo on
+  // top of the mobile stack) share the tighter mobile grid gap, converging
+  // to the standard gap-12 from md up.
+  const gap = spacing === "default" ? "gap-12" : "gap-8 md:gap-12";
   switch (layout) {
     case "split":
       return `grid ${gap} md:grid-cols-2 ${items}`;
