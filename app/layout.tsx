@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
 import AnimatedBackground from "@/components/AnimatedBackground";
+import ScrollProgressBar from "@/components/ScrollProgressBar";
 import "./globals.css";
 
 const display = Space_Grotesk({
@@ -91,7 +92,7 @@ export default function RootLayout({
     >
       <body className="flex min-h-full flex-col font-sans">
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
-        <div aria-hidden="true" className="progress-bar" />
+        <ScrollProgressBar />
         <AnimatedBackground />
         <noscript>
           <style>{`[data-reveal]{opacity:1!important;translate:none!important}`}</style>

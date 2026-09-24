@@ -101,9 +101,10 @@ body {
 }
 
 /* Scroll progress bar: scroll-linked fill from page top to bottom.
-   Pure CSS (no JavaScript): transform-only, compositor-driven, no layout
-   shift. Unsupported browsers ignore animation-timeline and keep the bar
-   hidden at scaleX(0). */
+   Driven by ScrollProgressBar.tsx via inline scaleX (works on every browser,
+   including mobile where animation-timeline: scroll() is unsupported).
+   The CSS animation below is a progressive enhancement layered on top for
+   browsers with scroll timelines; JS remains the source of truth. */
 .progress-bar {
   position: fixed;
   top: 0;
@@ -146,6 +147,11 @@ body {
 html {
   scrollbar-width: thin;
   scrollbar-color: var(--action) transparent;
+  overflow-x: clip;
+}
+
+body {
+  overflow-x: clip;
 }
 
 ::-webkit-scrollbar {
