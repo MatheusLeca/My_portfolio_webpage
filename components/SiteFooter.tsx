@@ -34,7 +34,7 @@ export default function SiteFooter() {
 
   return (
     <footer id="footer" className="scroll-mt-20 border-t border-line bg-surface">
-      <div className="mx-auto flex w-full max-w-6xl flex-col items-center justify-between gap-6 px-4 py-10 sm:px-6 md:flex-row md:py-12">
+      <div className="mx-auto flex w-full max-w-6xl flex-col items-center justify-between gap-4 px-4 py-4 sm:px-6 md:flex-row md:py-5">
         <p className="font-display text-sm font-bold tracking-[0.2em] text-foreground">
           {brand.wordmark}
         </p>
