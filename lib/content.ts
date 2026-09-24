@@ -221,38 +221,38 @@ export const siteContent = {
   },
   work: {
     heading: "Selected work",
-    // Placeholder entries: the first two point at real public repositories;
-    // the third is a sample slot. The owner curates this list with real
-    // projects, screenshots, and demo links over time.
+    // VeriFin + ThriveTree copy is owner-supplied; the third slot stays a
+    // generic under-development placeholder until a real project lands.
     projects: [
       {
-        name: "Easy Pokedex",
+        name: "VeriFin",
         description:
-          "A convenient tool for accessing detailed Pokémon information without having to capture them.",
-        tags: ["Python"],
-        sourceUrl: "https://github.com/MatheusLeca/Easy_Pokedex",
-        liveUrl: null,
-        thumbnailLabel: "Easy Pokedex project preview placeholder",
-        thumbnailInitials: "EP",
-        placeholder: false,
-      },
-      {
-        name: "Crud APS",
-        description: "CRUD application built as university coursework.",
-        tags: ["TypeScript"],
-        sourceUrl: "https://github.com/MatheusLeca/Crud-APS",
-        liveUrl: null,
-        thumbnailLabel: "Crud APS project preview placeholder",
-        thumbnailInitials: "CA",
-        placeholder: false,
-      },
-      {
-        name: "Sample Project",
-        description: "A sample slot showing the card layout until a real project is added.",
-        tags: ["Sample"],
+          "A full-stack personal finance platform to help users manage budgets, track expenses, set financial goals, and monitor investments.",
+        tags: ["Java", "Spring Boot", "React", "TypeScript", "PostgreSQL"],
         sourceUrl: "https://github.com/MatheusLeca?tab=repositories",
         liveUrl: null,
-        thumbnailLabel: "Sample project preview placeholder",
+        thumbnailLabel: "VeriFin project preview placeholder",
+        thumbnailInitials: "VF",
+        placeholder: false,
+      },
+      {
+        name: "ThriveTree",
+        description:
+          "A SwiftUI iOS app that gamifies habit building through a virtual tree, using animations, reminders, health states, and progress tracking to encourage consistent daily habits.",
+        tags: ["Swift", "SwiftUI"],
+        sourceUrl: "https://github.com/MatheusLeca?tab=repositories",
+        liveUrl: null,
+        thumbnailLabel: "ThriveTree project preview placeholder",
+        thumbnailInitials: "TT",
+        placeholder: false,
+      },
+      {
+        name: "Under Development",
+        description: "A new project is currently under development. Check back soon for details.",
+        tags: ["Coming Soon"],
+        sourceUrl: "https://github.com/MatheusLeca?tab=repositories",
+        liveUrl: null,
+        thumbnailLabel: "Upcoming project preview placeholder",
         thumbnailInitials: "••",
         placeholder: true,
       },

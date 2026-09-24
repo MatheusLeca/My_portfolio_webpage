@@ -39,10 +39,10 @@ const pillClass =
  * outlined tag pills directly under the copy. The text block carries its
  * own inset (px-6) since the root no longer pads.
  *
- * The card *is* the call to action: the whole surface is one link to the
- * project (live URL when present, otherwise the source repo), so there is
- * no footer brand row, no circular arrow button, and no URL/host text to
- * tab through — the hover lift plus the CSS neon glow are the affordance.
+ * Pre-launch state: the card is intentionally non-interactive — no link
+ * wraps the surface while projects deploy. Content renders blurred under
+ * a centered "Coming Soon..." overlay; the hover lift plus the CSS neon
+ * glow remain as the affordance.
  * Dropping that footer also makes the card much shorter than the earlier
  * avatar/slug/host version: the copy block ends after the pill row and the
  * trailing padding closes the card.
@@ -78,19 +78,19 @@ export default function ProjectCard({
    * The CSS neon glow is separately gated in globals.css. */
   const reduceMotion = useReducedMotion();
   const activeState = reduceMotion ? undefined : "active";
-  const link = (
-    <motion.a
-      href={project.liveUrl ?? project.sourceUrl}
-      target="_blank"
-      rel="noopener noreferrer"
+  const cardBody = (
+    <motion.div
       initial="rest"
       animate="rest"
       whileHover={activeState}
       whileFocus={activeState}
       variants={liftVariants}
       transition={motionTransition}
-      className="flex flex-auto flex-col rounded-3xl focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-surface focus-visible:outline-none"
+      className="relative flex flex-auto flex-col overflow-hidden rounded-3xl focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-surface focus-visible:outline-none"
     >
+      {/* Blurred card content: details stay visible but obscured. aria-hidden
+        * since the overlay carries the accessible label. */}
+      <div aria-hidden="true" className="flex flex-auto flex-col blur-[3px] select-none">
       <div
         role="img"
         aria-label={project.thumbnailLabel}
@@ -132,7 +132,20 @@ export default function ProjectCard({
           ))}
         </ul>
       </div>
-    </motion.a>
+      </div>
+      {/* Pre-launch overlay: absolute over the whole card (motion.div is the
+        * positioning context), centered message on a translucent readable
+        * pill. Absolute inset keeps it pinned during lift/zoom hover. */}
+      <div className="pointer-events-none absolute inset-0 flex items-center justify-center rounded-3xl bg-background/45 p-4 backdrop-blur-[1px]">
+        <p
+          role="status"
+          aria-label={`${project.name} coming soon`}
+          className="font-display rounded-full border border-line bg-surface/85 px-6 py-3 text-xl font-extrabold tracking-tight text-foreground shadow-lg"
+        >
+          Coming Soon...
+        </p>
+      </div>
+    </motion.div>
   );
 
   return (
@@ -144,7 +157,7 @@ export default function ProjectCard({
      * otherwise let a long unbreakable token (a project name or a stack
      * tag) widen its card past its siblings on narrow viewports. */
     <div className="work-card flex min-w-0 w-full flex-col rounded-3xl border border-line bg-surface">
-      {reveal ? <Reveal delay={revealDelay}>{link}</Reveal> : link}
+      {reveal ? <Reveal delay={revealDelay}>{cardBody}</Reveal> : cardBody}
     </div>
   );
 }
