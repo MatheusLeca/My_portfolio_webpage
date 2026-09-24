@@ -49,7 +49,7 @@ export default function Experience() {
                   <h3 className="font-display text-xl font-bold text-foreground">
                     {company.name}
                   </h3>
-                  <p className="text-sm text-muted">{company.location}</p>
+                  <p className="text-sm text-foreground">{company.location}</p>
                 </div>
                 </div>
               </Reveal>
@@ -76,18 +76,18 @@ export default function Experience() {
                         <h4 className="font-display text-lg font-bold text-foreground">
                           {role.title}
                         </h4>
-                        <p className="text-sm text-muted">{role.dates}</p>
+                        <p className="text-sm text-foreground">{role.dates}</p>
                       </div>
-                      <p className="mt-1 text-[11px] font-medium tracking-[0.14em] text-muted uppercase">
+                      <p className="mt-1 text-[11px] font-medium tracking-[0.14em] text-foreground uppercase">
                         {role.duration}
                       </p>
                       <p
                         aria-label={`${role.title} at ${company.name} technologies`}
-                        className="mt-4 text-sm leading-relaxed text-muted"
+                        className="mt-4 text-sm leading-relaxed text-foreground"
                       >
                         {role.tags.join(" · ")}
                       </p>
-                      <ul role="list" className="mt-4 list-disc space-y-2 pl-5 text-[15px] leading-relaxed text-muted">
+                      <ul role="list" className="mt-4 list-disc space-y-2 pl-5 text-[15px] leading-relaxed text-foreground">
                         {role.bullets.map((bullet) => (
                           <li key={bullet}>{bullet}</li>
                         ))}
