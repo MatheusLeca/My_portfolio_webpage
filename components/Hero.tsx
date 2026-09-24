@@ -75,8 +75,11 @@ export default function Hero() {
           </div>
         </Reveal>
         {/* Photo-top lock: pins to the grid top (lg:self-start), no pull-up
-            offset, so its top is flush with the title — same rule as About. */}
-        <Reveal delay={90} className="flex justify-center lg:self-start lg:justify-end">
+            offset, so its top is flush with the title — same rule as About.
+            order-first puts the photo above the text in the single-column
+            mobile stack; lg:order-none restores DOM order (text left, photo
+            right) on the two-column desktop grid. */}
+        <Reveal delay={90} className="order-first flex justify-center lg:order-none lg:self-start lg:justify-end">
           <div className="relative aspect-[4/5] w-full max-w-sm overflow-hidden rounded-2xl border border-line bg-surface">
             {hero.portraitSrc ? (
               <Image
