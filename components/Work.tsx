@@ -6,7 +6,7 @@ export default function Work() {
   const { work } = siteContent;
 
   return (
-    <SectionShell id="work" labelledBy="work-heading">
+    <SectionShell id="work" labelledBy="work-heading" fullHeightMobile>
       {/* WorkCarousel renders the heading + controls row and the Embla
        * track as one stacked block, preserving the section's gap-8 rhythm
        * the grid had. */}

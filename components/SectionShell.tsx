@@ -13,6 +13,12 @@ interface SectionShellProps {
   /** Full-viewport hero-style sections: min height of the viewport minus the
    *  4rem sticky nav, content centered vertically. */
   fullHeight?: boolean;
+  /** Mobile-only full-viewport floor (`max-md:min-h-[calc(100svh-4rem)]`).
+   *  Unlike `fullHeight`, content stays top-anchored so the 24px title
+   *  landing is preserved; the section just always fills the screen below
+   *  the nav, so a short section (Work's single-card carousel) never lets
+   *  the next section's heading peek into its anchor-landed viewport. */
+  fullHeightMobile?: boolean;
   children: ReactNode;
 }
 
@@ -81,14 +87,18 @@ export default function SectionShell({
   layout = "stacked",
   spacing = "default",
   fullHeight = false,
+  fullHeightMobile = false,
   children,
 }: SectionShellProps) {
   // Full-viewport sections center their content vertically; all other
   // sections are natural flow, so nav-to-title never shifts with content
-  // length.
+  // length. fullHeightMobile keeps the top-anchored flow and only floors
+  // the section height below md.
   const outer = fullHeight
     ? `${OUTER_BASE} min-h-[calc(100svh-4rem)] justify-center`
-    : `${OUTER_BASE} justify-start`;
+    : `${OUTER_BASE} justify-start${
+        fullHeightMobile ? " max-md:min-h-[calc(100svh-4rem)]" : ""
+      }`;
 
   return (
     <section id={id} aria-labelledby={labelledBy} className={outer}>
