@@ -14,7 +14,7 @@ const sans = Inter({
   subsets: ["latin"],
 });
 
-const SITE_NAME = "Matheus Leca — Software Engineer";
+const SITE_NAME = "Matheus Leca | Software Engineer";
 const SITE_DESCRIPTION =
   "Portfolio of Matheus Leca, Software Engineer and MSc student in Electrical and Computer Engineering at the University of Calgary.";
 

@@ -11,7 +11,7 @@ export default function About() {
     <SectionShell id="about" labelledBy="about-heading" layout="split" align="start" spacing="compact">
       {/* One outer rhythm page-wide (see SectionShell): pt-6 (24px) above the
           photo on mobile — the same space as above every section title and
-          the Hero photo — pb-10 bottom, md:py-16 from md up; scroll-mt-16
+          the Hero photo — pb-10 bottom, md:py-12 from md up; scroll-mt-16
           lands the section flush at the nav bottom on mobile anchor jumps.
           spacing="compact" tightens the mobile grid gap so photo -> heading
           is 32px instead of 48px; md+ keeps the standard gap-12. Photo above
@@ -24,9 +24,22 @@ export default function About() {
           >
             {about.heading}
           </h2>
-          <div className="mt-6 max-w-xl space-y-4 text-[15px] leading-relaxed text-muted">
+          <p className="mt-4 max-w-xl font-display text-lg font-semibold tracking-tight text-balance text-foreground">
+            {about.subheading}
+          </p>
+          <div className="mt-6 max-w-xl space-y-4 text-base leading-relaxed text-foreground">
             {about.paragraphs.map((paragraph) => (
-              <p key={paragraph.slice(0, 24)}>{paragraph}</p>
+              <p key={paragraph[0].text.slice(0, 24)}>
+                {paragraph.map((segment) =>
+                  "bold" in segment && segment.bold ? (
+                    <strong key={segment.text} className="font-semibold">
+                      {segment.text}
+                    </strong>
+                  ) : (
+                    segment.text
+                  ),
+                )}
+              </p>
             ))}
           </div>
         </Reveal>

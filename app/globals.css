@@ -204,6 +204,25 @@ body {
   }
 }
 
+/* Hero typewriter caret: hard step blink, terminal-style. Gated behind
+   no-preference — reduced-motion users get the full line instantly with no
+   caret at all (see Typewriter.tsx). */
+@keyframes caret-blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .caret-blink {
+    animation: caret-blink 1.1s step-end infinite;
+  }
+}
+
 /* Selected Work card hover/focus: the active card scales up and gains a
    subtle neon glow in --primary (mint on dark, teal on light). CSS-only so
    pointer and keyboard stay in parity and touch devices (no hover) simply

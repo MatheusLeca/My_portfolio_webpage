@@ -21,14 +21,14 @@ export default function Skills() {
               key={group.title}
               className="grid gap-2 py-3 sm:grid-cols-[180px_1fr] sm:gap-6"
             >
-              <dt className="text-sm font-semibold text-foreground">
+              <dt className="text-sm font-bold text-foreground">
                 {group.title}
               </dt>
               <dd>
-                <p className="text-[15px] leading-relaxed text-muted">
+                <p className="text-[15px] font-bold leading-relaxed text-foreground">
                   {group.tags.join(" · ")}
                 </p>
-                <p className="mt-1 text-[13px] leading-relaxed text-muted">
+                <p className="mt-1 text-[13px] leading-relaxed text-foreground">
                   {group.description}
                 </p>
               </dd>

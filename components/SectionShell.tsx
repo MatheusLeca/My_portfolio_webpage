@@ -28,10 +28,10 @@ interface SectionShellProps {
  * One outer spacing system for every section so header-to-content distance,
  * horizontal padding, max width, and footer rhythm stay identical:
  * - Outer: `relative isolate` + anchor offset for the 4rem sticky nav:
- *   `scroll-mt-16` on mobile (sections land flush at the nav bottom, so the
- *   pt-6 above a title or photo is the only space — the Hero's 24px),
- *   `scroll-mt-20` from md up (80px offset + md:py-16 locks section tops
- *   144px from the viewport top, matching the Hero). `fullHeight` adds
+ *   `scroll-mt-16` at every size — sections land flush at the nav bottom, so
+ *   the padding above a title or photo is the only space (mobile: pt-6 = the
+ *   Hero's 24px; desktop: md:py-12 = the Hero's 48px below the nav).
+ *   `fullHeight` adds
  *   `min-h-[calc(100svh-4rem)]` and centers content vertically; every other
  *   section flows naturally from the top.
  * - Inner: `max-w-6xl px-4 sm:px-6` centered container shared with SiteNav/Footer.
@@ -41,17 +41,17 @@ interface SectionShellProps {
  *   (Contact zoom hotfix, About's photo-led stack); the outer rhythm is
  *   identical for every variant.
  */
-const OUTER_BASE =
-  "relative isolate flex flex-col scroll-mt-16 md:scroll-mt-20";
+const OUTER_BASE = "relative isolate flex flex-col scroll-mt-16";
 
 const INNER_BASE = "mx-auto w-full max-w-6xl px-4 sm:px-6";
 
 // One outer rhythm for every section: pt-6 (24px) on mobile — the same space
 // above a title as above the Hero/About photos — pb-10 bottom, converging to
-// the standard md:py-16 from md up. Combined with the scroll-mt-16 anchor in
-// OUTER_BASE, an anchor jump puts any title or photo exactly 24px below the
-// nav on mobile; from md up scroll-mt-20 keeps the 144px viewport-top lock.
-const OUTER_SPACING = "pt-6 pb-10 md:py-16";
+// the standard md:py-12 from md up (equal space above and below on desktop).
+// Combined with the scroll-mt-16 anchor in OUTER_BASE, an anchor jump puts any
+// title or photo exactly 24px below the nav on mobile and 48px below the nav
+// from md up — the same gap as above the Hero title.
+const OUTER_SPACING = "pt-6 pb-10 md:py-12";
 
 function layoutClass(
   layout: SectionLayout,
@@ -72,8 +72,8 @@ function layoutClass(
     case "stacked":
     default:
       // Single column: heading block + content block with one shared gap so
-      // title-to-content (e.g. "Core competencies." -> rows,
-      // "Career timeline." -> timeline, "Selected work." -> cards) is
+      // title-to-content (e.g. "Core competencies" -> rows,
+      // "Career timeline" -> timeline, "Selected work" -> cards) is
       // identical everywhere (32px = the original mt-8 rhythm).
       // Content elements must NOT add their own mt.
       return "flex flex-col gap-8";

@@ -23,9 +23,20 @@ export const siteContent = {
     socials: { label: "SOCIALS", href: "#footer" },
   },
   hero: {
-    titleLines: [{ text: "MATHEUS LECA", accent: false }, { text: "& CODE THAT SHIPS", accent: true }],
-    summary:
-      "Software Engineer and MSc student in Electrical and Computer Engineering at the University of Calgary.",
+    titleLines: [{ text: "Hello, World!", accent: false, typed: true }, { text: "I'm Matheus Leca", accent: true }],
+    // Short pitch rendered as stacked paragraphs under the hero title. A
+    // paragraph may carry a `bold` lead-in segment (rendered emphasized)
+    // before its regular `text`.
+    summary: [
+      { text: "I build software that turns complex ideas into reliable, useful experiences." },
+      {
+        text: "From full-stack web applications and backend systems to mobile apps, cloud infrastructure, and immersive experiences, I enjoy solving challenging problems and bringing them to life through code.",
+      },
+      {
+        bold: "Software Engineer and M.Sc. in Electrical and Computer Engineering from the University of Calgary",
+        text: ", with experience across enterprise, government, academic, and personal projects.",
+      },
+    ],
     // Single hero CTA is the resume download (see `resume` below); the
     // outline "View Work" button was removed from the Hero.
     portraitSrc: "/images/portrait.jpg",
@@ -34,11 +45,32 @@ export const siteContent = {
     portraitInitials: "ML",
   },
   about: {
-    heading: "The engineer behind the code.",
+    heading: "The engineer behind the code",
+    subheading: "Curious about the problem. Serious about the solution.",
+    // Each paragraph is a list of segments; a segment with `bold: true` is
+    // rendered emphasized. This supports bold spans anywhere in a paragraph
+    // (unlike the hero's lead-in-only `bold` field).
     paragraphs: [
-      "Software Engineer and Computer Scientist passionate about tackling complex problems with technology.",
-      "MSc student in Electrical and Computer Engineering at the University of Calgary, balancing technical depth with project coordination and agile development practices.",
-      "Deeply interested in Web and Mobile Development, CI/CD, Cloud Computing, Artificial Intelligence and Machine Learning.",
+      [
+        {
+          text: "I enjoy going beyond the obvious to understand what makes a problem worth solving and what makes a solution work well.",
+        },
+      ],
+      [
+        {
+          text: "Good engineering, to me, is about asking the right questions, making thoughtful decisions, and finding the balance between simplicity, reliability, and real-world needs. I like digging into the details, challenging assumptions, and continuously looking for better ways to build.",
+        },
+      ],
+      [
+        {
+          text: "I am at my best when I can learn something new, work through a difficult problem, and turn that understanding into something useful.",
+        },
+      ],
+      [
+        {
+          text: "Outside of software, I enjoy exploring new places, spending time in nature, and finding new things to learn.",
+        },
+      ],
     ],
     // Sample metrics: layout placeholders only. The owner replaces these
     // with verified numbers before any public launch.
@@ -52,37 +84,48 @@ export const siteContent = {
     portraitInitials: "ML",
   },
   skills: {
-    heading: "Core competencies.",
+    heading: "Core competencies",
     groups: [
       {
         title: "Languages",
-        description: "Core languages used across backend, web, and scripting work.",
-        tags: ["C#", "Java", "Python", "JavaScript", "TypeScript"],
+        description:
+          "The languages I use across backend services, web and mobile applications, automation, and data-driven software.",
+        tags: ["Java", "C#", "Python", "JavaScript", "TypeScript", "SQL"],
       },
       {
-        title: "Frameworks & Libraries",
-        description: "Frameworks and libraries used to build web applications and services.",
-        tags: [".NET", "Spring", "Node.js", "React", "Angular", "Ionic"],
+        title: "Backend & APIs",
+        description:
+          "Building backend services, APIs, integrations, and business logic with a focus on clean, maintainable solutions.",
+        tags: ["Spring", "Spring Boot", ".NET", "ASP.NET Core", "Node.js", "Express", "REST APIs"],
+      },
+      {
+        title: "Frontend & Mobile",
+        description:
+          "Developing responsive web and mobile experiences across modern frontend frameworks and native Apple platforms.",
+        tags: ["React", "Angular", "Ionic", "HTML", "CSS", "Swift", "SwiftUI"],
       },
       {
         title: "Databases",
-        description: "Relational and document stores used for persistence.",
-        tags: ["SQL Server", "PostgreSQL", "MongoDB"],
+        description:
+          "Working with relational and document databases to design and support reliable application data.",
+        tags: ["PostgreSQL", "SQL Server", "MongoDB"],
       },
       {
         title: "Cloud & DevOps",
-        description: "Platforms and delivery practices, including ongoing cloud study.",
-        tags: ["AWS", "Azure", "Terraform", "Jenkins", "Docker", "CI/CD"],
+        description:
+          "Building, testing, and deploying software with cloud platforms, containers, version control, and automated delivery workflows.",
+        tags: ["AWS", "Docker", "Git", "GitHub Actions", "CI/CD"],
       },
       {
-        title: "Tools & Testing",
-        description: "Testing and workflow tooling around everyday development.",
-        tags: ["Git", "Jasmine", "JUnit"],
+        title: "Software Engineering",
+        description:
+          "Applying engineering practices that support reliable software, maintainable architectures, and effective collaboration throughout the development lifecycle.",
+        tags: ["Clean Architecture", "SOLID", "Microservices", "TDD", "Unit Testing", "Integration Testing", "Agile/Scrum"],
       },
     ],
   },
   experience: {
-    heading: "Career timeline.",
+    heading: "Career timeline",
     companies: [
       {
         name: "University of Calgary",
@@ -177,7 +220,7 @@ export const siteContent = {
     ],
   },
   work: {
-    heading: "Selected work.",
+    heading: "Selected work",
     // Placeholder entries: the first two point at real public repositories;
     // the third is a sample slot. The owner curates this list with real
     // projects, screenshots, and demo links over time.
@@ -240,7 +283,7 @@ export const siteContent = {
     subcopy:
       "Have a role or project in mind? Send a message using the form or reach out directly by email.",
     // Owner's public contact address.
-    email: "email@matheusleca.dev",
+    email: "contact@matheusleca.dev",
     form: {
       title: "Contact form",
       placeholders: {

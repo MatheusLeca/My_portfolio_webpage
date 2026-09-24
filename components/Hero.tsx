@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Reveal from "@/components/Reveal";
 import SampleBadge from "@/components/SampleBadge";
+import Typewriter from "@/components/Typewriter";
 import { siteContent } from "@/lib/content";
 
 export default function Hero() {
@@ -19,22 +20,27 @@ export default function Hero() {
       {/* Tight photo spacing where the photo leads the stack (mobile/tablet):
           pt-6 / md:pt-10 below the sticky nav and gap-8 between photo and
           title, so the image doesn't float in empty space. From lg up the
-          photo sits beside the text with the original desktop rhythm
-          (pt-20, gap-12); the 144px viewport-top lock with About (80px
-          padding + 4rem nav = About's scroll-mt-20 + md:py-16) only applies
-          there. items-start + self-start keep the photo tops flush with the
-          title on the two-column grid. */}
-      <div className="mx-auto grid w-full max-w-6xl gap-8 px-4 pt-6 pb-20 sm:px-6 md:pt-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-start lg:gap-12 lg:pt-20 lg:pb-28">
-        <Reveal className="lg:self-start">
+          photo sits beside the text with a symmetric desktop rhythm
+          (lg:py-12, gap-12) — equal space above and below, matching every
+          other section's md:py-12. items-start + self-start keep the photo
+          tops flush with the title on the two-column grid. */}
+      <div className="mx-auto grid w-full max-w-6xl gap-8 px-4 pt-6 pb-20 sm:px-6 md:pt-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-start lg:gap-12 lg:py-12">
+        {/* Mobile order: heading → resume CTA → summary (button sits right
+            under "I'm Matheus Leca"). Desktop keeps heading → summary → CTA
+            via the lg:order-* overrides. Flex column only enables the
+            reorder; spacing still comes from the children's mt-*. */}
+        <Reveal className="flex flex-col lg:self-start">
           <h1
             id="hero-heading"
             // Fluid size: fits the longest line inside one column at every
             // viewport instead of overflowing small screens.
-            className="font-display text-[clamp(1.7rem,7.5vw,3.25rem)] leading-[1.02] font-bold tracking-tight text-balance text-foreground uppercase"
+            className="order-1 font-display text-[clamp(1.7rem,7.5vw,3.25rem)] leading-[1.02] font-bold tracking-tight text-balance text-foreground uppercase"
           >
             {hero.titleLines.map((line) => (
               <span key={line.text} className="block">
-                {line.accent ? (
+                {"typed" in line && line.typed ? (
+                  <Typewriter text={line.text} />
+                ) : line.accent ? (
                   <span className="text-primary">{line.text}</span>
                 ) : (
                   line.text
@@ -42,10 +48,17 @@ export default function Hero() {
               </span>
             ))}
           </h1>
-          <p className="mt-6 max-w-xl text-base leading-relaxed text-muted">
-            {hero.summary}
-          </p>
-          <div className="mt-8 flex flex-wrap items-center gap-4">
+          <div className="order-3 mt-6 max-w-xl space-y-4 text-base leading-relaxed text-foreground lg:order-2">
+            {hero.summary.map((paragraph) => (
+              <p key={paragraph.text}>
+                {"bold" in paragraph ? (
+                  <strong className="font-semibold text-foreground">{paragraph.bold}</strong>
+                ) : null}
+                {paragraph.text}
+              </p>
+            ))}
+          </div>
+          <div className="order-2 mt-8 flex flex-wrap items-center gap-4 lg:order-3">
             {/* Single CTA: the resume download. Styled like the nav "Hire Me"
                 button (filled --action pill) since it is now the only hero
                 action. The "View Work" outline button was removed. */}
