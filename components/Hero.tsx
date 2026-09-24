@@ -98,30 +98,38 @@ export default function Hero() {
             About portrait: max-w-sm wide, square on mobile, 4/5 from md up
             (object-top keeps the subject's head in the square crop). */}
         <Reveal delay={90} className="order-first flex justify-center lg:order-none lg:self-start lg:justify-end">
-          <div className="relative aspect-square w-full max-w-sm overflow-hidden rounded-2xl border border-line bg-surface md:aspect-[4/5]">
-            {hero.portraitSrc ? (
-              <Image
-                src={hero.portraitSrc}
-                alt={hero.portraitAlt}
-                fill
-                sizes="(max-width: 1024px) 100vw, 24rem"
-                className="object-cover object-top"
-                priority
-              />
-            ) : (
-              <div
-                role="img"
-                aria-label={hero.portraitPlaceholderLabel}
-                className="flex h-full w-full items-center justify-center"
-              >
-                <span
-                  aria-hidden="true"
-                  className="font-display text-7xl font-bold text-muted"
+          <div className="relative w-full max-w-sm">
+            {/* Echo frame: same offset border accent as the About portrait,
+                so both photos share the decorative motif page-wide. */}
+            <div
+              aria-hidden="true"
+              className="absolute -inset-0 translate-x-4 translate-y-4 rounded-2xl border border-line"
+            />
+            <div className="relative aspect-square w-full overflow-hidden rounded-2xl border border-line bg-surface md:aspect-[4/5]">
+              {hero.portraitSrc ? (
+                <Image
+                  src={hero.portraitSrc}
+                  alt={hero.portraitAlt}
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 24rem"
+                  className="object-cover object-top"
+                  priority
+                />
+              ) : (
+                <div
+                  role="img"
+                  aria-label={hero.portraitPlaceholderLabel}
+                  className="flex h-full w-full items-center justify-center"
                 >
-                  {hero.portraitInitials}
-                </span>
-              </div>
-            )}
+                  <span
+                    aria-hidden="true"
+                    className="font-display text-7xl font-bold text-muted"
+                  >
+                    {hero.portraitInitials}
+                  </span>
+                </div>
+              )}
+            </div>
           </div>
         </Reveal>
       </div>
