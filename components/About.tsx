@@ -1,22 +1,19 @@
 import Image from "next/image";
 import Reveal from "@/components/Reveal";
 import SampleBadge from "@/components/SampleBadge";
+import SectionShell from "@/components/SectionShell";
 import { siteContent } from "@/lib/content";
 
 export default function About() {
   const { about } = siteContent;
 
   return (
-    <section
-      id="about"
-      aria-labelledby="about-heading"
-      className="flex min-h-[calc(100svh-4rem)] scroll-mt-16 flex-col justify-center lg:justify-start"
-    >
-      {/* Desktop: top-aligned so the heading lands at the same 144px (64px
-          scroll-mt + 80px pt) as every other section when navigating.
-          Mobile/tablet keep the original centered layout. */}
-      <div className="mx-auto grid w-full max-w-6xl gap-12 px-4 py-20 sm:px-6 md:grid-cols-2 md:items-center md:py-28 lg:pt-20">
-        <Reveal className="lg:self-start">
+    <SectionShell id="about" labelledBy="about-heading" layout="split" align="start">
+      {/* Same shell + spacing as Skills/Experience/Work/Contact: identical
+          scroll-mt-20 anchor and py-10 / md:py-16, so "The engineer behind the
+          code." exits at 120px mobile / 144px desktop like every other h2.
+          Photo-first on mobile via order; text-first from md up. */}
+        <Reveal className="order-2 md:order-1">
           <h2
             id="about-heading"
             className="font-display text-4xl leading-tight font-bold tracking-tight text-balance text-foreground sm:text-5xl"
@@ -28,33 +25,16 @@ export default function About() {
               <p key={paragraph.slice(0, 24)}>{paragraph}</p>
             ))}
           </div>
-          <dl className="mt-10 flex flex-wrap gap-x-12 gap-y-6">
-            {about.stats.map((stat) => (
-              <div key={stat.label}>
-                <dt className="order-2 mt-1 text-[11px] font-medium tracking-[0.18em] text-muted uppercase">
-                  {stat.label}
-                </dt>
-                <dd className="order-1 flex items-center gap-2">
-                  <span className="font-display text-3xl font-bold text-mint">
-                    {stat.value}
-                  </span>
-                  {stat.placeholder ? <SampleBadge /> : null}
-                </dd>
-              </div>
-            ))}
-          </dl>
         </Reveal>
-        {/* Photo position lock: the photo must NOT move. With the section now
-            top-aligned at lg, `lg:mt-[80px]` restores the photo to its exact
-            previous top offset (225px from viewport top at 1440x900). Below
-            lg the layout is untouched. */}
-        <Reveal delay={90} className="flex justify-center md:self-start md:justify-end lg:mt-[80px]">
+        {/* Photo top locks to the grid top via md:items-start on the shell;
+            no offsets, so it starts flush with the title block. */}
+        <Reveal delay={90} className="order-1 flex justify-center md:order-2 md:justify-end">
           <div className="relative w-full max-w-sm">
             <div
               aria-hidden="true"
               className="absolute -inset-0 translate-x-4 translate-y-4 rounded-2xl border border-line"
             />
-            <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl border border-line bg-surface">
+            <div className="relative aspect-square w-full overflow-hidden rounded-2xl border border-line bg-surface md:aspect-[4/5]">
               {about.portraitSrc ? (
                 <Image
                   src={about.portraitSrc}
@@ -83,7 +63,6 @@ export default function About() {
             </div>
           </div>
         </Reveal>
-      </div>
-    </section>
+    </SectionShell>
   );
 }
