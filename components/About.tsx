@@ -8,10 +8,12 @@ export default function About() {
   const { about } = siteContent;
 
   return (
-    <SectionShell id="about" labelledBy="about-heading" layout="split" align="start">
-      {/* Same shell + spacing as Skills/Experience/Work/Contact: identical
-          scroll-mt-20 anchor and py-10 / md:py-16, so "The engineer behind the
-          code." exits at 120px mobile / 144px desktop like every other h2.
+    <SectionShell id="about" labelledBy="about-heading" layout="split" align="start" spacing="compact">
+      {/* Same shell + outer spacing as Skills/Experience/Work/Contact:
+          identical scroll-mt-20 anchor and py-10 / md:py-16 (compact never
+          touches outer padding). spacing="compact" only tightens the mobile
+          grid gap, so photo -> heading is 32px instead of 48px, matching the
+          Hero's tightened photo spacing; md+ keeps the standard gap-12.
           Photo above the text on mobile (requested: photos lead on small
           screens), text left / photo right from md up. */}
         <Reveal>

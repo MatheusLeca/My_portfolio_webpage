@@ -16,12 +16,15 @@ export default function Hero() {
       aria-labelledby="hero-heading"
       className="relative flex min-h-[calc(100svh-4rem)] flex-col justify-start overflow-hidden"
     >
-      {/* Photo-top lock with About: same space above both photos at every
-          breakpoint. Hero top padding + 4rem nav = About's scroll-mt-20 +
-          py, so both photo tops land 120px (mobile: pt-14 56px + 64px) /
-          144px (md+: pt-20 80px + 64px) from the viewport top. items-start +
-          self-start, no offsets, keep the photo tops flush with the title. */}
-      <div className="mx-auto grid w-full max-w-6xl gap-12 px-4 pt-14 pb-20 sm:px-6 md:pt-20 lg:grid-cols-[1.1fr_0.9fr] lg:items-start lg:pb-28">
+      {/* Tight photo spacing where the photo leads the stack (mobile/tablet):
+          pt-6 / md:pt-10 below the sticky nav and gap-8 between photo and
+          title, so the image doesn't float in empty space. From lg up the
+          photo sits beside the text with the original desktop rhythm
+          (pt-20, gap-12); the 144px viewport-top lock with About (80px
+          padding + 4rem nav = About's scroll-mt-20 + md:py-16) only applies
+          there. items-start + self-start keep the photo tops flush with the
+          title on the two-column grid. */}
+      <div className="mx-auto grid w-full max-w-6xl gap-8 px-4 pt-6 pb-20 sm:px-6 md:pt-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-start lg:gap-12 lg:pt-20 lg:pb-28">
         <Reveal className="lg:self-start">
           <h1
             id="hero-heading"
