@@ -276,7 +276,7 @@ export const siteContent = {
     label: "Resume",
     // PDF asset in public/files; Hero prefixes NEXT_BASE_PATH at build
     // time so the link also works on the sub-path static fallback host.
-    href: "/files/Matheus_Leca_Resume_Java_Engineer.pdf",
+    href: "/files/Matheus_Software_Engineer_Resume.pdf",
     placeholder: false,
   },
   contact: {
