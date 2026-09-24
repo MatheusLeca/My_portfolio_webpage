@@ -8,8 +8,15 @@ import {
   type ContactErrors,
   type ContactField,
 } from "@/lib/contact";
-import { getContactSender, initFirebaseAppCheck } from "@/lib/firebase";
 import { siteContent } from "@/lib/content";
+
+/**
+ * Backend endpoint (Cloudflare Worker by default; set to `/api/contact`
+ * for server-capable hosts). Falls back to the Next.js route so Vercel
+ * works with zero config.
+ */
+const CONTACT_ENDPOINT =
+  process.env.NEXT_PUBLIC_CONTACT_ENDPOINT ?? "/api/contact";
 
 type FormStatus = "idle" | "sending" | "sent" | "error";
 
@@ -76,18 +83,24 @@ export default function ContactForm() {
     setStatus("sending");
 
     try {
-      initFirebaseAppCheck();
-      await getContactSender()({
-        ...validation.data,
-        company: input.company,
+      const response = await fetch(CONTACT_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...validation.data, company: input.company }),
       });
+      if (!response.ok) {
+        const body = (await response.json().catch(() => null)) as {
+          error?: string;
+        } | null;
+        setStatus("error");
+        setSubmissionError(body?.error ?? form.failureBody);
+        return;
+      }
       setStatus("sent");
       formRef.current?.reset();
-    } catch (error) {
+    } catch {
       setStatus("error");
-      setSubmissionError(
-        error instanceof Error ? error.message : form.failureBody,
-      );
+      setSubmissionError(form.failureBody);
     }
   }
 

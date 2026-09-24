@@ -1,13 +1,6 @@
 // @vitest-environment jsdom
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
-import { beforeEach, describe, expect, it, vi } from "vitest";
-
-const { callableMock } = vi.hoisted(() => ({ callableMock: vi.fn() }));
-
-vi.mock("@/lib/firebase", () => ({
-  initFirebaseAppCheck: vi.fn(),
-  getContactSender: vi.fn(() => callableMock),
-}));
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import ContactForm from "./ContactForm";
 
@@ -30,21 +23,39 @@ function submit() {
   fireEvent.click(screen.getByRole("button", { name: /send message|sending/i }));
 }
 
+const fetchMock = vi.fn();
+
 beforeEach(() => {
-  callableMock.mockReset();
+  fetchMock.mockReset();
+  vi.stubGlobal("fetch", fetchMock);
 });
 
+afterEach(() => {
+  vi.unstubAllGlobals();
+});
+
+function okResponse() {
+  return { ok: true, json: async () => ({ ok: true }) };
+}
+
+function failResponse(error?: string) {
+  return {
+    ok: false,
+    json: async () => (error ? { ok: false, error } : {}),
+  };
+}
+
 describe("ContactForm", () => {
-  it("shows an accessible error summary and does not call the function on invalid input", () => {
+  it("shows an accessible error summary and does not fetch on invalid input", () => {
     render(<ContactForm />);
     submit();
     expect(screen.getByRole("alert")).toBeTruthy();
-    expect(callableMock).not.toHaveBeenCalled();
+    expect(fetchMock).not.toHaveBeenCalled();
   });
 
   it("disables submit while sending, then shows the sent panel on success", async () => {
     let resolveCall!: (value: unknown) => void;
-    callableMock.mockReturnValue(new Promise((resolve) => (resolveCall = resolve)));
+    fetchMock.mockReturnValue(new Promise((resolve) => (resolveCall = resolve)));
 
     render(<ContactForm />);
     fillForm();
@@ -56,15 +67,15 @@ describe("ContactForm", () => {
 
     // Duplicate submission while in flight is ignored.
     submit();
-    expect(callableMock).toHaveBeenCalledTimes(1);
+    expect(fetchMock).toHaveBeenCalledTimes(1);
 
-    resolveCall({ data: { ok: true } });
+    resolveCall(okResponse());
     expect(await screen.findByRole("status")).toBeTruthy();
     expect(screen.getByText("Message sent.")).toBeTruthy();
   });
 
-  it("sends all fields including the honeypot to the callable function", async () => {
-    callableMock.mockResolvedValue({ data: { ok: true } });
+  it("posts all fields including the honeypot as JSON", async () => {
+    fetchMock.mockResolvedValue(okResponse());
     const { container } = render(<ContactForm />);
     fillForm();
     fireEvent.change(container.querySelector('input[name="company"]')!, {
@@ -73,7 +84,14 @@ describe("ContactForm", () => {
     submit();
 
     await screen.findByRole("status");
-    expect(callableMock).toHaveBeenCalledWith({
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+    const [url, init] = fetchMock.mock.calls[0] as unknown as [string, RequestInit];
+    expect(url).toBe("/api/contact");
+    expect(init.method).toBe("POST");
+    expect((init.headers as Record<string, string>)["Content-Type"]).toBe(
+      "application/json",
+    );
+    expect(JSON.parse(String(init.body))).toEqual({
       name: "Ada Lovelace",
       email: "ada@example.com",
       subject: "Role inquiry",
@@ -83,7 +101,9 @@ describe("ContactForm", () => {
   });
 
   it("keeps entered values, shows the failure state and mailto fallback on server error", async () => {
-    callableMock.mockRejectedValue(new Error("The message could not be sent. Please try again later."));
+    fetchMock.mockResolvedValue(
+      failResponse("The message could not be sent. Please try again later."),
+    );
     render(<ContactForm />);
     fillForm();
     submit();
@@ -98,18 +118,31 @@ describe("ContactForm", () => {
     expect(screen.getByRole("link", { name: /email me directly/i })).toBeTruthy();
 
     // Retry works after failure.
-    callableMock.mockResolvedValue({ data: { ok: true } });
+    fetchMock.mockResolvedValue(okResponse());
     submit();
     expect(await screen.findByRole("status")).toBeTruthy();
   });
 
-  it("falls back to a plain message when the error carries no readable message", async () => {
-    callableMock.mockRejectedValue({ code: "internal" });
+  it("falls back to the content-seam failure copy on network errors and bad bodies", async () => {
+    fetchMock.mockRejectedValue(new TypeError("Failed to fetch"));
     render(<ContactForm />);
     fillForm();
     submit();
+
     const alert = await screen.findByRole("alert");
     expect(alert.textContent).toContain("The message could not be sent. Please try again later.");
+
+    // Non-JSON error body also lands on the content-seam copy.
+    fetchMock.mockResolvedValue({
+      ok: false,
+      json: async () => {
+        throw new Error("no json");
+      },
+    });
+    fireEvent.change(screen.getByLabelText("Name"), { target: { value: "Retry Person" } });
+    submit();
+    const retryAlert = await screen.findByRole("alert");
+    expect(retryAlert.textContent).toContain("The message could not be sent. Please try again later.");
     await waitFor(() => expect(screen.getByRole("link", { name: /email me directly/i })).toBeTruthy());
   });
 });

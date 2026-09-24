@@ -43,5 +43,8 @@ next-env.d.ts
 # firebase deploy artifacts (never committed)
 /.firebase/
 
+# cloudflare wrangler state (never committed)
+/.wrangler/
+
 # graphify knowledge graph outputs (regenerable via /graphify)
 /graphify-out/

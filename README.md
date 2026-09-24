@@ -17,51 +17,65 @@ resolution for the React 19 type packages (see the comment inside).
 
 ## Environment
 
-| Variable                         | Where                | Purpose                                                        |
-| -------------------------------- | -------------------- | -------------------------------------------------------------- |
-| `RESEND_API_KEY`                 | Firebase secret      | Resend API key used by Cloud Function to send contact mail     |
-| `CONTACT_TO`                     | Firebase secret      | Recipient address for contact messages                         |
-| `CONTACT_FROM`                   | Firebase secret      | Verified Resend sender address                                  |
-| `NEXT_PUBLIC_RECAPTCHA_SITE_KEY` | Build time           | Firebase App Check reCAPTCHA site key for contact function     |
-| `NEXT_PUBLIC_FIREBASE_*`         | Build time           | Public Firebase web app configuration                          |
-| `NEXT_BASE_PATH`                 | Build time, optional | Sub-path prefix when serving from a project page                |
-| `NEXT_PUBLIC_SITE_URL`           | Build time, optional | Public origin for canonical URLs, sitemap, and robots metadata |
+| Variable                         | Where                     | Purpose                                                        |
+| -------------------------------- | ------------------------- | -------------------------------------------------------------- |
+| `RESEND_API_KEY`                 | Worker secret             | Resend API key used by the contact Worker to send mail         |
+| `CONTACT_TO`                     | Worker secret             | Recipient address for contact messages                         |
+| `CONTACT_FROM`                   | Worker secret             | Verified Resend sender address                                  |
+| `NEXT_PUBLIC_CONTACT_ENDPOINT`   | Build time                | Contact Worker URL (e.g. `https://landing-page-contact.<account>.workers.dev`) |
+| `NEXT_PUBLIC_FIREBASE_*`         | Build time                | Public Firebase web app configuration                          |
+| `NEXT_BASE_PATH`                 | Build time, optional      | Sub-path prefix when serving from a project page                |
+| `NEXT_PUBLIC_SITE_URL`           | Build time, optional      | Public origin for canonical URLs, sitemap, and robots metadata |
 
 Never put secrets in `NEXT_PUBLIC_*` variables or commit them.
 
+For the optional Firebase Cloud Function backend (requires Blaze plan) the
+secrets move to Firebase Secret Manager (`firebase functions:secrets:set
+RESEND_API_KEY` etc.) and `NEXT_PUBLIC_RECAPTCHA_SITE_KEY` is added for App
+Check.
+
 ## Contact delivery
 
-The Firebase-hosted site uses a callable Cloud Function named `sendContactMessage`. It validates submissions, enforces App Check, applies a honeypot and a best-effort rate limit, then sends through Resend.
+The form POSTs JSON to `NEXT_PUBLIC_CONTACT_ENDPOINT` (default
+`/api/contact` for server-capable hosts). The primary backend is a free
+Cloudflare Worker (`worker/contact.ts`): it validates via the shared
+validator (`functions/src/contact.ts`), applies a honeypot and best-effort
+rate limit, and sends through Resend.
 
-Set secrets before deploying:
+One-time Worker setup:
 
 ```bash
-firebase functions:secrets:set RESEND_API_KEY
-firebase functions:secrets:set CONTACT_TO
-firebase functions:secrets:set CONTACT_FROM
-npm run deploy:functions
+npx wrangler login
+npm run deploy:worker
+npx wrangler secret put RESEND_API_KEY
+npx wrangler secret put CONTACT_TO
+npx wrangler secret put CONTACT_FROM
 ```
 
-Set `NEXT_PUBLIC_RECAPTCHA_SITE_KEY` in the static build environment after registering the site with Firebase App Check. Verify the Resend sender domain before deployment. Cloud Functions requires Firebase Blaze billing. Function and client both use region `us-central1` — keep them in sync if you ever move the function.
+Verify the Resend sender domain before deploying. Then build the site with
+`NEXT_PUBLIC_CONTACT_ENDPOINT` set to the Worker URL.
 
-The existing Next.js `/api/contact` route is retained for server-capable hosts but is not deployed by Firebase static Hosting.
+The Firebase callable (`functions/src/index.ts`, App Check enforced) is kept
+as an optional backend for a Blaze-enabled deployment:
+`npm run deploy:functions`. The Next.js `/api/contact` route serves
+server-capable hosts (Vercel) and is not part of static Firebase Hosting.
 
 ## Deployment
 
-- **Primary host (Firebase Hosting + Cloud Functions):** deploy static output with `npm run build:static` and `firebase deploy --only hosting`; deploy backend with `npm run deploy:functions`.
-- **Server fallback (Vercel):** import this repo in the Vercel dashboard. The Next.js `/api/contact` route remains available for server-capable deployments.
+- **Primary host (Firebase Hosting + Cloudflare Worker, free tier):** deploy the Worker with `npm run deploy:worker`, then deploy static output with `NEXT_PUBLIC_CONTACT_ENDPOINT=<worker-url> npm run build:static && firebase deploy --only hosting`.
+- **Optional Cloud Function (Blaze plan):** `npm run deploy:functions` — callable with App Check enforcement; switch the form's endpoint wiring to the callable.
+- **Server fallback (Vercel):** import this repo in the Vercel dashboard; default endpoint `/api/contact` needs no configuration.
 - **GitHub Pages fallback:** the `Deploy static export to GitHub Pages` workflow builds `npm run build:static` with `NEXT_BASE_PATH=/Landing-Page` and publishes `out/`.
 
 ## Testing
 
-| Command        | Description                                       |
-| -------------- | ------------------------------------------------- |
-| `npm test`     | Run unit tests (Vitest): validation, function, UI |
+| Command        | Description                                                 |
+| -------------- | ----------------------------------------------------------- |
+| `npm test`     | Run unit tests (Vitest): validation, Worker/function, UI    |
 
-App Check enforcement is verified against the deployed function: a call
-without a valid App Check token must be rejected. Run that check after each
-deployment (e.g. with the callable temporarily enforced in a staging project
-or the Firebase emulator).
+App Check enforcement (optional Cloud Function only) is verified against
+the deployed function: a call without a valid App Check token must be
+rejected. Run that check after each function deployment.
 
 ## Content
 Owner-editable strings live behind a single content seam (`lib/content`),

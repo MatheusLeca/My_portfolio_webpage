@@ -1,0 +1,8 @@
+name = "landing-page-contact"
+main = "worker/contact.ts"
+compatibility_date = "2026-01-01"
+
+# Secrets are NOT set here — use:
+#   npx wrangler secret put RESEND_API_KEY
+#   npx wrangler secret put CONTACT_TO
+#   npx wrangler secret put CONTACT_FROM
