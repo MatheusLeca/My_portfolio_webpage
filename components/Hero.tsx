@@ -52,6 +52,18 @@ export default function Hero() {
                 download
                 className="inline-flex items-center rounded-full bg-action px-6 py-3 text-[11px] font-bold tracking-[0.2em] text-on-action uppercase transition-colors hover:bg-action-strong focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background focus-visible:outline-none"
               >
+                {/* Bootstrap Icons "file-person-fill" (inline SVG: no icon-font
+                    dependency for a single glyph). currentColor inherits the
+                    button text color. */}
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 16 16"
+                  fill="currentColor"
+                  aria-hidden="true"
+                  className="mr-2 h-3.5 w-3.5"
+                >
+                  <path d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2m-1 7a3 3 0 1 1-6 0 3 3 0 0 1 6 0m-3 4c2.623 0 4.146.826 5 1.755V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-1.245C3.854 11.825 5.377 11 8 11" />
+                </svg>
                 {resume.label}
                 <span aria-hidden="true" className="ml-2">
                   ↓
