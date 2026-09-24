@@ -16,12 +16,12 @@ export default function Hero() {
       aria-labelledby="hero-heading"
       className="relative flex min-h-[calc(100svh-4rem)] flex-col justify-start overflow-hidden"
     >
-      {/* Photo-top lock with About: same grid top rule (items-start +
-          self-start, no offsets) so both photo tops start flush with their
-          title blocks. Desktop uses lg:pt-20 (80px): 64px nav + 80px = 144px
-          viewport, matching About's 80px scroll-mt + 64px py-16 = 144px.
-          Title matches too (same 144px). */}
-      <div className="mx-auto grid w-full max-w-6xl gap-12 px-4 pt-10 pb-20 sm:px-6 md:pt-16 lg:grid-cols-[1.1fr_0.9fr] lg:items-start lg:pt-20 lg:pb-28">
+      {/* Photo-top lock with About: same space above both photos at every
+          breakpoint. Hero top padding + 4rem nav = About's scroll-mt-20 +
+          py, so both photo tops land 120px (mobile: pt-14 56px + 64px) /
+          144px (md+: pt-20 80px + 64px) from the viewport top. items-start +
+          self-start, no offsets, keep the photo tops flush with the title. */}
+      <div className="mx-auto grid w-full max-w-6xl gap-12 px-4 pt-14 pb-20 sm:px-6 md:pt-20 lg:grid-cols-[1.1fr_0.9fr] lg:items-start lg:pb-28">
         <Reveal className="lg:self-start">
           <h1
             id="hero-heading"
