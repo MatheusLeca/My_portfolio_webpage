@@ -10,12 +10,15 @@ export default function About() {
   return (
     <SectionShell id="about" labelledBy="about-heading" layout="split" align="start" spacing="photo-lead">
       {/* spacing="photo-lead": same shell as Skills/Experience/Work/Contact
-          (identical scroll-mt-20 anchor, pb-10 bottom, md:py-16 desktop
-          rhythm), but the mobile top padding drops py-10 -> pt-6 so the
-          space above the photo is the same 24px as the Hero's. The compact
-          grid gap keeps photo -> heading at 32px on mobile; md+ keeps the
-          standard gap-12. Photo above the text on mobile (requested: photos
-          lead on small screens), text left / photo right from md up. */}
+          (pb-10 bottom, md:py-16 desktop rhythm), but on mobile the top
+          padding drops py-10 -> pt-6 and the anchor offset drops
+          scroll-mt-20 -> scroll-mt-16, so the space above the photo is the
+          same 24px as the Hero's both at page top and after tapping the
+          About nav link (md+ rejoins scroll-mt-20 for the 144px section-top
+          lock). The compact grid gap keeps photo -> heading at 32px on
+          mobile; md+ keeps the standard gap-12. Photo above the text on
+          mobile (requested: photos lead on small screens), text left /
+          photo right from md up. */}
         <Reveal>
           <h2
             id="about-heading"
