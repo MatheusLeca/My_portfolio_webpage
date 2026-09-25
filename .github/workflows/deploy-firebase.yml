@@ -59,6 +59,11 @@ jobs:
     needs: validate
     if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
+    # Records the deploy on the repo's Environments page. Only the `vars` context
+    # resolves here, so this can't use the secret-first chain the build steps do.
+    environment:
+      name: production
+      url: ${{ vars.NEXT_PUBLIC_SITE_URL || 'https://matheusleca.dev' }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4

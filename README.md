@@ -80,6 +80,7 @@ The repository uses GitHub Actions (`.github/workflows/deploy-firebase.yml`) for
    - Runs the full validation suite.
    - Builds the production static export with Firebase environment variables.
    - Deploys the static assets in `out/` to the Firebase Hosting live channel (`my-portfolio-874e7`) via `FirebaseExtended/action-hosting-deploy@v0`.
+   - Records the run under the `production` GitHub Environment, which lists it on the repo's Deployments page with the live URL and timestamp.
    - Uses concurrency controls (`group: ${{ github.workflow }}-${{ github.ref }}`) to prevent out-of-order production deployments.
 
 ### Required GitHub Secrets & Variables

@@ -31,4 +31,9 @@ describe("CI/CD Workflow Configuration", () => {
     expect(content).toContain("projectId: my-portfolio-874e7");
     expect(content).toContain("secrets.FIREBASE_SERVICE_ACCOUNT_MY_PORTFOLIO_874E7");
   });
+  it("records production deploys in a GitHub environment", () => {
+    const content = readFileSync(workflowPath, "utf-8");
+    expect(content).toContain("environment:\n      name: production");
+    expect(content).toContain("url: ${{ vars.NEXT_PUBLIC_SITE_URL");
+  });
 });
