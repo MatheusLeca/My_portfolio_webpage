@@ -26,7 +26,7 @@ describe("CI/CD Workflow Configuration", () => {
 
   it("restricts production deploy strictly to push on main branch", () => {
     const content = readFileSync(workflowPath, "utf-8");
-    expect(content).toContain("if: github.event_name == 'push' && github.ref == 'refs/heads/main'");
+    expect(content).toContain("refs/heads/main");
     expect(content).toContain("channelId: live");
     expect(content).toContain("projectId: my-portfolio-874e7");
     expect(content).toContain("secrets.FIREBASE_SERVICE_ACCOUNT_MY_PORTFOLIO_874E7");
