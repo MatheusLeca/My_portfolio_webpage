@@ -5,13 +5,9 @@ import {
 } from "../functions/src/contact";
 
 /**
- * Contact backend on Cloudflare Workers (free tier: 100k req/day).
- * Same contract as the Firebase callable and the Next.js route:
- * POST JSON { name, email, subject, message, company } -> { ok: true }
- * or { ok: false, error } with a non-2xx status.
- *
- * Secrets (RESEND_API_KEY, CONTACT_TO, CONTACT_FROM) are set with
- * `wrangler secret put <NAME>` — never committed.
+ * Contact form submission handler for Cloudflare Workers.
+ * Accepts POST requests with contact form payloads and delivers emails via Resend.
+ * Required environment secrets: RESEND_API_KEY, CONTACT_TO, CONTACT_FROM.
  */
 type Env = {
   RESEND_API_KEY: string;
@@ -22,8 +18,6 @@ type Env = {
 const RATE_WINDOW_MS = 10 * 60 * 1000;
 const RATE_MAX_REQUESTS = 5;
 
-// ponytail: in-memory per-isolate window — best effort only; add Cloudflare
-// Rate Limiting rules at the zone if traffic ever needs a durable defense.
 const requestLog = new Map<string, number[]>();
 
 function isRateLimited(ip: string): boolean {
