@@ -1,13 +1,13 @@
 # Landing Page — personal portfolio
 
 Single-page portfolio of Matheus Leca, Software Engineer.
+
 **Live:** [matheusleca.dev](https://matheusleca.dev)
 
 ## About
 
 A single-page portfolio presenting Matheus Leca's background, skills, experience,
 and selected work, with a contact form for roles and project inquiries.
-All copy is edited in `lib/content.ts`.
 
 ## Features
 
@@ -19,7 +19,9 @@ All copy is edited in `lib/content.ts`.
 - Contact form with validation, spam protection, and mailto fallback
 
 ![Portfolio demo](public/gifs/portfolio.gif)
-<img src="public/images/mobile.jpeg" alt="Portfolio on mobile" width="280" />
+<p align="center">
+  <img src="public/images/mobile.jpeg" alt="Portfolio on mobile" width="280" />
+</p>
 
 ## Contents
 
@@ -27,6 +29,7 @@ All copy is edited in `lib/content.ts`.
 - [Features](#features)
 - [Tech stack](#tech-stack)
 - [Setup](#setup)
+- [Deployment variables](#deployment-variables)
 - [Commands](#commands)
 
 ## Tech stack
@@ -46,7 +49,17 @@ npm ci
 npm run dev
 ```
 
-Copy is edited in `lib/content.ts`.
+## Deployment variables
+
+The Firebase workflow reads each value from secrets first, then variables:
+
+| Variable | Required | Purpose |
+| -------- | -------- | ------- |
+| `FIREBASE_SERVICE_ACCOUNT_MY_PORTFOLIO_874E7` | Yes (secret) | Service account key with Firebase Hosting Admin |
+| `NEXT_PUBLIC_FIREBASE_*` | Yes | Public Firebase web config baked into the build |
+| `NEXT_PUBLIC_SITE_URL` | No (defaults to `https://matheusleca.dev`) | Canonical URL for sitemap, robots, and metadata |
+| `NEXT_PUBLIC_CONTACT_ENDPOINT` | No | Contact Worker URL; falls back to `/api/contact` |
+| `NEXT_PUBLIC_RECAPTCHA_SITE_KEY` | Only for the Firebase callable path | reCAPTCHA v3 site key for App Check |
 
 ## Commands
 
