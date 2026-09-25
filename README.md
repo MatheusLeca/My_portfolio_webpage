@@ -4,6 +4,16 @@ Single-page portfolio of Matheus Leca, Software Engineer.
 
 **Live:** [matheusleca.dev](https://matheusleca.dev)
 
+### Desktop Preview
+
+![Portfolio demo](public/gifs/portfolio.gif)
+
+### Mobile Preview
+
+<p align="center">
+  <img src="public/images/mobile.jpeg" alt="Portfolio on mobile" width="280" />
+</p>
+
 ## Contents
 
 - [About](#about)
@@ -12,11 +22,6 @@ Single-page portfolio of Matheus Leca, Software Engineer.
 - [Setup](#setup)
 - [Deployment variables](#deployment-variables)
 - [Commands](#commands)
-
-![Portfolio demo](public/gifs/portfolio.gif)
-<p align="center">
-  <img src="public/images/mobile.jpeg" alt="Portfolio on mobile" width="280" />
-</p>
 
 ## About
 
