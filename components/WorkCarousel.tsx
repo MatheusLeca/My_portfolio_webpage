@@ -72,25 +72,11 @@ export default function WorkCarousel({
             {heading}
           </h2>
         </Reveal>
-        {/* Below lg the pair flows in the header row: "static" + an
-         * important translate reset neutralize the vendored absolute
-         * -left-12/-right-12 offsets (twMerge makes them win). On lg+ this
-         * pair hides and the flanking chevrons beside the track take over. */}
         <div className="flex gap-2 lg:hidden">
           <CarouselPrevious className="static translate-none!" />
           <CarouselNext className="static translate-none!" />
         </div>
       </div>
-      {/* Positioning context for the desktop (lg+) chevrons. They render
-       * before the track so controls precede card links in tab order —
-       * same order as the header-row pair below lg — and z-10 keeps them
-       * painted above a hovered card's transformed, glowing edge. The
-       * -left-6/-right-6 outset (twMerge overrides the vendored -left-12)
-       * equals the section container's 24px padding: each button straddles
-       * the track edge (24px outside over the padding, 16px across the
-       * card's border and full-bleed visual edge) and never reaches past the
-       * viewport,
-       * even at the 1024px lg edge. */}
       <div className="relative">
         <CarouselPrevious className="hidden -left-6 z-10 lg:inline-flex" />
         <CarouselNext className="hidden -right-6 z-10 lg:inline-flex" />
@@ -101,10 +87,6 @@ export default function WorkCarousel({
               aria-label={`${index + 1} of ${projects.length}`}
               className="flex basis-[84%] pl-6 sm:basis-[60%] md:basis-[44%] lg:basis-[34%] xl:basis-[30%] 2xl:basis-[24%]"
             >
-              {/* Slides live in a horizontal track, so the per-card scroll
-               * reveal is disabled — it would fade cards in mid-swipe. The
-               * whole track block could be wrapped in one Reveal instead;
-               * cards appear with the section as before. */}
               <ProjectCard project={project} reveal={false} />
             </CarouselItem>
           ))}

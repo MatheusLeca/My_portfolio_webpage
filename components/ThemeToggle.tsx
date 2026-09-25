@@ -56,8 +56,7 @@ function storedTheme(): Theme | null {
 }
 
 function getThemeSnapshot(): Theme {
-  // Site default is light (owner request, 2026-09); the OS preference is
-  // not followed — only an explicit stored choice changes the theme.
+  // Site default is light; the OS preference is not followed — only an explicit stored choice changes the theme.
   return storedTheme() ?? "light";
 }
 

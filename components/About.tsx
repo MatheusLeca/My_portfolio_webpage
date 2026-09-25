@@ -9,14 +9,6 @@ export default function About() {
 
   return (
     <SectionShell id="about" labelledBy="about-heading" layout="split-lg" align="center" spacing="compact">
-      {/* One outer rhythm page-wide (see SectionShell): pt-6 (24px) above the
-          photo on mobile — the same space as above every section title and
-          the Hero photo — pb-10 bottom, md:py-12 from md up; scroll-mt-16
-          lands the section flush at the nav bottom on mobile anchor jumps.
-          spacing="compact" tightens the mobile grid gap so photo -> heading
-          is 32px instead of 48px; md+ keeps the standard gap-12. Photo above
-          the text on mobile/tablet (photos lead on small screens), text
-          left / photo right from lg up (split-lg). */}
         <Reveal>
           <h2
             id="about-heading"
@@ -43,14 +35,6 @@ export default function About() {
             ))}
           </div>
         </Reveal>
-        {/* Photo centers against the text column via lg:items-center on the
-            shell (split-lg, align="center") + lg:self-center here — same rule
-            as the Hero photo, so the portrait sits mid-text instead of pinned
-            to the title (which read as top-heavy on smaller desktops where
-            the text runs taller than the image). order-first puts the photo
-            above the text in the single-column mobile/tablet stack;
-            lg:order-none restores DOM order (text left, photo right) on the
-            two-column desktop grid. Identical box to the Hero portrait. */}
         <Reveal delay={90} className="order-first flex justify-center lg:order-none lg:self-center lg:justify-end">
           <div className="relative w-full max-w-sm xl:max-w-md 2xl:max-w-lg">
             <div
