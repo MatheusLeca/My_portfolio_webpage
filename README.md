@@ -67,6 +67,32 @@ server-capable hosts (Vercel) and is not part of static Firebase Hosting.
 - **Server fallback (Vercel):** import this repo in the Vercel dashboard; default endpoint `/api/contact` needs no configuration.
 - **GitHub Pages fallback:** the `Deploy static export to GitHub Pages` workflow builds `npm run build:static` with `NEXT_BASE_PATH=/Landing-Page` and publishes `out/`.
 
+
+## Automated CI/CD (GitHub Actions)
+
+The repository uses GitHub Actions (`.github/workflows/deploy-firebase.yml`) for automated continuous integration and production deployment to Firebase Hosting:
+
+1. **Pull Requests (`pull_request` to `main`):**
+   - Automatically runs linting (`npm run lint`), TypeScript checks (`npx tsc --noEmit`), Vitest test suite (`npm test`), and verifies the static export (`npm run build:static`).
+   - Pull requests never deploy to production.
+
+2. **Production Branch (`push` to `main`):**
+   - Runs the full validation suite.
+   - Builds the production static export with Firebase environment variables.
+   - Deploys the static assets in `out/` to the Firebase Hosting live channel (`my-portfolio-874e7`) via `FirebaseExtended/action-hosting-deploy@v0`.
+   - Uses concurrency controls (`group: ${{ github.workflow }}-${{ github.ref }}`) to prevent out-of-order production deployments.
+
+### Required GitHub Secrets & Variables
+
+To enable automated production deployments:
+
+| Name | Type | Purpose |
+| ---- | ---- | ------- |
+| `FIREBASE_SERVICE_ACCOUNT_MY_PORTFOLIO_874E7` | Secret | Google Service Account key with `Firebase Hosting Admin` permissions. |
+| `NEXT_PUBLIC_FIREBASE_*` | Secret / Variable | Public Firebase web configuration (API key, project ID, App ID, etc.) for client analytics. |
+| `NEXT_PUBLIC_SITE_URL` | Secret / Variable (Optional) | Canonical site URL (defaults to `https://matheusleca.dev`). |
+| `NEXT_PUBLIC_CONTACT_ENDPOINT` | Secret / Variable (Optional) | Cloudflare Worker URL for contact form submissions. |
+
 ## Testing
 
 | Command        | Description                                                 |
