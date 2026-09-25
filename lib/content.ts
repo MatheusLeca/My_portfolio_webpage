@@ -3,7 +3,6 @@
  *
  * All owner-editable strings live here so that updating copy, links, or
  * placeholder content never requires touching layout components.
- * Slices 2+ extend this module with their own sections.
  */
 
 export const siteContent = {
@@ -37,8 +36,6 @@ export const siteContent = {
         text: ", with experience across enterprise, government, academic, and personal projects.",
       },
     ],
-    // Single hero CTA is the resume download (see `resume` below); the
-    // outline "View Work" button was removed from the Hero.
     portraitSrc: "/images/portrait-opt.jpg",
     portraitAlt: "Matheus Leca speaking into a microphone at a podium",
     portraitPlaceholderLabel: "Profile photo placeholder",
@@ -221,8 +218,6 @@ export const siteContent = {
   },
   work: {
     heading: "Selected work",
-    // VeriFin + ThriveTree copy is owner-supplied; the third slot stays a
-    // generic under-development placeholder until a real project lands.
     projects: [
       {
         name: "VeriFin",
@@ -276,7 +271,7 @@ export const siteContent = {
     label: "Resume",
     // PDF asset in public/files; Hero prefixes NEXT_BASE_PATH at build
     // time so the link also works on the sub-path static fallback host.
-    href: "/files/Matheus_Software_Engineer_Resume.pdf",
+    href: "/files/Matheus_resume.pdf",
     placeholder: false,
   },
   contact: {
