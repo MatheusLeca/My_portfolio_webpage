@@ -67,10 +67,7 @@ function subscribeToTheme(callback: () => void): () => void {
 }
 
 /**
- * Toggles the data-theme attribute consumed by the token layers in
- * globals.css. Unset means the light site default; an explicit choice
- * persists across visits. State is read through an external store
- * (localStorage) so no render-loop effects are needed.
+ * Toggles the theme attribute on the document root and persists the user preference in localStorage.
  */
 export default function ThemeToggle({ className = "" }: { className?: string }) {
   const theme = useSyncExternalStore(

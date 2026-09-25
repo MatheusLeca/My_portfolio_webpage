@@ -3,9 +3,8 @@ import type { MetadataRoute } from "next";
 export const dynamic = "force-static";
 
 /**
- * Served at /sitemap.xml on both hosts. Empty until the public site
- * address is configured — a sitemap must contain absolute URLs, and there
- * is no custom domain yet (see NEXT_PUBLIC_SITE_URL).
+ * Generates /sitemap.xml using NEXT_PUBLIC_SITE_URL.
+ * Returns an empty sitemap if the site URL is not configured.
  */
 export default function sitemap(): MetadataRoute.Sitemap {
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;

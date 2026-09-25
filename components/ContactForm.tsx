@@ -11,9 +11,8 @@ import {
 import { siteContent } from "@/lib/content";
 
 /**
- * Backend endpoint (Cloudflare Worker by default; set to `/api/contact`
- * for server-capable hosts). Falls back to the Next.js route so Vercel
- * works with zero config.
+ * Contact form endpoint. Uses Cloudflare Worker by default, falling back
+ * to `/api/contact` for environments running a full Next.js server.
  */
 const CONTACT_ENDPOINT =
   process.env.NEXT_PUBLIC_CONTACT_ENDPOINT ?? "/api/contact";

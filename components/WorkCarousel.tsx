@@ -15,33 +15,8 @@ import type { SiteContent } from "@/lib/content";
 type Project = SiteContent["work"]["projects"][number];
 
 /**
- * Selected Work carousel: heading + a responsive prev/next control pair,
- * then the Embla track of ProjectCards.
- *
- * - Controls: below lg the pair sits in the header row ("static" +
- *   translate-none! neutralize the vendored absolute -left-12/-right-12
- *   offsets); on lg+ the header pair hides and a second pair straddles the
- *   track edges, vertically centered on the cards (reference-style
- *   chevrons). Both pairs share one Embla context — state, keyboard, and
- *   swipe stay in sync — and display:none keeps the hidden pair out of the
- *   hit-test and the accessibility tree.
- * - The flanking pair's -left-6/-right-6 outset equals the section
- *   container's 24px (sm:px-6) side padding, so the buttons hang into the
- *   padding without ever causing horizontal overflow — verified down to
- *   the 1024px lg edge, where there is no outer margin to borrow from.
- * - align "start" + slidesToScroll 1 + containScroll "trimSnaps": cards
- *   step one at a time from the left edge and the track stops flush with
- *   the last slide (no overscroll blank space with only 3 projects).
- * - Slide widths step down per breakpoint (84% → 60% → 44% → 34%) so the
- *   next card peeks into view as an affordance and cards stay compact at
- *   100% browser zoom (34% of the max-w-6xl track ≈ 375px wide); 34%
- *   (not 32%) keeps the controls enabled with exactly 3 projects.
- * - Each slide is a flex container so every card stretches to the track's
- *   tallest card: all cards share one exact width and height, with the
- *   footer row pinned to the bottom (mt-auto) regardless of how many
- *   description lines its content has.
- * - duration 0 under reduced motion: Embla still scrolls, but jumps
- *   instantly instead of animating.
+ * Project showcase carousel with responsive controls and equal-height cards.
+ * Uses Embla for touch swipe, keyboard navigation, and reduced-motion support.
  */
 export default function WorkCarousel({
   heading,

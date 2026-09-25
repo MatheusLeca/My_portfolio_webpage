@@ -1,7 +1,5 @@
 /**
- * Small "Sample" marker for placeholder content.
- * Placeholders ship visibly marked so sample values and images are never
- * mistaken for real claims; the owner removes the flag with real content.
+ * Visual badge indicating placeholder content in development or preview mode.
  */
 export default function SampleBadge() {
   return (

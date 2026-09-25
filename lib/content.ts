@@ -69,8 +69,6 @@ export const siteContent = {
         },
       ],
     ],
-    // Sample metrics: layout placeholders only. The owner replaces these
-    // with verified numbers before any public launch.
     stats: [
       { value: "08+", label: "Years experience", placeholder: true },
       { value: "120", label: "Projects shipped", placeholder: true },

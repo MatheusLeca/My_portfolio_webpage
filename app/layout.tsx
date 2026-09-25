@@ -52,8 +52,7 @@ export const metadata: Metadata = {
   },
 };
 
-// Structured Person metadata for search engines. No custom domain yet, so
-// no canonical URL field until NEXT_PUBLIC_SITE_URL is configured.
+// Structured JSON-LD Person schema for search engines. Canonical URL is set via NEXT_PUBLIC_SITE_URL.
 const personJsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
@@ -69,11 +68,8 @@ const personJsonLd = {
   ],
 };
 
-// Applies a stored theme choice before first paint so the toggle never
-// flashes the wrong mode. Runs before React hydrates; keep it dependency-free.
-// Also forces every reload to start at the top: the anchor is stripped
-// before the browser can jump to it. Fresh visits with anchors still land
-// on their section.
+// Pre-hydration script: restores saved theme before first paint to prevent flash,
+// and resets scroll position to the top on page reloads.
 const themeInitScript = `(function(){try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark"){document.documentElement.dataset.theme=t;}var n=performance.getEntriesByType("navigation")[0],r=n&&n.type==="reload";if("scrollRestoration" in history){history.scrollRestoration="manual";}if(r){if(location.hash){history.replaceState(null,"",location.pathname+location.search);}scrollTo(0,0);}}catch(e){}})();`;
 
 export default function RootLayout({

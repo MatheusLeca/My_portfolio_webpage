@@ -1,11 +1,8 @@
 @import "tailwindcss";
 
-/* Light theme is the default for every visitor (owner request, 2026-09).
-   The dark theme applies only via an explicit data-theme="dark" choice
-   (theme toggle, persisted in localStorage) — the OS preference is not
-   followed. --primary serves text accents and links; --action serves
-   filled-button backgrounds, where --on-action (dark on mint, white on
-   deep teal) holds contrast that white-on-mint cannot. */
+/* Light theme is active by default; dark theme applies via data-theme="dark".
+   --primary is used for text accents and links; --action defines button backgrounds
+   with high-contrast --on-action foregrounds. */
 
 :root {
   color-scheme: light;
@@ -83,11 +80,8 @@ body {
   color: var(--fg);
 }
 
-/* Scroll progress bar: scroll-linked fill from page top to bottom.
-   Driven by ScrollProgressBar.tsx via inline scaleX (works on every browser,
-   including mobile where animation-timeline: scroll() is unsupported).
-   The CSS animation below is a progressive enhancement layered on top for
-   browsers with scroll timelines; JS remains the source of truth. */
+/* Scroll progress bar fill. Inline scaleX in ScrollProgressBar.tsx drives
+   motion across all browsers, with CSS scroll-timeline as a progressive enhancement. */
 .progress-bar {
   position: fixed;
   top: 0;
@@ -121,12 +115,8 @@ body {
   color: var(--bg);
 }
 
-/* Themed vertical scrollbar: thin track over the page background with a
-   pill thumb in the Hire-me button color (--action). Hover/press deepens to
-   --action-strong to match the button hover. Firefox uses the two-value
-   scrollbar-color; Chromium/Safari use the webkit pseudo-elements. The
-   transparent track + bg-colored thumb border keeps the thumb floating
-   without reserving layout space. */
+/* Custom themed scrollbar styling for modern browsers (Firefox scrollbar-color
+   and WebKit pseudo-elements) styled with the --action button palette. */
 html {
   scrollbar-width: thin;
   scrollbar-color: var(--action) transparent;
@@ -159,9 +149,8 @@ body {
   background: var(--action-strong);
 }
 
-/* Scroll reveal: hidden until the observer flips data-reveal to visible.
-   Delay comes from --reveal-delay for stagger. Reduced motion and no-JS
-   (see layout noscript) render everything statically. */
+/* Scroll reveal animations: triggered via data-reveal attributes, with stagger support
+   via --reveal-delay and fallbacks for reduced-motion and disabled JS. */
 [data-reveal="hidden"] {
   opacity: 0;
   translate: 0 12px;
@@ -187,9 +176,8 @@ body {
   }
 }
 
-/* Hero typewriter caret: hard step blink, terminal-style. Gated behind
-   no-preference — reduced-motion users get the full line instantly with no
-   caret at all (see Typewriter.tsx). */
+/* Terminal-style blinking caret for the hero typewriter.
+   Automatically omitted when prefers-reduced-motion is active. */
 @keyframes caret-blink {
   0%,
   100% {
@@ -206,16 +194,8 @@ body {
   }
 }
 
-/* Selected Work card hover/focus: the active card scales up and gains a
-   subtle neon glow in --primary (mint on dark, teal on light). CSS-only so
-   pointer and keyboard stay in parity and touch devices (no hover) simply
-   keep the idle state. Transitions use transform, border-color, and
-   box-shadow only: compositor-friendly, no layout shift. The former
-   sibling de-emphasis (dim/blur of non-hovered cards) was retired with
-   the Embla carousel: hovering the track would dim slides that are only
-   partially visible at the viewport edge, which read as a rendering bug.
-   Still gated behind no-preference; reduced-motion users keep the static
-   card plus the link's focus-visible ring. */
+/* Card hover/focus effects: subtle scale and neon glow using GPU-friendly properties
+   (transform, border-color, box-shadow). Disabled under prefers-reduced-motion. */
 @media (prefers-reduced-motion: no-preference) {
   .work-card {
     transition:
@@ -228,9 +208,7 @@ body {
   .work-card:focus-within {
     transform: scale(1.03);
     border-color: var(--primary);
-    /* Neon treatment: tight 1px edge ring plus two restrained mint shadows.
-       Edge-weighted, not a wide halo; alpha stays under 55% so card text
-       and branding are untouched. */
+    /* Card neon glow: subtle 1px border ring with restrained multi-layer box shadows. */
     box-shadow:
       0 0 0 1px color-mix(in srgb, var(--primary) 55%, transparent),
       0 6px 24px -6px color-mix(in srgb, var(--primary) 40%, transparent),

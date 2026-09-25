@@ -3,13 +3,9 @@
 import { useEffect, useRef } from "react";
 
 /**
- * Scroll progress bar: fixed mint bar at the very top (above the sticky nav)
- * that grows 0 → 100% as the page scrolls top → bottom.
- *
- * rAF-throttled scroll/resize listener with a transform-only update
- * (compositor-driven, no layout shift). Renders at scaleX(0) until the first
- * measurement so short pages never flash a partial bar. Reduced-motion keeps
- * it hidden; JS-disabled pages omit it entirely (no empty element).
+ * Fixed top progress bar indicating scroll completion from 0% to 100%.
+ * Uses requestAnimationFrame and scale transforms for smooth, layout-shift-free updates.
+ * Automatically disabled when prefers-reduced-motion is active.
  */
 export default function ScrollProgressBar() {
   const ref = useRef<HTMLDivElement>(null);

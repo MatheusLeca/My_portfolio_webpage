@@ -95,10 +95,7 @@ function Carousel({
 
     React.useEffect(() => {
         if (!api) return
-        // Canonical shadcn code: a one-time sync of the two button-disabled
-        // booleans with Embla's external state at subscribe time. Deferring
-        // it (the lint rule's suggestion) would paint the Next control as
-        // disabled on first load until the first scroll event.
+        // Sync initial prev/next button states from Embla on mount so arrows aren't incorrectly disabled before first scroll.
         // eslint-disable-next-line react-hooks/set-state-in-effect
         onSelect(api)
         api.on("reInit", onSelect)
@@ -143,11 +140,7 @@ function CarouselContent({ className, ...props }: React.ComponentProps<"div">) {
     return (
         <div
             ref={carouselRef}
-            /* Adapted from the vendored "overflow-hidden": the p-4/-m-4 pair
-             * gives the Work cards' hover scale + neon glow 16px of clip
-             * room on every side without shifting layout — the wrapper's
-             * overflow clips at its padding box, and the compensating
-             * negative margins keep the outer box identical. */
+            /* Extra padding with compensating negative margins allows card hover glows and scaling to overflow without getting clipped. */
             className="overflow-hidden p-4 -m-4"
             data-slot="carousel-content"
         >

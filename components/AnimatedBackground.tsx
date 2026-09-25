@@ -70,14 +70,8 @@ function motionAllowed(): boolean {
 }
 
 /**
- * Vanta DOTS drives its idle motion with fixed per-frame increments (dot
- * bob `y += 0.1 * sin(...)`, line rotations `+= 0.002`, camera lerp `0.003`),
- * so a 120/144Hz panel applies ~2x the increments per second of a 60Hz
- * panel and the field visibly rushes on high-refresh — typically
- * high-resolution — displays. Rewriting the motion as a pure function of
- * Vanta's normalized clock (`t` advances ~60 units per wall-clock second at
- * any refresh rate) keeps one second of motion identical on every display
- * while staying smooth on fast panels.
+ * Drives animation using Vanta's normalized clock instead of per-frame increments,
+ * ensuring motion speed stays consistent across both 60Hz and high-refresh (120Hz+) screens.
  */
 function makeSpeedResolutionIndependent(effect: VantaEffect) {
   const geometry = effect.starsGeometry;
@@ -101,9 +95,7 @@ function makeSpeedResolutionIndependent(effect: VantaEffect) {
     prevT = t;
     for (let e = 0; e < live.length; e += 3) {
       const phase = 0.02 * base[e + 2] + 0.015 * base[e];
-      // Closed form of the stock cumulative `y += 0.1 * sin(phase + .02t)`:
-      // same ~5-unit bob, continuous from the install pose, purely
-      // time-driven so 60Hz and 144Hz agree exactly.
+      // Time-driven vertical oscillation so motion speed is identical on 60Hz and 144Hz displays.
       live[e + 1] =
         base[e + 1] +
         5 * (Math.cos(phase + 0.02 * t0) - Math.cos(phase + 0.02 * t));
@@ -148,12 +140,8 @@ export default function AnimatedBackground() {
       effect?.destroy();
       effect = null;
       if (!motionAllowed()) return;
-      // three rides a dynamic import so ~600KB stays out of the initial
-      // bundle. UMD default import: `import *` shakes out to an interop
-      // wrapper with no PerspectiveCamera.
-      // Sequential awaits are load-bearing: Vanta captures window.THREE
-      // when its module first evaluates, so the global must be set BEFORE
-      // the vanta import below runs. Promise.all would race evaluation.
+      // Dynamically imported to reduce initial bundle size. Three.js must be attached
+      // to window.THREE before Vanta loads, so these imports must run sequentially.
       const { default: THREE } = await import("three/build/three.min.js");
       (window as unknown as { THREE: unknown }).THREE = THREE;
       const { default: DOTS } = await import("vanta/dist/vanta.dots.min");
@@ -165,14 +153,9 @@ export default function AnimatedBackground() {
         ...THEMES[currentTheme()],
       }) as VantaEffect;
       effect = created;
-      // Fixed per-frame increments run faster on fast panels: re-drive the
-      // idle motion from Vanta's normalized clock so speed is identical at
-      // 60Hz, 120Hz, 144Hz+ and on any pixel density.
+      // Re-drive motion from Vanta's normalized clock to ensure uniform animation speed across all refresh rates (60Hz–144Hz+).
       makeSpeedResolutionIndependent(created);
-      // Skip the multi-second camera dolly-in: the intro ease factor is
-      // hardcoded in Vanta, while the dot shimmer is independent idle
-      // motion. Snapping to the target starts at the final composition
-      // with the idle animation untouched.
+      // Snap camera directly to its final target position to skip Vanta's slow intro zoom.
       created.camera.position.set(
         created.camera.tx,
         created.camera.ty,

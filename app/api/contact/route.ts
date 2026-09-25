@@ -2,13 +2,9 @@ import { NextResponse } from "next/server";
 import { HONEYPOT_FIELD, validateContact } from "@/lib/contact";
 
 /**
- * POST /api/contact — server side of the email-delivery seam.
- *
- * Validation runs here authoritatively (the client mirrors it for instant
- * feedback). Abuse is curbed with a honeypot field plus best-effort
- * in-memory rate limiting, appropriate for portfolio-scale traffic.
- * Delivery goes through the Resend API using server-only configuration;
- * nothing secret ever reaches the client.
+ * POST /api/contact
+ * Handles contact form submissions with server-side validation, rate limiting,
+ * honeypot spam protection, and email delivery via Resend.
  */
 
 // Best-effort per-IP sliding window. Serverless instances do not share
