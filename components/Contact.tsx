@@ -11,13 +11,13 @@ export default function Contact() {
       id="contact"
       labelledBy="contact-heading"
       align="start"
-      layout="split"
+      layout="split-lg"
       spacing="compact"
     >
-        <Reveal className="md:sticky md:top-24 md:self-start">
+        <Reveal className="lg:sticky lg:top-24 lg:self-start xl:top-28 2xl:top-[7.5rem]">
           <h2
             id="contact-heading"
-            className="font-display text-5xl leading-[1.02] font-bold tracking-tight uppercase sm:text-6xl"
+            className="font-display text-[clamp(2.5rem,2rem+2.5vw,3.75rem)] leading-[1.02] font-bold tracking-tight uppercase xl:text-[4.25rem] 2xl:text-[4.5rem]"
           >
             <span className="block text-foreground">
               {contact.headingLines[0]}
@@ -29,7 +29,7 @@ export default function Contact() {
               {contact.headingLines[2]}
             </span>
           </h2>
-          <p className="mt-6 max-w-md text-[15px] leading-relaxed text-muted">
+          <p className="mt-6 max-w-md text-[15px] leading-relaxed text-muted xl:mt-8 xl:max-w-lg xl:text-base 2xl:max-w-xl 2xl:text-lg">
             {contact.subcopy}
           </p>
           <ul role="list" className="mt-8 space-y-3 text-sm">
@@ -45,7 +45,7 @@ export default function Contact() {
         </Reveal>
         <Reveal
           delay={90}
-          className="rounded-2xl border border-line bg-surface p-5 sm:p-6 lg:p-7"
+          className="rounded-2xl border border-line bg-surface p-5 sm:p-6 lg:p-7 xl:p-8 2xl:p-10"
         >
           <ContactForm />
         </Reveal>

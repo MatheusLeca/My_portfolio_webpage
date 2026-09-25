@@ -28,7 +28,7 @@ const visualVariants = {
  * border, no fill). One shared constant keeps every card's pill row
  * identical; Tailwind still sees the literals verbatim in source. */
 const pillClass =
-  "inline-flex items-center rounded-full border border-line px-2.5 py-1 text-[11px] font-bold tracking-[0.18em] text-muted uppercase";
+  "inline-flex items-center rounded-full border border-line px-2.5 py-1 text-[11px] font-bold tracking-[0.18em] text-muted uppercase xl:px-3 xl:text-xs 2xl:px-3.5 2xl:py-1.5 2xl:text-[13px]";
 
 /**
  * Single Selected-work card in the Offer-card visual language (#29),
@@ -103,7 +103,7 @@ export default function ProjectCard({
         >
           <span
             aria-hidden="true"
-            className="font-display text-5xl font-bold text-muted"
+            className="font-display text-5xl font-bold text-muted xl:text-6xl 2xl:text-7xl"
           >
             {project.thumbnailInitials}
           </span>
@@ -114,11 +114,11 @@ export default function ProjectCard({
           </span>
         ) : null}
       </div>
-      <div className="flex flex-auto flex-col px-6 pt-5 pb-5">
-        <h3 className="font-display text-2xl font-extrabold leading-tight tracking-tight text-foreground">
+      <div className="flex flex-auto flex-col px-6 pt-5 pb-5 xl:px-7 xl:pt-6 xl:pb-6 2xl:px-8 2xl:pt-7 2xl:pb-7">
+        <h3 className="font-display text-2xl font-extrabold leading-tight tracking-tight text-foreground xl:text-[1.75rem] 2xl:text-3xl">
           {project.name}
         </h3>
-        <p className="mt-2 text-sm leading-relaxed text-muted">
+        <p className="mt-2 text-sm leading-relaxed text-muted xl:text-[15px] 2xl:mt-3 2xl:text-base">
           {project.description}
         </p>
         {/* Stack as pills: the list sits directly under the copy — no
@@ -140,7 +140,7 @@ export default function ProjectCard({
         <p
           role="status"
           aria-label={`${project.name} coming soon`}
-          className="font-display rounded-full border border-line bg-surface/85 px-6 py-3 text-xl font-extrabold tracking-tight text-foreground shadow-lg"
+          className="font-display rounded-full border border-line bg-surface/85 px-6 py-3 text-xl font-extrabold tracking-tight text-foreground shadow-lg xl:px-7 xl:text-2xl 2xl:px-8 2xl:py-4 2xl:text-[1.75rem]"
         >
           Coming Soon...
         </p>

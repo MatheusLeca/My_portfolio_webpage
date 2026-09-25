@@ -15,26 +15,34 @@ export default function Hero() {
   return (
     <section
       aria-labelledby="hero-heading"
-      className="relative flex min-h-[calc(100svh-4rem)] flex-col justify-start overflow-hidden"
+      className="relative flex min-h-[calc(100svh-4rem)] flex-col justify-center overflow-hidden xl:min-h-[calc(100svh-5rem)] 2xl:min-h-[calc(100svh-5.5rem)]"
     >
       {/* Tight photo spacing where the photo leads the stack (mobile/tablet):
           pt-6 / md:pt-10 below the sticky nav and gap-8 between photo and
           title, so the image doesn't float in empty space. From lg up the
           photo sits beside the text with a symmetric desktop rhythm
-          (lg:py-12, gap-12) — equal space above and below, matching every
-          other section's md:py-12. items-start + self-start keep the photo
-          tops flush with the title on the two-column grid. */}
-      <div className="mx-auto grid w-full max-w-6xl gap-8 px-4 pt-6 pb-20 sm:px-6 md:pt-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-start lg:gap-12 lg:py-12">
+          (lg:py-12, xl:py-16, 2xl:py-20, gap-12 -> gap-20) — equal space
+          above and below, matching every other section's outer rhythm.
+          lg:items-center + self-center keep the photo centered against the
+          text column (same rule as About) instead of pinned to the title,
+          which read as top-heavy on smaller desktops where the text runs
+          taller than the image. The grid is vertically centered in the
+          viewport-height hero (justify-center on the section) so tall
+          desktop screens don't strand whitespace below the content. */}
+      <div className="mx-auto grid w-full max-w-6xl gap-8 px-4 pt-6 pb-20 sm:px-6 md:pt-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-12 lg:px-8 lg:py-12 xl:max-w-7xl xl:gap-16 xl:py-16 2xl:max-w-[96rem] 2xl:gap-20 2xl:py-20">
         {/* Mobile order: heading → resume CTA → summary (button sits right
             under "I'm Matheus Leca"). Desktop keeps heading → summary → CTA
             via the lg:order-* overrides. Flex column only enables the
             reorder; spacing still comes from the children's mt-*. */}
-        <Reveal className="flex flex-col lg:self-start">
+        <Reveal className="flex flex-col lg:self-center">
           <h1
             id="hero-heading"
             // Fluid size: fits the longest line inside one column at every
-            // viewport instead of overflowing small screens.
-            className="order-1 font-display text-[clamp(1.7rem,7.5vw,3.25rem)] leading-[1.02] font-bold tracking-tight text-balance text-foreground uppercase"
+            // viewport instead of overflowing small screens (base clamp
+            // unchanged from the mobile-first pass). From xl up the display
+            // steps up (xl:4rem, 2xl:4.5rem) so wide desktops get a
+            // proportionally larger hero instead of stalling at laptop size.
+            className="order-1 font-display text-[clamp(1.7rem,7.5vw,3.25rem)] leading-[1.02] font-bold tracking-tight text-balance text-foreground uppercase xl:text-[4rem] 2xl:text-[4.5rem]"
           >
             {hero.titleLines.map((line) => (
               <span key={line.text} className="block">
@@ -48,7 +56,7 @@ export default function Hero() {
               </span>
             ))}
           </h1>
-          <div className="order-3 mt-6 max-w-xl space-y-4 text-base leading-relaxed text-foreground lg:order-2">
+          <div className="order-3 mt-6 max-w-xl space-y-4 text-base leading-relaxed text-foreground lg:order-2 xl:mt-8 xl:max-w-2xl xl:space-y-5 xl:text-lg 2xl:max-w-3xl 2xl:text-xl">
             {hero.summary.map((paragraph) => (
               <p key={paragraph.text}>
                 {"bold" in paragraph ? (
@@ -66,7 +74,7 @@ export default function Hero() {
               <a
                 href={resumeHref}
                 download
-                className="inline-flex items-center rounded-full bg-action px-6 py-3 text-[11px] font-bold tracking-[0.2em] text-on-action uppercase transition-colors hover:bg-action-strong focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background focus-visible:outline-none"
+                className="inline-flex items-center rounded-full bg-action px-6 py-3 text-[11px] font-bold tracking-[0.2em] text-on-action uppercase transition-colors hover:bg-action-strong focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background focus-visible:outline-none xl:px-7 xl:py-3.5 xl:text-xs 2xl:px-8 2xl:py-4 2xl:text-[13px]"
               >
                 {resume.label}
                 {/* Bootstrap Icons "file-person-fill" (inline SVG: no icon-font
@@ -77,7 +85,7 @@ export default function Hero() {
                   viewBox="0 0 16 16"
                   fill="currentColor"
                   aria-hidden="true"
-                  className="ml-2 h-3.5 w-3.5"
+                  className="ml-2 h-3.5 w-3.5 xl:h-4 xl:w-4 2xl:h-[18px] 2xl:w-[18px]"
                 >
                   <path d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2m-1 7a3 3 0 1 1-6 0 3 3 0 0 1 6 0m-3 4c2.623 0 4.146.826 5 1.755V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-1.245C3.854 11.825 5.377 11 8 11" />
                 </svg>
@@ -90,15 +98,17 @@ export default function Hero() {
             )}
           </div>
         </Reveal>
-        {/* Photo-top lock: pins to the grid top (lg:self-start), no pull-up
-            offset, so its top is flush with the title — same rule as About.
+        {/* Photo centers against the text column via lg:self-center (matches
+            lg:items-center on the section grid) — same rule as the About
+            portrait, so it sits mid-text instead of pinned to the title.
             order-first puts the photo above the text in the single-column
-            mobile stack; lg:order-none restores DOM order (text left, photo
-            right) on the two-column desktop grid. Same dimensions as the
-            About portrait: max-w-sm wide, square on mobile, 4/5 from md up
+            mobile/tablet stack; lg:order-none restores DOM order (text left,
+            photo right) on the two-column desktop grid. Identical box to the
+            About portrait: max-w-sm wide (xl:max-w-md, 2xl:max-w-lg),
+            square below md, 4/5 from md up
             (object-top keeps the subject's head in the square crop). */}
-        <Reveal delay={90} className="order-first flex justify-center lg:order-none lg:self-start lg:justify-end">
-          <div className="relative w-full max-w-sm">
+        <Reveal delay={90} className="order-first flex justify-center lg:order-none lg:self-center lg:justify-end">
+          <div className="relative w-full max-w-sm xl:max-w-md 2xl:max-w-lg">
             {/* Echo frame: same offset border accent as the About portrait,
                 so both photos share the decorative motif page-wide. */}
             <div
@@ -111,7 +121,7 @@ export default function Hero() {
                   src={hero.portraitSrc}
                   alt={hero.portraitAlt}
                   fill
-                  sizes="(max-width: 1024px) 100vw, 24rem"
+                  sizes="(max-width: 1024px) min(100vw - 2rem, 24rem), (max-width: 1280px) 24rem, (max-width: 1536px) 28rem, 32rem"
                   className="object-cover object-top"
                   priority
                 />
@@ -123,7 +133,7 @@ export default function Hero() {
                 >
                   <span
                     aria-hidden="true"
-                    className="font-display text-7xl font-bold text-muted"
+                    className="font-display text-7xl font-bold text-muted xl:text-8xl 2xl:text-[6rem]"
                   >
                     {hero.portraitInitials}
                   </span>

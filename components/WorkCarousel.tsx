@@ -60,14 +60,14 @@ export default function WorkCarousel({
         containScroll: "trimSnaps",
         duration: reduceMotion ? 0 : 25,
       }}
-      className="flex flex-col gap-8"
+      className="flex flex-col gap-8 xl:gap-10 2xl:gap-12"
       aria-label="Selected work projects"
     >
       <div className="flex items-end justify-between gap-4">
         <Reveal>
           <h2
             id="work-heading"
-            className="font-display text-4xl font-bold tracking-tight text-foreground sm:text-5xl"
+            className="font-display text-[clamp(2.25rem,1.75rem+2.5vw,3rem)] font-bold tracking-tight text-foreground xl:text-[3.5rem] 2xl:text-[3.75rem]"
           >
             {heading}
           </h2>
@@ -94,12 +94,12 @@ export default function WorkCarousel({
       <div className="relative">
         <CarouselPrevious className="hidden -left-6 z-10 lg:inline-flex" />
         <CarouselNext className="hidden -right-6 z-10 lg:inline-flex" />
-        <CarouselContent className="-ml-6">
+        <CarouselContent className="-ml-6 xl:justify-center">
           {projects.map((project, index) => (
             <CarouselItem
               key={project.name}
               aria-label={`${index + 1} of ${projects.length}`}
-              className="flex basis-[84%] pl-6 sm:basis-[60%] md:basis-[44%] lg:basis-[34%]"
+              className="flex basis-[84%] pl-6 sm:basis-[60%] md:basis-[44%] lg:basis-[34%] xl:basis-[30%] 2xl:basis-[24%]"
             >
               {/* Slides live in a horizontal track, so the per-card scroll
                * reveal is disabled — it would fade cards in mid-swipe. The
