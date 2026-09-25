@@ -4,6 +4,15 @@ Single-page portfolio of Matheus Leca, Software Engineer.
 
 **Live:** [matheusleca.dev](https://matheusleca.dev)
 
+## Contents
+
+- [About](#about)
+- [Features](#features)
+- [Tech stack](#tech-stack)
+- [Setup](#setup)
+- [Deployment variables](#deployment-variables)
+- [Commands](#commands)
+
 ## About
 
 A single-page portfolio presenting Matheus Leca's background, skills, experience,
@@ -22,15 +31,6 @@ and selected work, with a contact form for roles and project inquiries.
 <p align="center">
   <img src="public/images/mobile.jpeg" alt="Portfolio on mobile" width="280" />
 </p>
-
-## Contents
-
-- [About](#about)
-- [Features](#features)
-- [Tech stack](#tech-stack)
-- [Setup](#setup)
-- [Deployment variables](#deployment-variables)
-- [Commands](#commands)
 
 ## Tech stack
 
