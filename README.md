@@ -19,7 +19,7 @@ All copy is edited in `lib/content.ts`.
 - Contact form with validation, spam protection, and mailto fallback
 
 ![Portfolio demo](public/gifs/portfolio.gif)
-![Portfolio on mobile](public/images/mobile.jpeg)
+<img src="public/images/mobile.jpeg" alt="Portfolio on mobile" width="280" />
 
 ## Contents
 
