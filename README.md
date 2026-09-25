@@ -13,6 +13,11 @@ Single-page portfolio of Matheus Leca, Software Engineer.
 - [Deployment variables](#deployment-variables)
 - [Commands](#commands)
 
+![Portfolio demo](public/gifs/portfolio.gif)
+<p align="center">
+  <img src="public/images/mobile.jpeg" alt="Portfolio on mobile" width="280" />
+</p>
+
 ## About
 
 A single-page portfolio presenting Matheus Leca's background, skills, experience,
@@ -26,11 +31,6 @@ and selected work, with a contact form for roles and project inquiries.
 - Embla work carousel with keyboard and swipe support
 - Responsive layout from mobile to wide desktop
 - Contact form with validation, spam protection, and mailto fallback
-
-![Portfolio demo](public/gifs/portfolio.gif)
-<p align="center">
-  <img src="public/images/mobile.jpeg" alt="Portfolio on mobile" width="280" />
-</p>
 
 ## Tech stack
 
