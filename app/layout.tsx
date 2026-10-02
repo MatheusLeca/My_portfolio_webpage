@@ -17,7 +17,7 @@ const sans = Inter({
 
 const SITE_NAME = "Matheus Leca | Software Engineer";
 const SITE_DESCRIPTION =
-  "Portfolio of Matheus Leca, Software Engineer and MSc student in Electrical and Computer Engineering at the University of Calgary.";
+  "Portfolio of Matheus Leca, Software Engineer with an MSc in Electrical and Computer Engineering from the University of Calgary.";
 
 export const metadata: Metadata = {
   metadataBase: process.env.NEXT_PUBLIC_SITE_URL
