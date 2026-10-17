@@ -54,6 +54,25 @@ describe("X-Content-Type-Options (issue 43)", () => {
   });
 });
 
+describe("Referrer-Policy + Permissions-Policy (issue 46)", () => {
+  it("serves least-privilege defaults on /**", () => {
+    const raw = readFileSync(resolve(process.cwd(), "firebase.json"), "utf-8");
+    const config = JSON.parse(raw) as {
+      hosting?: {
+        headers?: { source: string; headers: { key: string; value: string }[] }[];
+      };
+    };
+    const entry = (config.hosting?.headers ?? []).find((h) => h.source === "/**");
+    expect(entry, "hosting headers cover /**").toBeDefined();
+    expect(
+      entry!.headers.find((x) => x.key === "Referrer-Policy")?.value,
+    ).toBe("strict-origin-when-cross-origin");
+    expect(
+      entry!.headers.find((x) => x.key === "Permissions-Policy")?.value,
+    ).toBe("camera=(), microphone=(), geolocation=()");
+  });
+});
+
 describe("third-party allowlist (slice 2)", () => {
   it("permits analytics, bot protection, and contact backends", () => {
     const policy = reportOnlyPolicy();
