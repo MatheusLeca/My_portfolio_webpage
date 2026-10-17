@@ -38,6 +38,22 @@ describe("enforced CSP (slices 1-3)", () => {
   });
 });
 
+describe("X-Content-Type-Options (issue 43)", () => {
+  it("serves nosniff on /**", () => {
+    const raw = readFileSync(resolve(process.cwd(), "firebase.json"), "utf-8");
+    const config = JSON.parse(raw) as {
+      hosting?: {
+        headers?: { source: string; headers: { key: string; value: string }[] }[];
+      };
+    };
+    const entry = (config.hosting?.headers ?? []).find((h) => h.source === "/**");
+    expect(entry, "hosting headers cover /**").toBeDefined();
+    expect(
+      entry!.headers.find((x) => x.key === "X-Content-Type-Options")?.value,
+    ).toBe("nosniff");
+  });
+});
+
 describe("third-party allowlist (slice 2)", () => {
   it("permits analytics, bot protection, and contact backends", () => {
     const policy = reportOnlyPolicy();
