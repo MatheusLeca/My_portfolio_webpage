@@ -39,3 +39,21 @@ describe("Report-Only CSP baseline (slice 1)", () => {
     expect(policy).not.toContain("unsafe-eval");
   });
 });
+
+describe("third-party allowlist (slice 2)", () => {
+  it("permits analytics, bot protection, and contact backends", () => {
+    const policy = reportOnlyPolicy();
+    for (const host of [
+      "https://www.googletagmanager.com",
+      "https://www.google-analytics.com",
+      "https://firebaseinstallations.googleapis.com",
+      "https://www.google.com",
+      "https://www.gstatic.com",
+      "https://www.recaptcha.net",
+      "https://us-central1-my-portfolio-874e7.cloudfunctions.net",
+    ]) {
+      expect(policy).toContain(host);
+    }
+    expect(policy).toContain("frame-src");
+  });
+});
