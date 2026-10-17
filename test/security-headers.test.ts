@@ -1,0 +1,41 @@
+import { describe, it, expect } from "vitest";
+import { readFileSync } from "node:fs";
+import { resolve } from "node:path";
+
+function reportOnlyPolicy(): string {
+  const raw = readFileSync(resolve(process.cwd(), "firebase.json"), "utf-8");
+  const config = JSON.parse(raw) as {
+    hosting?: {
+      headers?: { source: string; headers: { key: string; value: string }[] }[];
+    };
+  };
+  const entry = (config.hosting?.headers ?? []).find((h) =>
+    h.headers.some((x) => x.key === "Content-Security-Policy-Report-Only"),
+  );
+  expect(entry, "hosting headers cover /** with Report-Only CSP").toBeDefined();
+  return entry!.headers.find(
+    (x) => x.key === "Content-Security-Policy-Report-Only",
+  )!.value;
+}
+
+describe("Report-Only CSP baseline (slice 1)", () => {
+  it("serves a self-first policy with no eval", () => {
+    const policy = reportOnlyPolicy();
+    for (const directive of [
+      "default-src 'self'",
+      "script-src 'self' 'unsafe-inline'",
+      "style-src 'self' 'unsafe-inline'",
+      "img-src 'self' data:",
+      "font-src 'self' data:",
+      "connect-src 'self'",
+      "frame-ancestors 'self'",
+      "form-action 'self'",
+      "base-uri 'self'",
+      "object-src 'none'",
+      "upgrade-insecure-requests",
+    ]) {
+      expect(policy).toContain(directive);
+    }
+    expect(policy).not.toContain("unsafe-eval");
+  });
+});
