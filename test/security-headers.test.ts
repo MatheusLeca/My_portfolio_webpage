@@ -10,15 +10,13 @@ function reportOnlyPolicy(): string {
     };
   };
   const entry = (config.hosting?.headers ?? []).find((h) =>
-    h.headers.some((x) => x.key === "Content-Security-Policy-Report-Only"),
+    h.headers.some((x) => x.key === "Content-Security-Policy"),
   );
-  expect(entry, "hosting headers cover /** with Report-Only CSP").toBeDefined();
-  return entry!.headers.find(
-    (x) => x.key === "Content-Security-Policy-Report-Only",
-  )!.value;
+  expect(entry, "hosting headers cover /** with enforced CSP").toBeDefined();
+  return entry!.headers.find((x) => x.key === "Content-Security-Policy")!.value;
 }
 
-describe("Report-Only CSP baseline (slice 1)", () => {
+describe("enforced CSP (slices 1-3)", () => {
   it("serves a self-first policy with no eval", () => {
     const policy = reportOnlyPolicy();
     for (const directive of [
@@ -47,6 +45,7 @@ describe("third-party allowlist (slice 2)", () => {
       "https://www.googletagmanager.com",
       "https://www.google-analytics.com",
       "https://firebaseinstallations.googleapis.com",
+      "https://firebase.googleapis.com",
       "https://www.google.com",
       "https://www.gstatic.com",
       "https://www.recaptcha.net",
